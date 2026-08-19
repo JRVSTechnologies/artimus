@@ -3,6 +3,7 @@ import Header from './components/Header';
 import TelegramTestCard from './components/TelegramTestCard';
 import SignalLogger from './components/SignalLogger';
 import SettingsModal from './components/SettingsModal';
+import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
   });
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [currentView, setCurrentView] = useState('main');
 
   useEffect(() => {
     localStorage.setItem('artimus_bot_config', JSON.stringify(botConfig));
@@ -40,7 +42,11 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <Header onOpenSettings={() => setIsSettingsOpen(true)} />
+      <Header 
+        onOpenSettings={() => setIsSettingsOpen(true)} 
+        currentView={currentView}
+        onSetView={setCurrentView}
+      />
 
       {/* Hero Quick Overview Stats */}
       <div className="stats-row">
@@ -87,11 +93,15 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main Grid: Telegram Test Button + Signal Activity */}
-      <div className="dashboard-grid">
-        <TelegramTestCard botConfig={botConfig} onLogSignal={handleLogSignal} />
-        <SignalLogger logs={logs} onClearLogs={handleClearLogs} />
-      </div>
+      {/* Main Content Area */}
+      {currentView === 'main' ? (
+        <div className="dashboard-grid">
+          <TelegramTestCard botConfig={botConfig} onLogSignal={handleLogSignal} />
+          <SignalLogger logs={logs} onClearLogs={handleClearLogs} />
+        </div>
+      ) : (
+        <PriceAnalysisDashboard />
+      )}
 
       {/* Footer info */}
       <footer style={{

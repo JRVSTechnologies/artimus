@@ -1,7 +1,7 @@
 import React from 'react';
 import { Zap, Settings, ShieldCheck, ExternalLink } from 'lucide-react';
 
-export default function Header({ onOpenSettings }) {
+export default function Header({ onOpenSettings, currentView, onSetView }) {
   return (
     <header className="header-nav">
       <div className="logo-group">
@@ -19,6 +19,31 @@ export default function Header({ onOpenSettings }) {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button 
+          className="btn" 
+          onClick={() => onSetView('main')} 
+          style={{ 
+            fontWeight: '600', 
+            background: currentView === 'main' ? '#38BDF8' : 'rgba(255,255,255,0.05)', 
+            color: currentView === 'main' ? '#000' : '#f1f0ee',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}
+        >
+          Main Hub
+        </button>
+        <button 
+          className="btn" 
+          onClick={() => onSetView('analysis')} 
+          style={{ 
+            fontWeight: '600', 
+            background: currentView === 'analysis' ? '#10b981' : 'rgba(255,255,255,0.05)', 
+            color: currentView === 'analysis' ? '#000' : '#f1f0ee',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}
+        >
+          Price Analysis
+        </button>
+
         <div className="status-chip">
           <div className="pulse-dot"></div>
           Netlify Functions Active
