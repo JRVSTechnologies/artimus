@@ -366,6 +366,15 @@ export default function PriceAnalysisDashboard() {
           <div style={{ fontSize: '24px', fontWeight: '700', color: '#34D399' }}>{latestPrice !== '-' ? `$${latestPrice}` : '-'}</div>
           <div style={{ fontSize: '12px', color: '#a4a3ab', marginTop: '4px' }}>{latestAlert.symbol || 'Waiting...'}</div>
         </div>
+        <div style={{ background: '#1c1e28', padding: '20px', borderRadius: '16px', border: `1px solid ${trendBias.includes('Bullish') ? 'rgba(16, 185, 129, 0.4)' : trendBias.includes('Bearish') ? 'rgba(239, 68, 68, 0.4)' : 'rgba(255,255,255,0.08)'}` }}>
+          <div style={{ fontSize: '13px', color: '#a4a3ab', marginBottom: '8px' }}>Market Structure (15m)</div>
+          <div style={{ fontSize: '24px', fontWeight: '700', color: trendBias.includes('Bullish') ? '#34D399' : trendBias.includes('Bearish') ? '#F87171' : '#f1f0ee' }}>
+            {trendBias}
+          </div>
+          <div style={{ fontSize: '12px', color: '#a4a3ab', marginTop: '4px' }}>
+            {trendBias !== 'No 15m Data' && trendBias !== 'Neutral' ? `Probability: ${biasProb}%` : 'Awaiting data...'}
+          </div>
+        </div>
       </div>
 
       {/* Charts */}
