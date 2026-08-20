@@ -124,46 +124,120 @@ export default function PriceAnalysisDashboard() {
 
     const dataPoints = symData.map(d => d.price || d.bar_close);
 
-    let highs = [];
-    let lows = [];
-    for (let i = 2; i < dataPoints.length - 2; i++) {
-      const [p0, p1, p2, p3, p4] = [dataPoints[i-2], dataPoints[i-1], dataPoints[i], dataPoints[i+1], dataPoints[i+2]];
-      if (p2 > p0 && p2 > p1 && p2 > p3 && p2 > p4) highs.push({ index: i, price: p2 });
-      if (p2 < p0 && p2 < p1 && p2 < p3 && p2 < p4) lows.push({ index: i, price: p2 });
-    }
+    // Helper to extract values (fallback to price/bar_close if high/low missing)
+    const getHigh = d => d.bar_high ?? d.high ?? d.price ?? d.bar_close;
+    const getLow = d => d.bar_low ?? d.low ?? d.price ?? d.bar_close;
+    const getClose = d => d.bar_close ?? d.price;
 
-    let lastHigh = null;
-    let lastLow = null;
     let currentTrend = 'Neutral';
-    let bullishBOS = new Array(dataPoints.length).fill(null);
-    let bearishBOS = new Array(dataPoints.length).fill(null);
     let bosCount = 0;
+    
+    let lastHH = null;
+    let lastHL = null;
+    let lastLH = null;
+    let lastLL = null;
 
-    for (let i = 0; i < dataPoints.length; i++) {
-      const p = dataPoints[i];
-      if (highs.find(h => h.index === i)) lastHigh = p;
-      if (lows.find(l => l.index === i)) lastLow = p;
+    let bullishBOS = new Array(symData.length).fill(null);
+    let bearishBOS = new Array(symData.length).fill(null);
+    let bullishCHoCH = new Array(symData.length).fill(null);
+    let bearishCHoCH = new Array(symData.length).fill(null);
 
-      if (lastHigh && p > lastHigh) {
-        if (currentTrend !== 'Bullish') {
-          bullishBOS[i] = p;
-          currentTrend = 'Bullish';
-          bosCount++;
+    for (let i = 0; i < symData.length; i++) {
+      // 1. Fractal Detection (Delayed by 2 candles)
+      if (i >= 4) {
+        const i2 = i - 2;
+        const h0 = getHigh(symData[i - 4]), h1 = getHigh(symData[i - 3]), h2 = getHigh(symData[i2]), h3 = getHigh(symData[i - 1]), h4 = getHigh(symData[i]);
+        const l0 = getLow(symData[i - 4]), l1 = getLow(symData[i - 3]), l2 = getLow(symData[i2]), l3 = getLow(symData[i - 1]), l4 = getLow(symData[i]);
+
+        const isSwingHigh = (h2 > h0 && h2 > h1 && h2 > h3 && h2 > h4);
+        const isSwingLow  = (l2 < l0 && l2 < l1 && l2 < l3 && l2 < l4);
+
+        if (isSwingHigh) {
+          if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
+             lastHH = lastHH === null ? h2 : Math.max(lastHH, h2);
+          }
+          if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
+             lastLH = h2; // Most recent swing high is the CHoCH level for downtrend
+          }
         }
-        lastHigh = p;
+        if (isSwingLow) {
+          if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
+             lastHL = l2; // Most recent swing low is the CHoCH level for uptrend
+          }
+          if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
+             lastLL = lastLL === null ? l2 : Math.min(lastLL, l2);
+          }
+        }
       }
-      if (lastLow && p < lastLow) {
-        if (currentTrend !== 'Bearish') {
-          bearishBOS[i] = p;
-          currentTrend = 'Bearish';
-          bosCount++;
-        }
-        lastLow = p;
+
+      // 2. BOS & CHoCH Detection on Current Candle Close
+      const currentCandle = symData[i];
+      const close = getClose(currentCandle);
+      const high = getHigh(currentCandle);
+      const low = getLow(currentCandle);
+
+      if (currentTrend === 'Bullish') {
+         // Bullish BOS
+         if (lastHH !== null && close > lastHH) {
+            lastHH = high; // Update Last_HH to the new high
+            bosCount++;
+            bullishBOS[i] = close;
+            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🟢 Bullish BOS Validated. BOS Count: ${bosCount}`);
+         }
+         // Bearish CHoCH
+         else if (lastHL !== null && close < lastHL) {
+            currentTrend = 'Bearish';
+            bosCount = 0;
+            lastLH = high;
+            lastLL = low;
+            bearishCHoCH[i] = close;
+            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🔴 Bearish CHoCH Detected. Trend changed to Bearish.`);
+         }
+      } 
+      else if (currentTrend === 'Bearish') {
+         // Bearish BOS
+         if (lastLL !== null && close < lastLL) {
+            lastLL = low; // Update Last_LL to the new low
+            bosCount++;
+            bearishBOS[i] = close;
+            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🔴 Bearish BOS Validated. BOS Count: ${bosCount}`);
+         }
+         // Bullish CHoCH
+         else if (lastLH !== null && close > lastLH) {
+            currentTrend = 'Bullish';
+            bosCount = 0;
+            lastHH = high;
+            lastHL = low;
+            bullishCHoCH[i] = close;
+            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🟢 Bullish CHoCH Detected. Trend changed to Bullish.`);
+         }
+      }
+      else if (currentTrend === 'Neutral') {
+         // Initialization phase if structure breaks before a trend is established
+         if (lastHH !== null && close > lastHH) {
+            currentTrend = 'Bullish';
+            bosCount = 1;
+            lastHH = high;
+            bullishBOS[i] = close;
+         } else if (lastLL !== null && close < lastLL) {
+            currentTrend = 'Bearish';
+            bosCount = 1;
+            lastLL = low;
+            bearishBOS[i] = close;
+         }
       }
     }
 
-    setTrendBias(currentTrend);
-    setBiasProb(currentTrend !== 'Neutral' ? Math.min(50 + (bosCount * 5), 85) : 50);
+    // Determine final bias based on BOS count confirmation
+    // "The algorithm should only validate a strong trend when BOS_Count >= 2."
+    let confirmedTrend = 'Neutral';
+    if (currentTrend === 'Bullish' && bosCount >= 2) confirmedTrend = 'Strong Bullish';
+    else if (currentTrend === 'Bullish' && bosCount < 2) confirmedTrend = 'Weak Bullish';
+    else if (currentTrend === 'Bearish' && bosCount >= 2) confirmedTrend = 'Strong Bearish';
+    else if (currentTrend === 'Bearish' && bosCount < 2) confirmedTrend = 'Weak Bearish';
+
+    setTrendBias(confirmedTrend);
+    setBiasProb(currentTrend !== 'Neutral' ? Math.min(50 + (bosCount * 10), 90) : 50);
 
     const ctx = priceChartRef.current.getContext('2d');
     if (priceChartInst.current) priceChartInst.current.destroy();
@@ -206,6 +280,29 @@ export default function PriceAnalysisDashboard() {
             borderWidth: 2,
             pointRadius: 6,
             pointHoverRadius: 8,
+            showLine: false
+          },
+          {
+            label: 'Bullish CHoCH',
+            data: bullishCHoCH,
+            backgroundColor: '#10b981',
+            borderColor: '#f59e0b',
+            borderWidth: 2,
+            pointRadius: 7,
+            pointHoverRadius: 9,
+            pointStyle: 'triangle',
+            showLine: false
+          },
+          {
+            label: 'Bearish CHoCH',
+            data: bearishCHoCH,
+            backgroundColor: '#ef4444',
+            borderColor: '#f59e0b',
+            borderWidth: 2,
+            pointRadius: 7,
+            pointHoverRadius: 9,
+            pointStyle: 'triangle',
+            rotation: 180,
             showLine: false
           }
         ]
