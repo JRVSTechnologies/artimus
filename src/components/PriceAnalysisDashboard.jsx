@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { Chart, registerables } from 'chart.js';
 
@@ -14,19 +14,291 @@ Chart.defaults.plugins.tooltip.borderWidth = 1;
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+const DEFAULT_SYMBOL = 'XAUUSD';
+const CORRELATION_SYMBOLS = ['DXY', 'XAGUSD'];
+
+// ── Market Structure Analysis (reusable) ──────────────────────────────────────
+function analyzeMarketStructure(symData) {
+  const getHigh = d => d.bar_high ?? d.high ?? d.price ?? d.bar_close;
+  const getLow = d => d.bar_low ?? d.low ?? d.price ?? d.bar_close;
+  const getClose = d => d.bar_close ?? d.price;
+
+  let currentTrend = 'Neutral';
+  let bosCount = 0;
+  let lastHH = null, lastHL = null, lastLH = null, lastLL = null;
+
+  const bullishBOS = new Array(symData.length).fill(null);
+  const bearishBOS = new Array(symData.length).fill(null);
+  const bullishCHoCH = new Array(symData.length).fill(null);
+  const bearishCHoCH = new Array(symData.length).fill(null);
+
+  for (let i = 0; i < symData.length; i++) {
+    // 1. Fractal Detection (Delayed by 2 candles)
+    if (i >= 4) {
+      const i2 = i - 2;
+      const h0 = getHigh(symData[i - 4]), h1 = getHigh(symData[i - 3]), h2 = getHigh(symData[i2]), h3 = getHigh(symData[i - 1]), h4 = getHigh(symData[i]);
+      const l0 = getLow(symData[i - 4]), l1 = getLow(symData[i - 3]), l2 = getLow(symData[i2]), l3 = getLow(symData[i - 1]), l4 = getLow(symData[i]);
+
+      const isSwingHigh = (h2 > h0 && h2 > h1 && h2 > h3 && h2 > h4);
+      const isSwingLow  = (l2 < l0 && l2 < l1 && l2 < l3 && l2 < l4);
+
+      if (isSwingHigh) {
+        if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
+          lastHH = lastHH === null ? h2 : Math.max(lastHH, h2);
+        }
+        if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
+          lastLH = h2;
+        }
+      }
+      if (isSwingLow) {
+        if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
+          lastHL = l2;
+        }
+        if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
+          lastLL = lastLL === null ? l2 : Math.min(lastLL, l2);
+        }
+      }
+    }
+
+    // 2. BOS & CHoCH Detection on Current Candle Close
+    const currentCandle = symData[i];
+    const close = getClose(currentCandle);
+    const high = getHigh(currentCandle);
+    const low = getLow(currentCandle);
+
+    if (currentTrend === 'Bullish') {
+      if (lastHH !== null && close > lastHH) {
+        lastHH = high;
+        bosCount++;
+        bullishBOS[i] = close;
+      } else if (lastHL !== null && close < lastHL) {
+        currentTrend = 'Bearish';
+        bosCount = 0;
+        lastLH = high;
+        lastLL = low;
+        bearishCHoCH[i] = close;
+      }
+    } else if (currentTrend === 'Bearish') {
+      if (lastLL !== null && close < lastLL) {
+        lastLL = low;
+        bosCount++;
+        bearishBOS[i] = close;
+      } else if (lastLH !== null && close > lastLH) {
+        currentTrend = 'Bullish';
+        bosCount = 0;
+        lastHH = high;
+        lastHL = low;
+        bullishCHoCH[i] = close;
+      }
+    } else if (currentTrend === 'Neutral') {
+      if (lastHH !== null && close > lastHH) {
+        currentTrend = 'Bullish';
+        bosCount = 1;
+        lastHH = high;
+        bullishBOS[i] = close;
+      } else if (lastLL !== null && close < lastLL) {
+        currentTrend = 'Bearish';
+        bosCount = 1;
+        lastLL = low;
+        bearishBOS[i] = close;
+      }
+    }
+  }
+
+  let confirmedTrend = 'Neutral';
+  if (currentTrend === 'Bullish' && bosCount >= 2) confirmedTrend = 'Strong Bullish';
+  else if (currentTrend === 'Bullish' && bosCount < 2) confirmedTrend = 'Weak Bullish';
+  else if (currentTrend === 'Bearish' && bosCount >= 2) confirmedTrend = 'Strong Bearish';
+  else if (currentTrend === 'Bearish' && bosCount < 2) confirmedTrend = 'Weak Bearish';
+
+  const probability = currentTrend !== 'Neutral' ? Math.min(50 + (bosCount * 10), 90) : 50;
+
+  return {
+    trend: currentTrend,
+    confirmedTrend,
+    bosCount,
+    probability,
+    bullishBOS,
+    bearishBOS,
+    bullishCHoCH,
+    bearishCHoCH,
+  };
+}
+
+// ── Helper: filter & sort 15m data for a symbol ──────────────────────────────
+function get15mData(alertsData, symbol) {
+  return alertsData
+    .filter(d => d.symbol === symbol && (d.interval === '15' || d.interval === '15m') && (d.price !== null || d.bar_close !== null))
+    .sort((a, b) => new Date(a.received_at) - new Date(b.received_at));
+}
+
+// ── Correlation helpers ──────────────────────────────────────────────────────
+function getCorrelationStatus(primaryTrend, corrTrend, expectedRelation) {
+  // expectedRelation: 'inverse' for DXY (gold is inversely correlated to dollar)
+  //                   'positive' for XAGUSD (silver tends to correlate with gold)
+  if (corrTrend === 'Neutral' || corrTrend === 'No Data') return { status: 'Neutral', label: 'No Signal', color: '#a4a3ab' };
+
+  const primaryBullish = primaryTrend.includes('Bullish');
+  const primaryBearish = primaryTrend.includes('Bearish');
+  const corrBullish = corrTrend.includes('Bullish');
+  const corrBearish = corrTrend.includes('Bearish');
+
+  if (primaryTrend === 'Neutral') return { status: 'Neutral', label: 'Primary Neutral', color: '#a4a3ab' };
+
+  if (expectedRelation === 'inverse') {
+    // Gold bullish + DXY bearish = Confirming | Gold bullish + DXY bullish = Diverging
+    if ((primaryBullish && corrBearish) || (primaryBearish && corrBullish)) {
+      return { status: 'Confirming', label: '✓ Confirming', color: '#34D399' };
+    } else {
+      return { status: 'Diverging', label: '⚠ Diverging', color: '#F59E0B' };
+    }
+  } else {
+    // Gold bullish + Silver bullish = Confirming
+    if ((primaryBullish && corrBullish) || (primaryBearish && corrBearish)) {
+      return { status: 'Confirming', label: '✓ Confirming', color: '#34D399' };
+    } else {
+      return { status: 'Diverging', label: '⚠ Diverging', color: '#F59E0B' };
+    }
+  }
+}
+
+// ── Correlation Card Component ───────────────────────────────────────────────
+function CorrelationCard({ symbol, trend, probability, correlation, expectedRelation }) {
+  const isBullish = trend.includes('Bullish');
+  const isBearish = trend.includes('Bearish');
+  const trendColor = isBullish ? '#34D399' : isBearish ? '#F87171' : '#a4a3ab';
+  const borderColor = correlation.status === 'Confirming' ? 'rgba(52, 211, 153, 0.3)' : correlation.status === 'Diverging' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(255,255,255,0.08)';
+  const relationLabel = expectedRelation === 'inverse' ? 'Inverse' : 'Positive';
+
+  return (
+    <div style={{
+      background: '#1c1e28',
+      padding: '20px',
+      borderRadius: '16px',
+      border: `1px solid ${borderColor}`,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Subtle glow effect */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '3px',
+        background: correlation.status === 'Confirming'
+          ? 'linear-gradient(90deg, transparent, #34D399, transparent)'
+          : correlation.status === 'Diverging'
+          ? 'linear-gradient(90deg, transparent, #F59E0B, transparent)'
+          : 'transparent',
+        opacity: 0.6,
+      }} />
+
+      {/* Header row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{
+            fontSize: '16px',
+            fontWeight: '700',
+            color: '#f1f0ee',
+          }}>{symbol}</span>
+          <span style={{
+            fontSize: '10px',
+            padding: '2px 8px',
+            borderRadius: '12px',
+            background: 'rgba(255,255,255,0.06)',
+            color: '#a4a3ab',
+            fontWeight: '500',
+            letterSpacing: '0.5px',
+            textTransform: 'uppercase',
+          }}>{relationLabel} Corr.</span>
+        </div>
+        <span style={{
+          fontSize: '12px',
+          fontWeight: '600',
+          color: correlation.color,
+          padding: '4px 10px',
+          borderRadius: '8px',
+          background: correlation.status === 'Confirming' ? 'rgba(52, 211, 153, 0.1)' : correlation.status === 'Diverging' ? 'rgba(245, 158, 11, 0.1)' : 'transparent',
+        }}>
+          {correlation.label}
+        </span>
+      </div>
+
+      {/* Trend info */}
+      <div>
+        <div style={{ fontSize: '12px', color: '#a4a3ab', marginBottom: '4px' }}>Market Structure (15m)</div>
+        <div style={{ fontSize: '20px', fontWeight: '700', color: trendColor }}>{trend}</div>
+      </div>
+
+      {/* Probability bar */}
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#a4a3ab', marginBottom: '4px' }}>
+          <span>Trend Strength</span>
+          <span>{probability}%</span>
+        </div>
+        <div style={{ height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+          <div style={{
+            height: '100%',
+            width: `${probability}%`,
+            borderRadius: '2px',
+            background: isBullish
+              ? 'linear-gradient(90deg, #059669, #34D399)'
+              : isBearish
+              ? 'linear-gradient(90deg, #DC2626, #F87171)'
+              : 'linear-gradient(90deg, #475569, #94a3b8)',
+            transition: 'width 0.6s ease',
+          }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Main Dashboard Component
+// ══════════════════════════════════════════════════════════════════════════════
 export default function PriceAnalysisDashboard() {
   const [alertsData, setAlertsData] = useState([]);
   const [uniqueSymbols, setUniqueSymbols] = useState([]);
-  const [selectedSymbol, setSelectedSymbol] = useState('all');
+  const [selectedSymbol, setSelectedSymbol] = useState(DEFAULT_SYMBOL);
   const [error, setError] = useState('');
   const [trendBias, setTrendBias] = useState('Neutral');
   const [biasProb, setBiasProb] = useState(50);
   
   const priceChartRef = useRef(null);
   const volumeChartRef = useRef(null);
+  const correlationChartRef = useRef(null);
   const priceChartInst = useRef(null);
   const volumeChartInst = useRef(null);
+  const correlationChartInst = useRef(null);
 
+  // ── Correlation analysis (memoized) ─────────────────────────────────────
+  const correlationResults = useMemo(() => {
+    if (alertsData.length === 0) return {};
+
+    const results = {};
+    for (const sym of CORRELATION_SYMBOLS) {
+      const symData = get15mData(alertsData, sym);
+      if (symData.length === 0) {
+        results[sym] = { confirmedTrend: 'No Data', probability: 50, dataPoints: [], labels: [] };
+      } else {
+        const analysis = analyzeMarketStructure(symData);
+        const labels = symData.map(d => {
+          const date = new Date(d.bar_time || d.received_at);
+          return `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+        });
+        const dataPoints = symData.map(d => d.price || d.bar_close);
+        results[sym] = { ...analysis, dataPoints, labels };
+      }
+    }
+    return results;
+  }, [alertsData]);
+
+  // ── Data Fetch ──────────────────────────────────────────────────────────
   useEffect(() => {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       setError('Missing Supabase Environment Variables. Check .env');
@@ -52,13 +324,18 @@ export default function PriceAnalysisDashboard() {
         setAlertsData(data);
         const syms = [...new Set(data.map(d => d.symbol).filter(Boolean))];
         setUniqueSymbols(syms);
-        if (syms.length > 0) setSelectedSymbol(syms[0]);
+        // Default to XAUUSD if available, otherwise first symbol
+        if (syms.includes(DEFAULT_SYMBOL)) {
+          setSelectedSymbol(DEFAULT_SYMBOL);
+        } else if (syms.length > 0) {
+          setSelectedSymbol(syms[0]);
+        }
       }
     }
     fetchData();
   }, []);
 
-  // Render Volume Chart
+  // ── Render Volume Chart ────────────────────────────────────────────────
   useEffect(() => {
     if (alertsData.length === 0 || !volumeChartRef.current) return;
 
@@ -103,13 +380,11 @@ export default function PriceAnalysisDashboard() {
     };
   }, [alertsData]);
 
-  // Render Price Chart
+  // ── Render Price Chart ─────────────────────────────────────────────────
   useEffect(() => {
     if (alertsData.length === 0 || !priceChartRef.current || !selectedSymbol) return;
 
-    const symData = alertsData
-      .filter(d => d.symbol === selectedSymbol && (d.interval === '15' || d.interval === '15m') && (d.price !== null || d.bar_close !== null))
-      .sort((a, b) => new Date(a.received_at) - new Date(b.received_at));
+    const symData = get15mData(alertsData, selectedSymbol);
 
     if (symData.length === 0) {
       if (priceChartInst.current) priceChartInst.current.destroy();
@@ -123,121 +398,10 @@ export default function PriceAnalysisDashboard() {
     });
 
     const dataPoints = symData.map(d => d.price || d.bar_close);
+    const analysis = analyzeMarketStructure(symData);
 
-    // Helper to extract values (fallback to price/bar_close if high/low missing)
-    const getHigh = d => d.bar_high ?? d.high ?? d.price ?? d.bar_close;
-    const getLow = d => d.bar_low ?? d.low ?? d.price ?? d.bar_close;
-    const getClose = d => d.bar_close ?? d.price;
-
-    let currentTrend = 'Neutral';
-    let bosCount = 0;
-    
-    let lastHH = null;
-    let lastHL = null;
-    let lastLH = null;
-    let lastLL = null;
-
-    let bullishBOS = new Array(symData.length).fill(null);
-    let bearishBOS = new Array(symData.length).fill(null);
-    let bullishCHoCH = new Array(symData.length).fill(null);
-    let bearishCHoCH = new Array(symData.length).fill(null);
-
-    for (let i = 0; i < symData.length; i++) {
-      // 1. Fractal Detection (Delayed by 2 candles)
-      if (i >= 4) {
-        const i2 = i - 2;
-        const h0 = getHigh(symData[i - 4]), h1 = getHigh(symData[i - 3]), h2 = getHigh(symData[i2]), h3 = getHigh(symData[i - 1]), h4 = getHigh(symData[i]);
-        const l0 = getLow(symData[i - 4]), l1 = getLow(symData[i - 3]), l2 = getLow(symData[i2]), l3 = getLow(symData[i - 1]), l4 = getLow(symData[i]);
-
-        const isSwingHigh = (h2 > h0 && h2 > h1 && h2 > h3 && h2 > h4);
-        const isSwingLow  = (l2 < l0 && l2 < l1 && l2 < l3 && l2 < l4);
-
-        if (isSwingHigh) {
-          if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
-             lastHH = lastHH === null ? h2 : Math.max(lastHH, h2);
-          }
-          if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
-             lastLH = h2; // Most recent swing high is the CHoCH level for downtrend
-          }
-        }
-        if (isSwingLow) {
-          if (currentTrend === 'Bullish' || currentTrend === 'Neutral') {
-             lastHL = l2; // Most recent swing low is the CHoCH level for uptrend
-          }
-          if (currentTrend === 'Bearish' || currentTrend === 'Neutral') {
-             lastLL = lastLL === null ? l2 : Math.min(lastLL, l2);
-          }
-        }
-      }
-
-      // 2. BOS & CHoCH Detection on Current Candle Close
-      const currentCandle = symData[i];
-      const close = getClose(currentCandle);
-      const high = getHigh(currentCandle);
-      const low = getLow(currentCandle);
-
-      if (currentTrend === 'Bullish') {
-         // Bullish BOS
-         if (lastHH !== null && close > lastHH) {
-            lastHH = high; // Update Last_HH to the new high
-            bosCount++;
-            bullishBOS[i] = close;
-            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🟢 Bullish BOS Validated. BOS Count: ${bosCount}`);
-         }
-         // Bearish CHoCH
-         else if (lastHL !== null && close < lastHL) {
-            currentTrend = 'Bearish';
-            bosCount = 0;
-            lastLH = high;
-            lastLL = low;
-            bearishCHoCH[i] = close;
-            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🔴 Bearish CHoCH Detected. Trend changed to Bearish.`);
-         }
-      } 
-      else if (currentTrend === 'Bearish') {
-         // Bearish BOS
-         if (lastLL !== null && close < lastLL) {
-            lastLL = low; // Update Last_LL to the new low
-            bosCount++;
-            bearishBOS[i] = close;
-            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🔴 Bearish BOS Validated. BOS Count: ${bosCount}`);
-         }
-         // Bullish CHoCH
-         else if (lastLH !== null && close > lastLH) {
-            currentTrend = 'Bullish';
-            bosCount = 0;
-            lastHH = high;
-            lastHL = low;
-            bullishCHoCH[i] = close;
-            console.log(`[${new Date(currentCandle.received_at).toISOString()}] 🟢 Bullish CHoCH Detected. Trend changed to Bullish.`);
-         }
-      }
-      else if (currentTrend === 'Neutral') {
-         // Initialization phase if structure breaks before a trend is established
-         if (lastHH !== null && close > lastHH) {
-            currentTrend = 'Bullish';
-            bosCount = 1;
-            lastHH = high;
-            bullishBOS[i] = close;
-         } else if (lastLL !== null && close < lastLL) {
-            currentTrend = 'Bearish';
-            bosCount = 1;
-            lastLL = low;
-            bearishBOS[i] = close;
-         }
-      }
-    }
-
-    // Determine final bias based on BOS count confirmation
-    // "The algorithm should only validate a strong trend when BOS_Count >= 2."
-    let confirmedTrend = 'Neutral';
-    if (currentTrend === 'Bullish' && bosCount >= 2) confirmedTrend = 'Strong Bullish';
-    else if (currentTrend === 'Bullish' && bosCount < 2) confirmedTrend = 'Weak Bullish';
-    else if (currentTrend === 'Bearish' && bosCount >= 2) confirmedTrend = 'Strong Bearish';
-    else if (currentTrend === 'Bearish' && bosCount < 2) confirmedTrend = 'Weak Bearish';
-
-    setTrendBias(confirmedTrend);
-    setBiasProb(currentTrend !== 'Neutral' ? Math.min(50 + (bosCount * 10), 90) : 50);
+    setTrendBias(analysis.confirmedTrend);
+    setBiasProb(analysis.probability);
 
     const ctx = priceChartRef.current.getContext('2d');
     if (priceChartInst.current) priceChartInst.current.destroy();
@@ -264,7 +428,7 @@ export default function PriceAnalysisDashboard() {
           },
           {
             label: 'Bullish BOS',
-            data: bullishBOS,
+            data: analysis.bullishBOS,
             backgroundColor: '#3b82f6',
             borderColor: '#ffffff',
             borderWidth: 2,
@@ -274,7 +438,7 @@ export default function PriceAnalysisDashboard() {
           },
           {
             label: 'Bearish BOS',
-            data: bearishBOS,
+            data: analysis.bearishBOS,
             backgroundColor: '#ef4444',
             borderColor: '#ffffff',
             borderWidth: 2,
@@ -284,7 +448,7 @@ export default function PriceAnalysisDashboard() {
           },
           {
             label: 'Bullish CHoCH',
-            data: bullishCHoCH,
+            data: analysis.bullishCHoCH,
             backgroundColor: '#10b981',
             borderColor: '#f59e0b',
             borderWidth: 2,
@@ -295,7 +459,7 @@ export default function PriceAnalysisDashboard() {
           },
           {
             label: 'Bearish CHoCH',
-            data: bearishCHoCH,
+            data: analysis.bearishCHoCH,
             backgroundColor: '#ef4444',
             borderColor: '#f59e0b',
             borderWidth: 2,
@@ -324,6 +488,136 @@ export default function PriceAnalysisDashboard() {
     };
   }, [alertsData, selectedSymbol]);
 
+  // ── Render Correlation Chart ───────────────────────────────────────────
+  useEffect(() => {
+    if (alertsData.length === 0 || !correlationChartRef.current) return;
+
+    const ctx = correlationChartRef.current.getContext('2d');
+    if (correlationChartInst.current) correlationChartInst.current.destroy();
+
+    // Build normalized datasets: normalize each series to % change from first point
+    const datasets = [];
+    const colorMap = {
+      [selectedSymbol]: { border: '#10b981', bg: 'rgba(16, 185, 129, 0.15)' },
+      'DXY': { border: '#818CF8', bg: 'rgba(129, 140, 248, 0.15)' },
+      'XAGUSD': { border: '#F59E0B', bg: 'rgba(245, 158, 11, 0.15)' },
+    };
+
+    // Primary symbol data
+    const primaryData = get15mData(alertsData, selectedSymbol);
+    let maxLabels = [];
+
+    if (primaryData.length > 0) {
+      const prices = primaryData.map(d => d.price || d.bar_close);
+      const basePrice = prices[0];
+      const normalized = prices.map(p => ((p - basePrice) / basePrice * 100).toFixed(3));
+      const labels = primaryData.map(d => {
+        const date = new Date(d.bar_time || d.received_at);
+        return `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+      });
+      if (labels.length > maxLabels.length) maxLabels = labels;
+
+      datasets.push({
+        label: selectedSymbol,
+        data: normalized,
+        borderColor: colorMap[selectedSymbol]?.border || '#10b981',
+        backgroundColor: colorMap[selectedSymbol]?.bg || 'rgba(16,185,129,0.15)',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: 0.3,
+        fill: false,
+      });
+    }
+
+    // Correlation symbols
+    for (const sym of CORRELATION_SYMBOLS) {
+      const corrResult = correlationResults[sym];
+      if (!corrResult || corrResult.confirmedTrend === 'No Data' || corrResult.dataPoints.length === 0) continue;
+
+      const prices = corrResult.dataPoints;
+      const basePrice = prices[0];
+      const normalized = prices.map(p => ((p - basePrice) / basePrice * 100).toFixed(3));
+      if (corrResult.labels.length > maxLabels.length) maxLabels = corrResult.labels;
+
+      datasets.push({
+        label: sym,
+        data: normalized,
+        borderColor: colorMap[sym]?.border || '#94a3b8',
+        backgroundColor: colorMap[sym]?.bg || 'rgba(148,163,184,0.15)',
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: 0.3,
+        fill: false,
+        borderDash: sym === 'DXY' ? [6, 3] : [],
+      });
+    }
+
+    correlationChartInst.current = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: maxLabels,
+        datasets: datasets,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { intersect: false, mode: 'index' },
+        scales: {
+          y: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            title: { display: true, text: '% Change', color: '#a4a3ab', font: { size: 11 } },
+          },
+          x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } }
+        },
+        plugins: {
+          legend: { display: true, labels: { color: '#e2e8f0', usePointStyle: true, pointStyle: 'line' } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}%`
+            }
+          }
+        }
+      }
+    });
+
+    return () => {
+      if (correlationChartInst.current) correlationChartInst.current.destroy();
+    };
+  }, [alertsData, selectedSymbol, correlationResults]);
+
+  // ── Compute correlation statuses ────────────────────────────────────────
+  const dxyCorrelation = useMemo(() => {
+    const dxyResult = correlationResults['DXY'];
+    if (!dxyResult) return { status: 'Neutral', label: 'No Signal', color: '#a4a3ab' };
+    return getCorrelationStatus(trendBias, dxyResult.confirmedTrend, 'inverse');
+  }, [trendBias, correlationResults]);
+
+  const xagCorrelation = useMemo(() => {
+    const xagResult = correlationResults['XAGUSD'];
+    if (!xagResult) return { status: 'Neutral', label: 'No Signal', color: '#a4a3ab' };
+    return getCorrelationStatus(trendBias, xagResult.confirmedTrend, 'positive');
+  }, [trendBias, correlationResults]);
+
+  // Overall confluence score
+  const confluenceScore = useMemo(() => {
+    let score = 0;
+    let total = 0;
+    if (dxyCorrelation.status === 'Confirming') { score++; total++; }
+    else if (dxyCorrelation.status === 'Diverging') { total++; }
+    if (xagCorrelation.status === 'Confirming') { score++; total++; }
+    else if (xagCorrelation.status === 'Diverging') { total++; }
+    if (total === 0) return { label: 'No Data', pct: 0, color: '#a4a3ab' };
+    const pct = Math.round((score / total) * 100);
+    return {
+      label: pct >= 75 ? 'Strong Confluence' : pct >= 50 ? 'Moderate Confluence' : 'Weak Confluence',
+      pct,
+      color: pct >= 75 ? '#34D399' : pct >= 50 ? '#F59E0B' : '#F87171',
+    };
+  }, [dxyCorrelation, xagCorrelation]);
+
+  // ── Error state ─────────────────────────────────────────────────────────
   if (error) {
     return (
       <div style={{ padding: '2rem', background: '#1c1e28', borderRadius: '12px', border: '1px solid #ef4444', color: '#ef4444' }}>
@@ -375,9 +669,20 @@ export default function PriceAnalysisDashboard() {
             {trendBias !== 'No 15m Data' && trendBias !== 'Neutral' ? `Probability: ${biasProb}%` : 'Awaiting data...'}
           </div>
         </div>
+        {/* Confluence KPI */}
+        <div style={{
+          background: '#1c1e28',
+          padding: '20px',
+          borderRadius: '16px',
+          border: `1px solid ${confluenceScore.pct >= 75 ? 'rgba(52, 211, 153, 0.3)' : confluenceScore.pct >= 50 ? 'rgba(245, 158, 11, 0.3)' : 'rgba(255,255,255,0.08)'}`,
+        }}>
+          <div style={{ fontSize: '13px', color: '#a4a3ab', marginBottom: '8px' }}>Trend Confluence</div>
+          <div style={{ fontSize: '24px', fontWeight: '700', color: confluenceScore.color }}>{confluenceScore.pct}%</div>
+          <div style={{ fontSize: '12px', color: '#a4a3ab', marginTop: '4px' }}>{confluenceScore.label}</div>
+        </div>
       </div>
 
-      {/* Charts */}
+      {/* Charts Row 1: Price Action + Volume */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
         <div style={{ background: '#1c1e28', padding: '20px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
           <h3 style={{ marginBottom: '16px', fontSize: '16px', color: '#f1f0ee' }}>
@@ -392,6 +697,78 @@ export default function PriceAnalysisDashboard() {
           <h3 style={{ marginBottom: '16px', fontSize: '16px', color: '#f1f0ee' }}>Alerts Volume by Symbol</h3>
           <div style={{ position: 'relative', height: '300px' }}>
             <canvas ref={volumeChartRef}></canvas>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Trend Correlation Section ──────────────────────────────────────── */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(28, 30, 40, 0.95), rgba(20, 22, 32, 0.95))',
+        padding: '24px',
+        borderRadius: '16px',
+        border: '1px solid rgba(255,255,255,0.08)',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f1f0ee', margin: 0 }}>
+              Trend Correlation Analysis
+            </h3>
+            <p style={{ fontSize: '12px', color: '#a4a3ab', margin: '4px 0 0' }}>
+              {selectedSymbol} vs DXY (inverse) & XAGUSD (positive) — 15m Market Structure
+            </p>
+          </div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '6px 14px',
+            borderRadius: '12px',
+            background: `${confluenceScore.color}15`,
+            border: `1px solid ${confluenceScore.color}30`,
+          }}>
+            <div style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: confluenceScore.color,
+              boxShadow: `0 0 6px ${confluenceScore.color}`,
+            }} />
+            <span style={{ fontSize: '13px', fontWeight: '600', color: confluenceScore.color }}>
+              {confluenceScore.label}
+            </span>
+          </div>
+        </div>
+
+        {/* Correlation Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+          <CorrelationCard
+            symbol="DXY"
+            trend={correlationResults['DXY']?.confirmedTrend || 'No Data'}
+            probability={correlationResults['DXY']?.probability || 50}
+            correlation={dxyCorrelation}
+            expectedRelation="inverse"
+          />
+          <CorrelationCard
+            symbol="XAGUSD"
+            trend={correlationResults['XAGUSD']?.confirmedTrend || 'No Data'}
+            probability={correlationResults['XAGUSD']?.probability || 50}
+            correlation={xagCorrelation}
+            expectedRelation="positive"
+          />
+        </div>
+
+        {/* Normalized Overlay Chart */}
+        <div style={{
+          background: '#141620',
+          padding: '20px',
+          borderRadius: '12px',
+          border: '1px solid rgba(255,255,255,0.06)',
+        }}>
+          <h4 style={{ margin: '0 0 16px', fontSize: '14px', color: '#a4a3ab', fontWeight: '500' }}>
+            Normalized Price Overlay (% Change from Period Start)
+          </h4>
+          <div style={{ position: 'relative', height: '280px' }}>
+            <canvas ref={correlationChartRef}></canvas>
           </div>
         </div>
       </div>
