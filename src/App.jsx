@@ -5,6 +5,14 @@ import SignalLogger from './components/SignalLogger';
 import SettingsModal from './components/SettingsModal';
 import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
+import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
+import { NhostClient } from '@nhost/nhost-js';
+import { NhostReactProvider } from '@nhost/react';
+
+const nhost = new NhostClient({
+  subdomain: import.meta.env.VITE_NHOST_SUBDOMAIN || '',
+  region: import.meta.env.VITE_NHOST_REGION || ''
+});
 
 export default function App() {
   const [botConfig, setBotConfig] = useState(() => {
@@ -41,7 +49,8 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
+    <NhostReactProvider nhost={nhost}>
+      <div className="app-container">
       <Header 
         onOpenSettings={() => setIsSettingsOpen(true)} 
         currentView={currentView}
@@ -94,14 +103,16 @@ export default function App() {
       </div>
 
       {/* Main Content Area */}
-      {currentView === 'main' ? (
+      {currentView === 'main' && (
         <div className="dashboard-grid">
           <TelegramTestCard botConfig={botConfig} onLogSignal={handleLogSignal} />
           <SignalLogger logs={logs} onClearLogs={handleClearLogs} />
         </div>
-      ) : (
-        <PriceAnalysisDashboard />
       )}
+      
+      {currentView === 'analysis' && <PriceAnalysisDashboard />}
+      
+      {currentView === 'weekly_journal' && <WeeklyAnalysisJournal />}
 
       {/* Footer info */}
       <footer style={{
@@ -123,6 +134,7 @@ export default function App() {
           onClose={() => setIsSettingsOpen(false)}
         />
       )}
-    </div>
+      </div>
+    </NhostReactProvider>
   );
 }

@@ -43,6 +43,18 @@ export default function Header({ onOpenSettings, currentView, onSetView }) {
         >
           Price Analysis
         </button>
+        <button 
+          className="btn" 
+          onClick={() => onSetView('weekly_journal')} 
+          style={{ 
+            fontWeight: '600', 
+            background: currentView === 'weekly_journal' ? '#8b5cf6' : 'rgba(255,255,255,0.05)', 
+            color: currentView === 'weekly_journal' ? '#000' : '#f1f0ee',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}
+        >
+          Weekly Journal
+        </button>
 
         <div className="status-chip">
           <div className="pulse-dot"></div>
