@@ -6,8 +6,7 @@ import SettingsModal from './components/SettingsModal';
 import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
-import { NhostClient } from '@nhost/nhost-js';
-import { NhostReactProvider } from '@nhost/react';
+import { NhostClient, NhostReactProvider } from '@nhost/react';
 
 const nhost = new NhostClient({
   subdomain: import.meta.env.VITE_NHOST_SUBDOMAIN || '',
