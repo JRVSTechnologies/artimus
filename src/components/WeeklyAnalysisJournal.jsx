@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Link as LinkIcon, Target, Send, ExternalLink, Database } from 'lucide-react';
+import { Calendar, Link as LinkIcon, Target, ExternalLink, Database, PlusCircle, CheckCircle2 } from 'lucide-react';
 import { useNhostClient } from '@nhost/react';
 
 export default function WeeklyAnalysisJournal() {
@@ -12,6 +12,7 @@ export default function WeeklyAnalysisJournal() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [focusedField, setFocusedField] = useState(null);
 
   const NOTION_URL = "https://app.notion.com/p/1de3a8304ec942f5bb00ea59bb2378f4?v=c8f352476cc64a159bbbc66ee8af115f&source=copy_link";
 
@@ -51,6 +52,7 @@ export default function WeeklyAnalysisJournal() {
           screenshot_url: '',
           next_week_focus: ''
         });
+        setTimeout(() => setSubmitStatus(null), 5000);
       }
     } catch (err) {
       console.error("Request Error:", err);
@@ -60,18 +62,76 @@ export default function WeeklyAnalysisJournal() {
     }
   };
 
+  // Reusable dynamic input style
+  const getInputStyle = (fieldName) => ({
+    width: '100%',
+    background: '#12131a',
+    border: focusedField === fieldName ? '1px solid #34D399' : '1px solid rgba(255, 255, 255, 0.1)',
+    boxShadow: focusedField === fieldName ? '0 0 0 3px rgba(52, 211, 153, 0.15)' : 'none',
+    color: '#f8fafc',
+    padding: '14px 16px',
+    borderRadius: '12px',
+    fontSize: '14px',
+    outline: 'none',
+    transition: 'all 0.2s ease-in-out',
+    boxSizing: 'border-box'
+  });
+
   return (
-    <div className="dashboard-grid" style={{ gridTemplateColumns: '2fr 1fr' }}>
-      {/* Main Journal Form */}
-      <div className="card">
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-          <Calendar size={20} color="#10b981" />
-          Weekly Analysis Journal
-        </h2>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+      gap: '24px',
+      marginTop: '20px',
+      fontFamily: "'Inter', sans-serif"
+    }}>
+      
+      {/* ── Main Journal Form ────────────────────────────────────────────── */}
+      <div style={{
+        background: '#1c1e28',
+        borderRadius: '20px',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        padding: '32px',
+        boxShadow: '0 10px 40px -10px rgba(0,0,0,0.5)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Subtle neon glow effect behind the form */}
+        <div style={{
+          position: 'absolute',
+          top: '-100px',
+          left: '-100px',
+          width: '300px',
+          height: '300px',
+          background: 'radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(28, 30, 40, 0) 70%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px', position: 'relative' }}>
+          <div style={{
+            padding: '12px',
+            borderRadius: '14px',
+            background: 'rgba(52, 211, 153, 0.15)',
+            color: '#34D399',
+            boxShadow: '0 0 20px rgba(52, 211, 153, 0.2)'
+          }}>
+            <Calendar size={24} />
+          </div>
+          <div>
+            <h2 style={{ margin: 0, fontSize: '22px', fontWeight: '700', color: '#f8fafc', letterSpacing: '-0.02em' }}>
+              Weekly Analysis Journal
+            </h2>
+            <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#94a3b8' }}>
+              Log your technical setup and psychological readiness
+            </p>
+          </div>
+        </div>
         
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div className="form-group">
-            <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', color: 'var(--text-subtle)' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
+          
+          <div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', fontSize: '13px', fontWeight: '600', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <Calendar size={14} color="#34D399" />
               Week Of
             </label>
             <input 
@@ -79,14 +139,16 @@ export default function WeeklyAnalysisJournal() {
               name="week_of"
               value={formData.week_of}
               onChange={handleChange}
-              className="input-field"
+              onFocus={() => setFocusedField('week_of')}
+              onBlur={() => setFocusedField(null)}
+              style={{ ...getInputStyle('week_of'), colorScheme: 'dark' }}
               required
             />
           </div>
 
-          <div className="form-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', fontSize: '13px', color: 'var(--text-subtle)' }}>
-              <LinkIcon size={14} />
+          <div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', fontSize: '13px', fontWeight: '600', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <LinkIcon size={14} color="#34D399" />
               Screenshot Link
             </label>
             <input 
@@ -94,22 +156,25 @@ export default function WeeklyAnalysisJournal() {
               name="screenshot_url"
               value={formData.screenshot_url}
               onChange={handleChange}
-              className="input-field"
+              onFocus={() => setFocusedField('screenshot_url')}
+              onBlur={() => setFocusedField(null)}
+              style={getInputStyle('screenshot_url')}
               placeholder="https://prnt.sc/... or similar link"
             />
           </div>
 
-          <div className="form-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', fontSize: '13px', color: 'var(--text-subtle)' }}>
-              <Target size={14} />
+          <div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', fontSize: '13px', fontWeight: '600', color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <Target size={14} color="#34D399" />
               What to look for next week
             </label>
             <textarea 
               name="next_week_focus"
               value={formData.next_week_focus}
               onChange={handleChange}
-              className="input-field"
-              rows={6}
+              onFocus={() => setFocusedField('next_week_focus')}
+              onBlur={() => setFocusedField(null)}
+              style={{ ...getInputStyle('next_week_focus'), resize: 'vertical', minHeight: '120px', lineHeight: '1.5' }}
               placeholder="Key levels to watch, fundamental drivers, potential setups..."
               required
             />
@@ -117,62 +182,143 @@ export default function WeeklyAnalysisJournal() {
 
           <button 
             type="submit" 
-            className="btn" 
-            style={{ 
-              background: '#10b981', 
-              color: '#000', 
-              fontWeight: '600', 
-              padding: '12px',
-              marginTop: '10px'
-            }}
             disabled={isSubmitting}
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px',
+              background: isSubmitting ? '#064e3b' : 'linear-gradient(135deg, #34D399 0%, #10B981 100%)', 
+              color: isSubmitting ? '#a7f3d0' : '#022c22', 
+              fontWeight: '700',
+              fontSize: '15px',
+              padding: '16px',
+              borderRadius: '14px',
+              border: 'none',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              marginTop: '8px',
+              boxShadow: isSubmitting ? 'none' : '0 4px 14px rgba(16, 185, 129, 0.4)',
+              transition: 'all 0.2s ease'
+            }}
           >
-            {isSubmitting ? 'Saving...' : (
+            {isSubmitting ? (
+              'Encrypting & Saving...'
+            ) : (
               <>
-                <Database size={16} /> Save to Nhost Database
+                <Database size={18} /> 
+                Submit Entry to Nhost
               </>
             )}
           </button>
           
           {submitStatus && (
             <div style={{ 
-              marginTop: '10px', 
-              padding: '10px', 
-              borderRadius: '4px',
-              fontSize: '13px',
-              background: submitStatus.type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-              color: submitStatus.type === 'error' ? '#ef4444' : '#10b981',
-              border: `1px solid ${submitStatus.type === 'error' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '16px', 
+              borderRadius: '12px',
+              fontSize: '14px',
+              fontWeight: '500',
+              background: submitStatus.type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(52, 211, 153, 0.1)',
+              color: submitStatus.type === 'error' ? '#ef4444' : '#34D399',
+              border: `1px solid ${submitStatus.type === 'error' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(52, 211, 153, 0.2)'}`,
+              animation: 'fadeIn 0.3s ease-out'
             }}>
+              {submitStatus.type === 'error' ? <Target size={18} /> : <CheckCircle2 size={18} />}
               {submitStatus.message}
             </div>
           )}
         </form>
       </div>
 
-      {/* Sidebar / Resources */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div className="card" style={{ background: 'linear-gradient(145deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.9) 100%)' }}>
-          <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontSize: '16px' }}>
-            <span style={{ fontSize: '20px' }}>🧠</span> Conscious Journal
-          </h3>
-          <p style={{ fontSize: '13px', color: 'var(--text-subtle)', marginBottom: '20px', lineHeight: '1.5' }}>
+      {/* ── Sidebar / Conscious Journal Widget ───────────────────────────── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ 
+          background: 'linear-gradient(145deg, #1e293b 0%, #0f172a 100%)',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Decorative backdrop */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '150px',
+            height: '150px',
+            background: 'radial-gradient(circle, rgba(148, 163, 184, 0.05) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+            <div style={{ 
+              background: '#f8fafc', 
+              color: '#0f172a', 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '10px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              fontWeight: '800',
+              fontSize: '20px',
+              fontFamily: 'serif'
+            }}>
+              N
+            </div>
+            <div>
+              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#f8fafc' }}>
+                Conscious Journal
+              </h3>
+              <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#94a3b8' }}>
+                Syncs with Notion Workspace
+              </p>
+            </div>
+          </div>
+          
+          <p style={{ fontSize: '14px', color: '#cbd5e1', marginBottom: '28px', lineHeight: '1.6' }}>
             Review your psychological state, trade execution discipline, and emotional triggers before analyzing the week.
           </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '28px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.03)', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34D399', boxShadow: '0 0 8px #34D399' }} />
+               <span style={{ fontSize: '13px', color: '#f8fafc', flex: 1 }}>Daily Growth Sync</span>
+               <span style={{ fontSize: '11px', color: '#64748B' }}>03:10 AM</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.03)', padding: '12px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#94a3b8' }} />
+               <span style={{ fontSize: '13px', color: '#f8fafc', flex: 1 }}>Mindful Reflection</span>
+               <span style={{ fontSize: '11px', color: '#64748B' }}>Yesterday</span>
+            </div>
+          </div>
           
           <a 
             href={NOTION_URL} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn"
             style={{ 
               display: 'flex', 
-              width: '100%', 
+              alignItems: 'center',
               justifyContent: 'center',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#f8fafc'
+              gap: '8px',
+              width: '100%', 
+              background: '#ffffff',
+              color: '#0f172a',
+              fontWeight: '600',
+              fontSize: '14px',
+              padding: '14px',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+              boxSizing: 'border-box'
             }}
+            onMouseOver={(e) => e.currentTarget.style.background = '#f1f5f9'}
+            onMouseOut={(e) => e.currentTarget.style.background = '#ffffff'}
           >
             <ExternalLink size={16} /> Open in Notion
           </a>
@@ -181,3 +327,4 @@ export default function WeeklyAnalysisJournal() {
     </div>
   );
 }
+
