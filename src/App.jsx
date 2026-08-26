@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import TelegramTestCard from './components/TelegramTestCard';
 import SignalLogger from './components/SignalLogger';
 import SettingsModal from './components/SettingsModal';
 import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
+import SignalFeed from './components/SignalFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
@@ -24,6 +26,7 @@ export default function App() {
     return savedLogs ? JSON.parse(savedLogs) : [];
   });
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [currentView, setCurrentView] = useState('main');
 
@@ -50,10 +53,15 @@ export default function App() {
   return (
     <NhostReactProvider nhost={nhost}>
       <div className="app-container">
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+        currentView={currentView} 
+        onSetView={setCurrentView} 
+      />
       <Header 
         onOpenSettings={() => setIsSettingsOpen(true)} 
-        currentView={currentView}
-        onSetView={setCurrentView}
+        onToggleSidebar={() => setIsSidebarOpen(true)}
       />
 
       {/* Hero Quick Overview Stats */}
@@ -110,6 +118,8 @@ export default function App() {
       )}
       
       {currentView === 'analysis' && <PriceAnalysisDashboard />}
+      
+      {currentView === 'signal_feed' && <SignalFeed />}
       
       {currentView === 'weekly_journal' && <WeeklyAnalysisJournal />}
 
