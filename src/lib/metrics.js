@@ -238,6 +238,27 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
     maxDD: cfxMaxDD
   };
 
+  // Calculate Monthly Stats
+  const monthlyStatsMap = {};
+  closedSignals.forEach(s => {
+    let cleanDateStr = s.Date;
+    if (s.Date) cleanDateStr = s.Date.replace(' (GMT+7)', '').replace(' at ', ' ');
+    const dateObj = new Date(cleanDateStr);
+    
+    if (!isNaN(dateObj.getTime())) {
+      const monthYear = dateObj.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+      if (!monthlyStatsMap[monthYear]) {
+        monthlyStatsMap[monthYear] = { monthYear, dateVal: dateObj.getTime(), total: 0, wins: 0, losses: 0, r: 0 };
+      }
+      monthlyStatsMap[monthYear].total++;
+      if (s.Status === 'TP Hit') monthlyStatsMap[monthYear].wins++;
+      if (s.Status === 'SL Hit') monthlyStatsMap[monthYear].losses++;
+      monthlyStatsMap[monthYear].r += s.realizedR[exitModel] || 0;
+    }
+  });
+
+  const monthlyArray = Object.values(monthlyStatsMap).sort((a, b) => a.dateVal - b.dateVal);
+
   return {
     totalSignals: computedSignals.length,
     totalClosed,
@@ -253,6 +274,7 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
     outcomes: { TP: wins, SL: losses, BE: bes, Open: computedSignals.length - totalClosed },
     sortedSignals,
     rollingPerformance,
-    cfxStats
+    cfxStats,
+    monthlyStats: monthlyArray
   };
 }

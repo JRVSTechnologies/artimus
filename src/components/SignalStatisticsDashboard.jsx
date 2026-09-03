@@ -246,6 +246,49 @@ export default function SignalStatisticsDashboard() {
     }
   };
 
+  // --- Monthly Heatmap ---
+  const monthlyChartData = {
+    labels: (agg.monthlyStats || []).map(m => m.monthYear),
+    datasets: [{
+      label: 'Realized R',
+      data: (agg.monthlyStats || []).map(m => m.r.toFixed(2)),
+      backgroundColor: (agg.monthlyStats || []).map(m => m.r >= 0 ? '#10b981' : '#f43f5e'),
+      borderRadius: 4
+    }]
+  };
+  const monthlyOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { title: { display: true, text: 'Net Realized R', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'var(--border-card)' } },
+      x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+    }
+  };
+
+  let mostProfitableMonth = { monthYear: '-', r: 0 };
+  let worstMonth = { monthYear: '-', r: 0 };
+  let bestMonth = { monthYear: '-', winRate: 0 };
+  let mostLossesMonth = { monthYear: '-', losses: 0 };
+
+  if (agg.monthlyStats && agg.monthlyStats.length > 0) {
+    mostProfitableMonth = agg.monthlyStats.reduce((prev, curr) => (prev.r > curr.r) ? prev : curr);
+    worstMonth = agg.monthlyStats.reduce((prev, curr) => (prev.r < curr.r) ? prev : curr);
+    
+    // Best month by win rate (minimum 5 trades)
+    const validMonthsForWR = agg.monthlyStats.filter(m => m.total >= 5);
+    if (validMonthsForWR.length > 0) {
+      bestMonth = validMonthsForWR.reduce((prev, curr) => {
+        const pWr = prev.total > 0 ? prev.wins / prev.total : 0;
+        const cWr = curr.total > 0 ? curr.wins / curr.total : 0;
+        return cWr > pWr ? curr : prev;
+      });
+      bestMonth.winRate = (bestMonth.wins / bestMonth.total) * 100;
+    }
+
+    mostLossesMonth = agg.monthlyStats.reduce((prev, curr) => (prev.losses > curr.losses) ? prev : curr);
+  }
+
   // Heatmap helper
   // Create a 7x24 grid
   const heatmapGrid = Array(7).fill(0).map(() => Array(24).fill({ count: 0, r: 0 }));
@@ -478,6 +521,43 @@ export default function SignalStatisticsDashboard() {
               }} 
               options={{ maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { ticks:{color:'#94a3b8'}, grid:{color:'rgba(255,255,255,0.05)'} }, x: { ticks:{color:'#94a3b8'}, grid:{display:false} } } }} 
             />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 5.5: Month on Month Analysis */}
+      <div className="dashboard-grid" style={{ gridTemplateColumns: '2fr 1fr', marginBottom: '24px' }}>
+        <div className="chart-card-premium" style={{ marginBottom: 0 }}>
+          <h3 className="chart-card-title">Month on Month Heatmap</h3>
+          <div style={{ height: '300px', position: 'relative' }}>
+            <Bar data={monthlyChartData} options={monthlyOptions} />
+          </div>
+        </div>
+        <div className="chart-card-premium" style={{ marginBottom: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <h3 className="chart-card-title">Monthly Insights</h3>
+          
+          <div>
+            <div className="stat-card-title" style={{ fontSize: '13px' }}>Most Profitable Month</div>
+            <div className="stat-card-value text-green" style={{ fontSize: '18px' }}>{mostProfitableMonth.monthYear}</div>
+            <div className="stat-card-sub" style={{ color: '#10b981' }}>+{mostProfitableMonth.r.toFixed(2)}R</div>
+          </div>
+          
+          <div>
+            <div className="stat-card-title" style={{ fontSize: '13px' }}>Worst Month</div>
+            <div className="stat-card-value text-red" style={{ fontSize: '18px' }}>{worstMonth.monthYear}</div>
+            <div className="stat-card-sub" style={{ color: '#f43f5e' }}>{worstMonth.r.toFixed(2)}R</div>
+          </div>
+
+          <div>
+            <div className="stat-card-title" style={{ fontSize: '13px' }}>Best Win Rate (Min 5 trades)</div>
+            <div className="stat-card-value text-blue" style={{ fontSize: '18px' }}>{bestMonth.monthYear}</div>
+            <div className="stat-card-sub" style={{ color: '#38bdf8' }}>{bestMonth.winRate ? bestMonth.winRate.toFixed(1) : 0}% Win Rate</div>
+          </div>
+
+          <div>
+            <div className="stat-card-title" style={{ fontSize: '13px' }}>Most Losses Month</div>
+            <div className="stat-card-value text-purple" style={{ fontSize: '18px' }}>{mostLossesMonth.monthYear}</div>
+            <div className="stat-card-sub" style={{ color: '#c084fc' }}>{mostLossesMonth.losses} SL Hits</div>
           </div>
         </div>
       </div>

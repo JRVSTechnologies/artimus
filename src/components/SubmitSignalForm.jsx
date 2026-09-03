@@ -16,7 +16,8 @@ export default function SubmitSignalForm() {
     session: 'London',
     status: 'Open',
     source: 'Manual Entry',
-    raw_signal_text: ''
+    raw_signal_text: '',
+    signal_date: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,7 +40,7 @@ export default function SubmitSignalForm() {
       const payload = {
         ...formData,
         signal: generatedSignal,
-        signal_date: new Date().toISOString()
+        signal_date: new Date(formData.signal_date).toISOString()
       };
 
       const response = await fetch('/.netlify/functions/submitSignal', {
@@ -68,7 +69,8 @@ export default function SubmitSignalForm() {
         tp3: '',
         tp4: '',
         tp5: '',
-        raw_signal_text: ''
+        raw_signal_text: '',
+        signal_date: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)
       }));
 
     } catch (err) {
@@ -106,7 +108,7 @@ export default function SubmitSignalForm() {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           
-          <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
+          <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
             <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <label style={{ fontSize: '13px', color: 'var(--text-subtle)', fontWeight: 600 }}>Symbol</label>
               <input 
@@ -130,6 +132,17 @@ export default function SubmitSignalForm() {
                 <option value="Buy" style={{ color: '#000' }}>Buy</option>
                 <option value="Sell" style={{ color: '#000' }}>Sell</option>
               </select>
+            </div>
+            <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '13px', color: 'var(--text-subtle)', fontWeight: 600 }}>Signal Date & Time</label>
+              <input 
+                type="datetime-local" 
+                name="signal_date" 
+                value={formData.signal_date} 
+                onChange={handleChange} 
+                required
+                style={{ padding: '10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-card)', color: '#fff', colorScheme: 'dark' }}
+              />
             </div>
           </div>
 
@@ -169,7 +182,7 @@ export default function SubmitSignalForm() {
             </div>
           </div>
 
-          <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
+          <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
             {['tp1', 'tp2', 'tp3', 'tp4', 'tp5'].map((tp, idx) => (
               <div key={tp} className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <label style={{ fontSize: '13px', color: 'var(--text-subtle)', fontWeight: 600 }}>TP {idx + 1}</label>
