@@ -9,6 +9,7 @@ import SignalFeed from './components/SignalFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
 import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
+import SequentialTradeTimeline from './components/SequentialTradeTimeline';
 import SubmitSignalForm from './components/SubmitSignalForm';
 import EvaluationSimulator from './components/EvaluationSimulator';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
@@ -123,6 +124,8 @@ export default function App() {
       {currentView === 'analysis' && <PriceAnalysisDashboard />}
       
       {currentView === 'statistics' && <SignalStatisticsDashboard />}
+
+      {currentView === 'tradeTimeline' && <SequentialTradeTimeline />}
       
       {currentView === 'signal_feed' && <SignalFeed />}
       

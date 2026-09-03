@@ -15,6 +15,7 @@
     "@nhost/react": "^3.11.2",
     "@supabase/supabase-js": "^2.112.3",
     "chart.js": "^4.5.1",
+    "cheerio": "^1.2.0",
     "csv-parser": "^3.2.1",
     "graphql": "^16.14.2",
     "inquirer": "^14.2.1",

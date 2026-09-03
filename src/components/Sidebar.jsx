@@ -7,6 +7,7 @@ export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
     { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: '#f43f5e' },
     { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: '#10b981' },
     { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: '#f59e0b' },
+    { id: 'tradeTimeline', label: 'Trade Timeline Feed', icon: Activity, color: '#f59e0b', subItem: true },
     { id: 'simulator', label: 'Evaluation Simulator', icon: Target, color: '#10b981', subItem: true },
     { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: '#0ea5e9', subItem: true },
     { id: 'weekly_journal', label: 'Weekly Journal', icon: BookOpen, color: '#8b5cf6' },

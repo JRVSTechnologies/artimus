@@ -12,6 +12,7 @@ export default function SignalStatisticsDashboard() {
   const [dbData, setDbData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [provider, setProvider] = useState('bills');
 
   const [exitModel, setExitModel] = useState('ladder');
   const [selectedSession, setSelectedSession] = useState('All');
@@ -20,8 +21,9 @@ export default function SignalStatisticsDashboard() {
   useEffect(() => {
     const fetchSignals = async () => {
       try {
+        setLoading(true);
         // Fetch from Netlify Serverless Function
-        const response = await fetch('/.netlify/functions/getSignals');
+        const response = await fetch(`/.netlify/functions/getSignals?provider=${provider}`);
         
         if (!response.ok) {
           throw new Error(`Server returned status: ${response.status}`);
@@ -49,7 +51,7 @@ export default function SignalStatisticsDashboard() {
             'Entry Low': row.entry_low || '',
             'Raw Signal Text': row.raw_signal_text || '',
             'S/L': row.sl || '',
-            'Session': row.session || '',
+            'Session': row.session || (provider === 'fx_clarity' && row.raw_signal_text ? (row.raw_signal_text.match(/POI ROUND \d/i) ? row.raw_signal_text.match(/POI ROUND \d/i)[0].toUpperCase() : 'Unknown') : ''),
             'Source': row.source || '',
             'Status': row.status || '',
             'Symbol': row.symbol || '',
@@ -70,7 +72,7 @@ export default function SignalStatisticsDashboard() {
       }
     };
     fetchSignals();
-  }, []);
+  }, [provider]);
 
   const parsedData = dbData;
 
@@ -266,6 +268,37 @@ export default function SignalStatisticsDashboard() {
     }
   };
 
+  // --- Daily Heatmap ---
+  const dailyChartData = {
+    labels: (agg.dailyStats || []).map(d => d.dayStr.replace(/, \d{4}/, '')), // e.g. "Apr 15"
+    datasets: [{
+      label: 'Realized R',
+      data: (agg.dailyStats || []).map(d => d.r.toFixed(2)),
+      backgroundColor: (agg.dailyStats || []).map(d => d.r >= 0 ? '#10b981' : '#f43f5e'),
+      borderRadius: 2
+    }]
+  };
+  const dailyOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { 
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          afterLabel: function(context) {
+            const dataIndex = context.dataIndex;
+            const stats = agg.dailyStats[dataIndex];
+            return `Trades: ${stats.total} (W: ${stats.wins}, L: ${stats.losses})`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: { title: { display: true, text: 'Net Realized R', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'var(--border-card)' } },
+      x: { ticks: { color: '#94a3b8', maxRotation: 45, minRotation: 45 }, grid: { display: false } }
+    }
+  };
+
   let mostProfitableMonth = { monthYear: '-', r: 0 };
   let worstMonth = { monthYear: '-', r: 0 };
   let bestMonth = { monthYear: '-', winRate: 0 };
@@ -338,8 +371,26 @@ export default function SignalStatisticsDashboard() {
   return (
     <div className="analysis-dashboard">
       <div className="dashboard-header-premium">
-        <h1>VIP Signal Analytics</h1>
-        <p>Evaluate signal edge, session dependency, and execution models.</p>
+        <div className="header-row">
+          <div>
+            <h1>VIP Signal Analytics</h1>
+            <p>Evaluate signal edge, session dependency, and execution models.</p>
+          </div>
+          <div className="provider-toggle">
+            <button
+              onClick={() => setProvider('bills')}
+              className={provider === 'bills' ? 'active-bills' : ''}
+            >
+              Bills Trading
+            </button>
+            <button
+              onClick={() => setProvider('fx_clarity')}
+              className={provider === 'fx_clarity' ? 'active-fx' : ''}
+            >
+              FX Clarity
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Global Filter Bar */}
@@ -525,6 +576,18 @@ export default function SignalStatisticsDashboard() {
         </div>
       </div>
 
+      {/* Row 5.25: Day by Day Performance */}
+      <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr', marginBottom: '24px' }}>
+        <div className="chart-card-premium" style={{ marginBottom: 0, minWidth: 0, width: '100%' }}>
+          <h3 className="chart-card-title">Day-by-Day Performance</h3>
+          <div className="custom-scrollbar" style={{ height: '320px', overflowX: 'auto', overflowY: 'hidden', position: 'relative', width: '100%' }}>
+            <div style={{ width: `${Math.max(100, (agg.dailyStats || []).length * 40)}px`, height: '280px', paddingRight: '20px' }}>
+              <Bar data={dailyChartData} options={dailyOptions} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Row 5.5: Month on Month Analysis */}
       <div className="dashboard-grid" style={{ gridTemplateColumns: '2fr 1fr', marginBottom: '24px' }}>
         <div className="chart-card-premium" style={{ marginBottom: 0 }}>
@@ -562,7 +625,9 @@ export default function SignalStatisticsDashboard() {
         </div>
       </div>
 
-      {/* Row 6: CFX Filter Comparison & Row 7: Rolling */}
+
+
+      {/* Control Panel (Filters) */}
       <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr 2fr', marginBottom: '24px' }}>
         <div className="chart-card-premium" style={{ marginBottom: 0 }}>
           <h3 className="chart-card-title">CFX Kill-Zone Comparison</h3>
@@ -651,6 +716,8 @@ export default function SignalStatisticsDashboard() {
           </div>
         </div>
       </div>
+
+
 
     </div>
   );

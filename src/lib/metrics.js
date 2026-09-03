@@ -259,6 +259,27 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
 
   const monthlyArray = Object.values(monthlyStatsMap).sort((a, b) => a.dateVal - b.dateVal);
 
+  // Calculate Daily Stats
+  const dailyStatsMap = {};
+  closedSignals.forEach(s => {
+    let cleanDateStr = s.Date;
+    if (s.Date) cleanDateStr = s.Date.replace(' (GMT+7)', '').replace(' at ', ' ');
+    const dateObj = new Date(cleanDateStr);
+    
+    if (!isNaN(dateObj.getTime())) {
+      const dayStr = dateObj.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      if (!dailyStatsMap[dayStr]) {
+        dailyStatsMap[dayStr] = { dayStr, dateVal: dateObj.getTime(), total: 0, wins: 0, losses: 0, r: 0 };
+      }
+      dailyStatsMap[dayStr].total++;
+      if (s.Status === 'TP Hit') dailyStatsMap[dayStr].wins++;
+      if (s.Status === 'SL Hit') dailyStatsMap[dayStr].losses++;
+      dailyStatsMap[dayStr].r += s.realizedR[exitModel] || 0;
+    }
+  });
+
+  const dailyArray = Object.values(dailyStatsMap).sort((a, b) => a.dateVal - b.dateVal);
+
   return {
     totalSignals: computedSignals.length,
     totalClosed,
@@ -275,6 +296,7 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
     sortedSignals,
     rollingPerformance,
     cfxStats,
-    monthlyStats: monthlyArray
+    monthlyStats: monthlyArray,
+    dailyStats: dailyArray
   };
 }

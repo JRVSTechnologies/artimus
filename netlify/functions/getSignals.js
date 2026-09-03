@@ -24,6 +24,20 @@ export const handler = async (event, context) => {
     };
   }
 
+  const provider = (event.queryStringParameters && event.queryStringParameters.provider) || 'bills';
+  
+  // Strict whitelisting of table names to prevent SQL injection
+  let tableName = 'bills_signals';
+  if (provider === 'fx_clarity') {
+    tableName = 'fx_clarity_signals';
+  } else if (provider !== 'bills') {
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Invalid provider specified' })
+    };
+  }
+
   const client = new Client({
     connectionString,
     ssl: { rejectUnauthorized: false }
@@ -32,28 +46,54 @@ export const handler = async (event, context) => {
   try {
     await client.connect();
     
-    // Fetch signals ordered by date
-    const query = `
-      SELECT 
-        signal,
-        signal_date,
-        direction,
-        entry_high,
-        entry_low,
-        raw_signal_text,
-        sl,
-        session,
-        source,
-        status,
-        symbol,
-        tp1,
-        tp2,
-        tp3,
-        tp4,
-        tp5
-      FROM bills_signals
-      ORDER BY signal_date ASC
-    `;
+    let query = '';
+    
+    // We select different columns based on the schema of the table
+    if (tableName === 'fx_clarity_signals') {
+      query = `
+        SELECT 
+          id as signal,
+          signal_date,
+          direction,
+          entry_high,
+          entry_low,
+          raw_signal_text,
+          sl,
+          '' as session,
+          'FX Clarity' as source,
+          status,
+          symbol,
+          tp1,
+          tp2,
+          tp3,
+          tp4,
+          tp5
+        FROM fx_clarity_signals
+        ORDER BY signal_date ASC
+      `;
+    } else {
+      query = `
+        SELECT 
+          signal,
+          signal_date,
+          direction,
+          entry_high,
+          entry_low,
+          raw_signal_text,
+          sl,
+          session,
+          source,
+          status,
+          symbol,
+          tp1,
+          tp2,
+          tp3,
+          tp4,
+          tp5
+        FROM bills_signals
+        ORDER BY signal_date ASC
+      `;
+    }
     
     const result = await client.query(query);
     
