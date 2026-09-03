@@ -1,11 +1,13 @@
 import React from 'react';
-import { X, LayoutDashboard, LineChart, BookOpen, Activity } from 'lucide-react';
+import { X, LayoutDashboard, LineChart, BookOpen, Activity, BarChart3, Edit } from 'lucide-react';
 
 export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
   const menuItems = [
     { id: 'main', label: 'Main Hub', icon: LayoutDashboard, color: '#38BDF8' },
     { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: '#f43f5e' },
     { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: '#10b981' },
+    { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: '#f59e0b' },
+    { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: '#0ea5e9' },
     { id: 'weekly_journal', label: 'Weekly Journal', icon: BookOpen, color: '#8b5cf6' },
   ];
 

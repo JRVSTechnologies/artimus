@@ -1,0 +1,1774 @@
+﻿Signal,Date,Direction,Entry High,Entry Low,Raw Signal Text,S/L,Session,Source,Status,Symbol,TP1,TP2,TP3,TP4,TP5
+June 1 London-NY Overlap,"June 1, 2026 6:55 PM (GMT+7)",Sell,4509,4507.6,"VIP group
+SELL POSITION XAUUSD
+
+OPEN : 4507.60-4509
+SL : 4513.6
+TP1 : 4503
+TP2 : 4497
+TP3 : 4492
+TP4 : 4475",4513.6,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 1 NY Open (21:20),"June 1, 2026 9:20 PM (GMT+7)",Buy,4456,4454,"VIP group BUY POSITION XAUUSD - OPEN: 4454-4456, SL: 4447, TP1: 4462, TP2: 4475, TP3: 4489, TP4: 4500. Note: displayed timestamp was edited 21:20, may not be original post time.",4447,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+June 1 NY Open (21:42),"June 1, 2026 9:42 PM (GMT+7)",Buy,4457,4455,"VIP group BUY POSITION XAUUSD - OPEN: 4455-4457, SL: 4449, TP1: 4463, TP2: 4470, TP3: 4487, TP4: 4503",4449,NY Open,VIP group,TP Hit,XAUUSD,4463,4470,4487,4503,
+June 2 NY Open,"June 2, 2026 10:16 PM (GMT+7)",Sell,4505,4504,"VIP group SELL POSITION XAUUSD - OPEN: 4504-4505, SL: 4510, TP1: 4499, TP2: 4493, TP3: 4485, TP4: 4475",4510,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+June 3 London-NY Overlap (14:04),"June 3, 2026 2:04 PM (GMT+7)",Buy,4463,4462,"VIP group BUY POSITION XAUUSD - OPEN: 4462-4463, SL: 4458, TP1: 4468, TP2: 4475, TP3: 4483, TP4: 4500",4458,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 3 London-NY Overlap (14:51),"June 3, 2026 2:51 PM (GMT+7)",Buy,4460,4458.5,"VIP group BUY POSITION XAUUSD - OPEN: 4458.50-4460, SL: 4454, TP1: 4466, TP2: 4472.5, TP3: 4483, TP4: 4500. Note: displayed timestamp was edited 14:51, may not be original post time.",4454,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+June 3 NY Open (21:37),"June 3, 2026 9:37 PM (GMT+7)",Sell,4453,4451,"VIP group SELL POSITION XAUUSD - OPEN: 4451-4453, SL: 4458, TP1: 4445, TP2: 4438, TP3: 4430, TP4: 4392",4458,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+June 3 NY Open (22:08),"June 3, 2026 10:08 PM (GMT+7)",Sell,4453,4451,"VIP group SELL POSITION XAUUSD - OPEN: 4451-4453, SL: 4460, TP1: 4445, TP2: 4438, TP3: 4430, TP4: 4392. Note: near-duplicate of 'June 3 NY Open (21:37)' - same entry zone and TP1-4, but S/L differs (4460 vs 4458), and this is a distinct message (different reaction counts, edited 22:08 vs 21:37).",4460,NY Open,VIP group,TP Hit,XAUUSD,4445,4438,,,
+June 5 London-NY Overlap (14:59),"June 5, 2026 2:59 PM (GMT+7)",Sell,4464,4462,"VIP group SELL POSITION XAUUSD - OPEN: 4462-4464, SL: 4469, TP1: 4456, TP2: 4450, TP3: 4443.5, TP4: 4425. Note: displayed timestamp was edited 14:59, may not be original post time.",4469,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 5 London-NY Overlap (15:37),"June 5, 2026 3:37 PM (GMT+7)",Sell,4465,4463.5,"VIP group SELL POSITION XAUUSD - OPEN: 4463.5-4465, SL: 4470, TP1: 4458, TP2: 4452, TP3: 4443.5, TP4: 4425",4470,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 5 Pre-NY Gap (20:28),"June 5, 2026 8:28 PM (GMT+7)",Sell,4415,4412.5,"VIP group SELL POSITION XAUUSD - OPEN: 4412.5-4415, SL: 4421, TP1: 4406, TP2: 4399, TP3: 4392, TP4: 4375, TP5: 4350. Note: displayed timestamp was edited 20:28, may not be original post time.",4421,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4406,4399,4392,4375,4350
+June 10 NY Open (22:47),"June 10, 2026 10:47 PM (GMT+7)",Sell,4129,4126,"VIP group SELL POSITION XAUUSD - OPEN: 4126-4129, SL: 4136, TP1: 4115, TP2: 4110, TP3: 4100, TP4: 4056. Note: displayed timestamp was edited 22:47, may not be original post time.",4136,NY Open,VIP group,TP Hit,XAUUSD,4115,4110,,,
+June 11 London-NY Overlap (14:41),"June 11, 2026 2:41 PM (GMT+7)",Sell,4107,4105,"VIP group SELL POSITION XAUUSD - OPEN: 4105-4107, SL: 4111, TP1: 4100, TP2: 4093, TP3: 4085, TP4: 4050",4111,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 11 NY Open (21:47),"June 11, 2026 9:47 PM (GMT+7)",Sell,4078,4076,"VIP group SELL POSITION XAUUSD - OPEN: 4076-4078, SL: 4085, TP1: 4069, TP2: 4060, TP3: 4050, TP4: 4006",4085,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+June 11 NY Open (22:24),"June 11, 2026 10:24 PM (GMT+7)",Sell,4081,4079.5,"VIP group SELL POSITION XAUUSD - OPEN: 4079.5-4081, SL: 4088, TP1: 4073, TP2: 4065, TP3: 4059, TP4: 4006",4088,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+June 11 London-NY Overlap (14:10),"June 11, 2026 2:10 PM (GMT+7)",Buy,4180,4179,"VIP group BUY POSITION XAUUSD - OPEN: 4179-4180, SL: 4172, TP1: 4185, TP2: 4193, TP3: 4200, TP4: 4225",4172,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+June 11 London-NY Overlap (14:48),"June 11, 2026 2:48 PM (GMT+7)",Buy,4181,4179,"VIP group BUY POSITION XAUUSD - OPEN: 4179-4181, SL: 4170, TP1: 4186, TP2: 4195, TP3: 4202, TP4: 4225, TP5: 4250. Note: displayed timestamp was edited 14:48, may not be original post time. Also flagged: entry price (~4179-4181) is ~74 points higher than the Sell logged at 14:41 same day (4105-4107) - chronological consistency unverified.",4170,London-NY Overlap,VIP group,TP Hit,XAUUSD,4186,4195,4202,4225,4250
+June 11 NY Open (21:37),"June 11, 2026 9:37 PM (GMT+7)",Buy,4188.5,4187,"VIP group BUY POSITION XAUUSD - OPEN: 4187-4188.5, SL: 4181, TP1: 4195, TP2: 4202, TP3: 4210, TP4: 4225, TP5: 4250",4181,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+June 15 London Pre (13:48),"June 15, 2026 1:48 PM (GMT+7)",Buy,4306,4304,"VIP group BUY POSITION XAUUSD - OPEN: 4304-4306, SL: 4300, TP1: 4311, TP2: 4318, TP3: 4325, TP4: 4350",4300,London Pre,VIP group,TP Hit,XAUUSD,4311,4318,4325,4350,
+June 15 NY Open (22:42),"June 15, 2026 10:42 PM (GMT+7)",Buy,4354.5,4353,"VIP group BUY POSITION XAUUSD - OPEN: 4353-4354.5, SL: 4349, TP1: 4360, TP2: 4367, TP3: 4375, TP4: 4400",4349,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+June 16 London Pre (13:16),"June 16, 2026 1:16 PM (GMT+7)",Buy,4318,4317,"VIP group BUY POSITION XAUUSD - OPEN: 4317-4318, SL: 4312, TP1: 4322, TP2: 4328, TP3: 4337, TP4: 4348, TP5: 4362. Note: displayed timestamp was edited 13:16, may not be original post time.",4312,London Pre,VIP group,TP Hit,XAUUSD,4322,4328,4337,4348,4362
+June 18 NY Open (21:38),"June 18, 2026 9:38 PM (GMT+7)",Buy,4250,4249,"VIP group BUY POSITION XAUUSD - OPEN: 4249-4250, SL: 4241, TP1: 4256, TP2: 4464, TP3: 4275, TP4: 4303. FLAG: TP2 (4464) breaks ascending TP order for a Buy (TP1 4256 < TP2 4464 > TP3 4275 > TP4 4303) - likely a typo in the original signal, possibly meant to be 4264. Logged verbatim as shown, not corrected.",4241,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+June 19 London-NY Overlap (14:28),"June 19, 2026 2:28 PM (GMT+7)",Sell,4156,4154,"VIP group SELL POSITION XAUUSD - OPEN: 4154-4156, SL: 4162, TP1: 4148, TP2: 4140, TP3: 4125, TP4: 4100",4162,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 19 London-NY Overlap (14:49),"June 19, 2026 2:49 PM (GMT+7)",Sell,4156,4154,"VIP group SELL POSITION XAUUSD - OPEN: 4154-4156, SL: 4161, TP1: 4149, TP2: 4142, TP3: 4130, TP4: 4100. Note: near-identical entry zone to 'June 19 London-NY Overlap (14:28)' (both 4154-4156), 21 min later, with SL/TP1-3 slightly tightened and TP4 unchanged at 4100 - same re-call pattern seen on prior days.",4161,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+June 22 London-NY Overlap (14:25),"June 22, 2026 2:25 PM (GMT+7)",Sell,4200,4198,"VIP group SELL POSITION XAUUSD - OPEN: 4198-4200, SL: 4205, TP1: 4192, TP2: 4184, TP3: 4175, TP4: 4154.5. Note: displayed timestamp was edited 14:25, may not be original post time.",4205,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+June 22 London-NY Overlap (18:37),"June 22, 2026 6:37 PM (GMT+7)",Sell,4206,4205.5,"VIP group SELL POSITION XAUUSD - OPEN: 4205.5-4206, SL: 4213, TP1: 4200, TP2: 4192, TP3: 4184, TP4: 4161. Note: displayed timestamp was edited 18:37, may not be original post time. Same session and direction as 'June 22 London-NY Overlap (14:25)' but ~4h12m apart, wider gap than the usual 20-45min re-call pattern - entry zone close (4205.5-4206 vs 4198-4200).",4213,London-NY Overlap,VIP group,TP Hit,XAUUSD,4200,4192,4184,,
+June 25 NY Open (22:33),"June 25, 2026 10:33 PM (GMT+7)",Sell,4032,4028,"VIP group SELL POSITION XAUUSD - OPEN: 4028-4032, SL: 4040, TP1: 4020, TP2: 4013, TP3: 4005, TP4: 3987. Note: displayed timestamp was edited 22:33, may not be original post time.",4040,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+June 26 NY Afternoon/London Close (02:34),"June 26, 2026 2:34 AM (GMT+7)",Sell,4038,4036,"VIP group SELL POSITION XAUUSD - OPEN: 4036-4038, SL: 4045, TP1: 4028, TP2: 4020, TP3: 4005, TP4: 3987. Note: displayed timestamp was edited 02:34, may not be original post time. Same TP3/TP4 (4005/3987) as prior day's 'June 25 NY Open (22:33)' call, entry zone ~8 points higher - likely a continuation/re-call of the same idea overnight, crossing into the NY Afternoon/London Close session.",4045,NY Afternoon/London Close,VIP group,TP Hit,XAUUSD,4028,4020,4005,3987,
+June 26 NY Open (21:48),"June 26, 2026 9:48 PM (GMT+7)",Buy,4085,4083,"VIP group BUY POSITION XAUUSD - OPEN: 4083-4085, SL: 4076, TP1: 4090, TP2: 4100, TP3: 4108, TP4: 4120. Note: displayed timestamp was edited 21:48, may not be original post time.",4076,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+June 30 Pre-NY Gap (20:09),"June 30, 2026 8:09 PM (GMT+7)",Buy,4018,4017,"VIP group BUY POSITION XAUUSD - OPEN: 4017-4018, SL: 4010, TP1: 4024, TP2: 4032, TP3: 4050, TP4: 4067",4010,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4024,4032,,,
+June 30 NY Open (22:32),"June 30, 2026 10:32 PM (GMT+7)",Buy,4029,4028,"VIP group BUY POSITION XAUUSD - OPEN: 4028-4029, SL: 4022, TP1: 4036, TP2: 4047, TP3: 4058, TP4: 4075. Note: same direction as prior 'June 30 Pre-NY Gap (20:09)' call, entry ~11 points higher, 2h23m later - continuation of the same Buy bias into the next session rather than a re-call within the same window.",4022,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+January 2 NY Open (22:37),"January 2, 2026 10:37 PM (GMT+7)",Buy,4338,4337,"VIP group BUY POSITION XAUUSD - OPEN: 4337-4338, SL: 4333, TP1: 4342, TP2: 4350, TP3: 4375. Note: only 3 TPs shown (no TP4) - unusual for this feed which typically posts 4-5 targets. TP4 property omitted rather than guessed.",4333,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+January 2 NY Afternoon/London Close (23:11),"January 2, 2026 11:11 PM (GMT+7)",Buy,4326,4325,"VIP group BUY POSITION XAUUSD - OPEN: 4325-4326, SL: 4322, TP1: 4330, TP2: 4340, TP3: 4370. Note: only 3 TPs shown (no TP4). Same direction and close entry zone to 'January 2 NY Open (22:37)' (4337-4338), ~12 points lower, 34 min later - usual re-call pattern, but this one crosses the 23:00 boundary into NY Afternoon/London Close, a No Trade window under JACE.",4322,NY Afternoon/London Close,VIP group,TP Hit,XAUUSD,4330,4340,4370,,
+January 6 NY Open (22:10),"January 6, 2026 10:10 PM (GMT+7)",Sell,4489,4487,"VIP group SELL POSITION XAUUSD - OPEN: 4487-4489, SL: 4492.50, TP1: 4483.50, TP2: 4474, TP3: 4460. Note: only 3 TPs shown (no TP4).",4492.5,NY Open,VIP group,TP Hit,XAUUSD,4483.5,4474,4460,,
+January 7 NY Afternoon/London Close (23:51),"January 7, 2026 11:51 PM (GMT+7)",Sell,4467,4466,"VIP group SELL POSITION XAUUSD - OPEN: 4466-4467, SL: 4470, TP1: 4462, TP2: 4452, TP3: 4442. Note: only 3 TPs shown (no TP4).",4470,NY Afternoon/London Close,VIP group,TP Hit,XAUUSD,4462,4452,4442,,
+January 9 NY Afternoon/London Close (00:05),"January 9, 2026 12:05 AM (GMT+7)",Sell,4463,4462,"VIP group SELL POSITION XAUUSD - OPEN: 4462-4463, SL: 4466, TP1: 4459, TP2: 4445, TP3: 4436. Note: only 3 TPs shown (no TP4).",4466,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+January 9 NY Afternoon/London Close (23:35),"January 9, 2026 11:35 PM (GMT+7)",Buy,4504.5,4503,"VIP group BUY POSITION XAUUSD - OPEN: 4503-4504.50, SL: 4500, TP1: 4508, TP2: 4520, TP3: 4530. Note: only 3 TPs shown (no TP4). Both signals logged for Jan 9 fall in NY Afternoon/London Close (00:05 Sell and 23:35 Buy) - opposite directions, ~41 points apart, nearly the full day apart in time.",4500,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+January 12 NY Open (21:55),"January 12, 2026 9:55 PM (GMT+7)",Buy,4603,4602,"VIP group BUY POSITION XAUUSD - OPEN: 4602-4603, SL: 4598, TP1: 4607, TP2: 4615, TP3: 4635. Note: only 3 TPs shown (no TP4).",4598,NY Open,VIP group,TP Hit,XAUUSD,4607,4615,4635,,
+January 13 London-NY Overlap (16:44),"January 13, 2026 4:44 PM (GMT+7)",Buy,4590.5,4589,"VIP group BUY POSITION XAUUSD - OPEN: 4589-4590.50, SL: 4587, TP1: 4593, TP2: 4600, TP3: 4611. Note: only 3 TPs shown (no TP4).",4587,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 14 London-NY Overlap (15:30),"January 14, 2026 3:30 PM (GMT+7)",Buy,4626,4625,"VIP group BUY POSITION XAUUSD - OPEN: 4625-4626, SL: 4222, TP1: 4630, TP2: 4639, TP3: 4650. FLAG: SL (4222) is a 403-point stop against a TP1 only 4-5 points away (4630) - wildly inconsistent with the TP ladder and almost certainly a typo, possibly meant to be 4620 or 4622. Logged verbatim as shown, not corrected. Only 3 TPs shown (no TP4).",4222,London-NY Overlap,VIP group,TP Hit,XAUUSD,4630,4639,4650,,
+January 14 London-NY Overlap (17:03),"January 14, 2026 5:03 PM (GMT+7)",Buy,4630,4629,"VIP group BUY POSITION XAUUSD - OPEN: 4629-4630, SL: 4627, TP1: 4634, TP2: 4639, TP3: 4650. Note: displayed timestamp was edited 17:03, may not be original post time. Same-day re-call of 'January 14 London-NY Overlap (15:30)' - overlapping entry zone, shares TP2/TP3 (4639/4650), and this one has a sane 3-point SL vs the flagged 403-point SL on the earlier call.",4627,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+January 16 London-NY Overlap (16:59),"January 16, 2026 4:59 PM (GMT+7)",Sell,4602,4601,"VIP group SELL POSITION XAUUSD - OPEN: 4601-4602, SL: 4604, TP1: 4598, TP2: 4592, TP3: 4582. Note: only 3 TPs shown (no TP4). First of 5 Sell signals logged for Jan 16.",4604,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 16 London-NY Overlap (17:43),"January 16, 2026 5:43 PM (GMT+7)",Sell,4609,4608,"VIP group SELL POSITION XAUUSD - OPEN: 4608-4609, SL: 4612, TP1: 4603, TP2: 4595, TP3: 4586. Note: only 3 TPs shown (no TP4). Entry ~7 points higher than prior call (16:59), same direction/session - not the usual overlapping-zone re-call, price moved up between calls.",4612,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+January 16 Pre-NY Gap (19:00),"January 16, 2026 7:00 PM (GMT+7)",Sell,4614,4612,"VIP group SELL POSITION XAUUSD - OPEN: 4612-4614, SL: 4616, TP1: 4609, TP2: 4600, TP3: 4595. Note: only 3 TPs shown (no TP4). Time (19:00) sits exactly on the London-NY Overlap / Pre-NY Gap boundary - classified as Pre-NY Gap per the [start, end) window convention. Continues the same-day pattern of rising entry price with each Sell re-call.",4616,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4609,4600,4595,,
+January 16 NY Open (21:03),"January 16, 2026 9:03 PM (GMT+7)",Sell,4600,4599,"VIP group SELL POSITION XAUUSD - OPEN: 4599-4600, SL: 4603.50, TP1: 4596, TP2: 4585, TP3: 4575. Note: only 3 TPs shown (no TP4). Entry has dropped back to near the 16:59 call's level, crossing into NY Open session.",4603.5,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+January 16 NY Open (21:55),"January 16, 2026 9:55 PM (GMT+7)",Sell,4612,4611,"VIP group SELL POSITION XAUUSD - OPEN: 4611-4612, SL: 4615, TP1: 4607, TP2: 4599, TP3: 4586. Note: only 3 TPs shown (no TP4). Fifth and final Sell call logged for Jan 16, entry back up near the 17:43/19:00 range.",4615,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+January 15 NY Open (21:47),"January 15, 2026 9:47 PM (GMT+7)",Sell,4609,4607,"VIP group SELL POSITION XAUUSD - OPEN: 4607-4609, SL: 4612, TP1: 4603, TP2: 4593, TP3: 4581. Note: only 3 TPs shown (no TP4). Fills the Jan 15 gap between Jan 14 and Jan 16 - entry sits right in the middle of the price range seen across the five Jan 16 Sell calls, consistent with the same overall level continuing into the next day.",4612,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+January 20 London-NY Overlap (17:26),"January 20, 2026 5:26 PM (GMT+7)",Buy,4732.5,4731,"VIP group BUY POSITION XAUUSD - OPEN: 4731-4732.50, SL: 4729, TP1: 4736, TP2: 4744, TP3: 4760. Note: only 3 TPs shown (no TP4).",4729,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 20 London-NY Overlap (17:41),"January 20, 2026 5:41 PM (GMT+7)",Buy,4726.5,4725,"VIP group BUY POSITION XAUUSD - OPEN: 4725-4726.50, SL: 4723, TP1: 4729.50, TP2: 4740, TP3: 4750. Note: displayed timestamp was edited 17:41, may not be original post time. Only 3 TPs shown (no TP4). Same session/direction re-call of 'January 20 London-NY Overlap (17:26)', entry ~6 points lower 15 min later - usual overlapping re-call pattern.",4723,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 21 London-NY Overlap (15:39),"January 21, 2026 3:39 PM (GMT+7)",Buy,4864,4863,"VIP group BUY POSITION XAUUSD - OPEN: 4863-4864, SL: 4860, TP1: 4868, TP2: 4876, TP3: 4889. Note: displayed timestamp was edited 15:39, may not be original post time. Only 3 TPs shown (no TP4).",4860,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 21 London-NY Overlap (17:20),"January 21, 2026 5:20 PM (GMT+7)",Buy,4863,4862,"VIP group BUY POSITION XAUUSD - OPEN: 4862-4863, SL: 4859, TP1: 4867, TP2: 4878, TP3: 4889. Note: only 3 TPs shown (no TP4). Same-session re-call of 'January 21 London-NY Overlap (15:39)' - nearly identical entry zone (~1 point lower), shares TP3 (4889).",4859,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+January 21 NY Afternoon/London Close (23:01),"January 21, 2026 11:01 PM (GMT+7)",Sell,4849,4848,"VIP group SELL POSITION XAUUSD - OPEN: 4848-4849, SL: 4853, TP1: 4844, TP2: 4836, TP3: 4820. Note: displayed timestamp was edited 23:01, may not be original post time. Only 3 TPs shown (no TP4). Direction flip from the two earlier Buy calls today (15:39, 17:20) - entry ~14-15 points below those. Lands 1 min into NY Afternoon/London Close (No Trade window).",4853,NY Afternoon/London Close,VIP group,SL Hit,XAUUSD,,,,,
+January 21 NY Afternoon/London Close (23:11),"January 21, 2026 11:11 PM (GMT+7)",Sell,4851,4850,"VIP group SELL POSITION XAUUSD - OPEN: 4850-4851, SL: 4855, TP1: 4846, TP2: 4838, TP3: 4820. Note: only 3 TPs shown (no TP4). Same-session re-call of 'January 21 NY Afternoon/London Close (23:01)' - entry ~2 points higher, shares TP3 (4820), 10 min later. Second same-day entry into the No Trade window.",4855,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+January 22 London-NY Overlap (15:31),"January 22, 2026 3:31 PM (GMT+7)",Sell,4828,4827,"VIP group SELL POSITION XAUUSD - OPEN: 4827-4828, SL: 4832, TP1: 4823, TP2: 4814, TP3: 4800. Note: only 3 TPs shown (no TP4).",4832,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+January 22 London-NY Overlap (16:17),"January 22, 2026 4:17 PM (GMT+7)",Sell,4835,4833,"VIP group SELL POSITION XAUUSD - OPEN: 4833-4835, SL: 4838, TP1: 4829, TP2: 4822, TP3: 4800. Note: only 3 TPs shown (no TP4). Same-session re-call of 'January 22 London-NY Overlap (15:31)' - entry ~6 points higher, shares TP3 exactly (4800).",4838,London-NY Overlap,VIP group,TP Hit,XAUUSD,4829,4822,4800,,
+January 22 NY Afternoon/London Close (23:31),"January 22, 2026 11:31 PM (GMT+7)",Sell,4877,4876,"VIP group SELL POSITION XAUUSD - OPEN: 4876-4877, SL: 4881, TP1: 4872, TP2: 4862, TP3: 4850. Note: only 3 TPs shown (no TP4). Same direction (Sell) as the two earlier London-NY Overlap calls today, but entry ~42-49 points higher and lands in NY Afternoon/London Close (No Trade window) - fourth day now with an entry in this window.",4881,NY Afternoon/London Close,VIP group,SL Hit,XAUUSD,,,,,
+January 23 London-NY Overlap (16:00),"January 23, 2026 4:00 PM (GMT+7)",Buy,4914,4913,"VIP group BUY POSITION XAUUSD - OPEN: 4913-4914, SL: 4909, TP1: 4918, TP2: 4929, TP3: 4950, TP4: 5000. UPDATE (16:26, same thread): ""Tp1 hit team then out break even"" - TP1 was hit, remaining position's SL moved to breakeven (~entry). Status set to 'TP Hit' to reflect this; original SL (4909) is preserved above per your rule of keeping structural SL distance from entry, not overwritten with the breakeven adjustment.",4909,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+January 23 London-NY Overlap (16:35),"January 23, 2026 4:35 PM (GMT+7)",Buy,4909,4907,"VIP group BUY POSITION XAUUSD - OPEN: 4907-4909, SL: 4904, TP1: 4913.50, TP2: 4925, TP3: 4950, TP4: 5000. Note: displayed timestamp was edited 16:35, may not be original post time. This is a fresh/lower re-entry after the 16:00 call reached TP1 and moved to breakeven - shares TP3/TP4 exactly (4950/5000) with 'January 23 London-NY Overlap (16:00)' but tighter SL and lower entry.",4904,London-NY Overlap,VIP group,TP Hit,XAUUSD,4913.5,4925,4950,5000,
+January 23 London-NY Overlap (17:54),"January 23, 2026 5:54 PM (GMT+7)",Buy,4928,4927,"VIP group: ""I got in again at 28 here's the trade for those that want to add more position"" BUY POSITION XAUUSD - OPEN: 4927-4928, SL: 4924, TP1: 4932, TP2: 4950, TP3: 4975, TP4: 5000. FLAG: explicitly framed by the poster as adding to an existing running position, not a standalone fresh call - third Buy of the day in this session, all part of the same building position rather than three independent ideas.",4924,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 26 NY Open (22:26),"January 26, 2026 10:26 PM (GMT+7)",Buy,5090,5089,"VIP group BUY POSITION XAUUSD - OPEN: 5089-5090, SL: 5085, TP1: 5095, TP2: 5105, TP3: 5115, TP4: 5150. Note: displayed timestamp was edited 22:26, may not be original post time.",5085,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+January 27 London-NY Overlap (15:57),"January 27, 2026 3:57 PM (GMT+7)",Buy,5082,5081,"VIP group BUY POSITION XAUUSD - OPEN: 5081-5082, SL: 5077, TP1: 5086, TP2: 5095, TP3: 5105, TP4: 5112",5077,London-NY Overlap,VIP group,TP Hit,XAUUSD,5086,5095,5105,5112,
+January 27 London-NY Overlap (18:37),"January 27, 2026 6:37 PM (GMT+7)",Buy,5086,5085,"VIP group BUY POSITION XAUUSD - OPEN: 5085-5086, SL: 5082.50, TP1: 5090, TP2: 5099, TP3: 5110, TP4: 5125. Note: same-session re-call of 'January 27 London-NY Overlap (15:57)' - entry ~4 points higher, 2h40m later, price progressed in the Buy direction between calls.",5082.5,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+January 29 Pre-NY Gap (20:00),"January 29, 2026 8:00 PM (GMT+7)",Buy,5534,5533,"VIP group BUY POSITION XAUUSD - OPEN: 5533-5534, SL: 5529, TP1: 5538, TP2: 5550, TP3: 5600. Note: only 3 TPs shown (no TP4).",5529,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+January 30 London-NY Overlap (17:36),"January 30, 2026 5:36 PM (GMT+7)",Sell,5070,5065,"VIP group SELL POSITION XAUUSD - OPEN: 5065-5070, SL: 5075, TP1: 5055, TP2: 5030, TP3: 5000, TP4: 4950. FLAG: entry (5065-5070) is ~465 points below the prior day's 'January 29 Pre-NY Gap (20:00)' Buy call (5533-5534) - an unusually large overnight move if both prices are accurate. Logged verbatim, worth verifying against the actual chart.",5075,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 3 London-NY Overlap (15:33),"February 3, 2026 3:33 PM (GMT+7)",Sell,4933,4930,"VIP group SELL POSITION XAUUSD - OPEN: 4930-4933, SL: 4942, TP1: 4925, TP2: 4900, TP3: 4866, TP4: 4820. Note: displayed timestamp was edited 15:33, may not be original post time.",4942,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 3 London-NY Overlap (15:45),"February 3, 2026 3:45 PM (GMT+7)",Sell,4938,4936,"VIP group SELL POSITION XAUUSD - OPEN: 4936-4938, SL: 4949, TP1: 4925, TP2: 4900, TP3: 4866, TP4: 4820. Note: identical TP1-4 to 'February 3 London-NY Overlap (15:33)', entry ~5-6 points higher, 12 min later - clear re-call of the same idea.",4949,London-NY Overlap,VIP group,TP Hit,XAUUSD,4925,4900,4866,4820,
+February 3 London-NY Overlap (16:56),"February 3, 2026 4:56 PM (GMT+7)",Sell,4920,4918,"VIP group SELL POSITION XAUUSD - OPEN: 4918-4920, SL: 4926, TP1: 4910, TP2: 4900, TP3: 4885, TP4: 4820. Note: third Sell call today in the same session, entry ~10-18 points below the two prior calls (price progressing down), shares TP2 (4900) and TP4 (4820) with both.",4926,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 4 London-NY Overlap (15:25),"February 4, 2026 3:25 PM (GMT+7)",Sell,5086,5084,"VIP group SELL POSITION XAUUSD - OPEN: 5084-5086, SL: 5092, TP1: 5078, TP2: 5064, TP3: 5052, TP4: 5038",5092,London-NY Overlap,VIP group,Breakeven,XAUUSD,5078,5064,5052,5038,
+February 5 London-NY Overlap (15:25),"February 5, 2026 3:25 PM (GMT+7)",Sell,4936,4934,"VIP group SELL POSITION XAUUSD - OPEN: 4934-4936, SL: 4944, TP1: 4925, TP2: 4910, TP3: 4898, TP4: 4850, [second line also read] TP4: 4806. Note: displayed timestamp was edited 15:25, may not be original post time. FLAG: original message labels both 4850 and 4806 as 'TP4' - logged the second one as TP5 since the values descend consistently with a 5-target ladder, but the raw label was literally repeated, not TP5 - likely a labeling typo in the original.",4944,London-NY Overlap,VIP group,TP Hit,XAUUSD,4925,4910,4898,4850,4806
+February 6 London-NY Overlap (15:58),"February 6, 2026 3:58 PM (GMT+7)",Buy,4861,4859,"VIP group BUY POSITION XAUUSD - OPEN: 4859-4861, SL: 4853, TP1: 4869, TP2: 4880, TP3: 4898, TP4: 4925. Note: displayed timestamp was edited 15:58, may not be original post time. First of 3 signals today, mixed direction.",4853,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 6 London-NY Overlap (17:18),"February 6, 2026 5:18 PM (GMT+7)",Sell,4873,4871,"VIP group SELL POSITION XAUUSD - OPEN: 4871-4873, SL: 4879, TP1: 4864, TP2: 4850, TP3: 4838, TP4: 4812. Note: direction flip from the 15:58 Buy call today - entry sits within that Buy's own TP range (below its TP3 of 4898). Second of 3 signals today.",4879,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 6 London-NY Overlap (17:30),"February 5, 2026 5:30 PM (GMT+7)",Buy,4857,4854,"VIP group BUY POSITION XAUUSD - OPEN: 4854-4857, SL: 4847, TP1: 4865, TP2: 4876, TP3: 4898, TP4: 4932. Note: displayed timestamp was edited 17:30, may not be original post time. Third signal today - flips back to Buy 12 min after the 17:18 Sell call, entry close to that Sell's entry zone. Shares TP3 (4898) with the earlier 15:58 Buy call.",4847,London-NY Overlap,VIP group,TP Hit,XAUUSD,4865,4876,,,
+February 9 London-NY Overlap (17:10),"February 9, 2026 5:10 PM (GMT+7)",Buy,5009,5006,"VIP group BUY POSITION XAUUSD - OPEN: 5006-5009, SL: 4999, TP1: 5016, TP2: 5027, TP3: 5042, TP4: 5067",4999,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 10 London-NY Overlap (16:31),"February 10, 2026 4:31 PM (GMT+7)",Sell,5054,5052,"VIP group SELL POSITION XAUUSD - OPEN: 5052-5054, SL: 5060, TP1: 5048, TP2: 5035, TP3: 5025, TP4: 5005o (as displayed). Note: displayed timestamp was edited 16:31, may not be original post time. FLAG: TP4 was shown as ""5005o"" - trailing character almost certainly a typo/stray mark, logged as 5005.",5060,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 10 London-NY Overlap (17:53),"February 10, 2026 5:53 PM (GMT+7)",Sell,5055,5053,"VIP group SELL POSITION XAUUSD - OPEN: 5053-5055, SL: 5059, TP1: 5047.50, TP2: 5037, TP3: 5026, TP4: 5005. Note: same-session re-call of 'February 10 London-NY Overlap (16:31)', entry ~1-2 points higher, shares TP4 exactly (5005), confirming the 5005 reading on the earlier flagged ""5005o"" entry was correct.",5059,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 12 London-NY Overlap (16:29),"February 12, 2026 4:29 PM (GMT+7)",Sell,5074,5072,"VIP group SELL POSITION XAUUSD - OPEN: 5072-5074, SL: 5078, TP1: 5068, TP2: 5058, TP3: 5045, TP4: 5029. Note: date corrected from stated 'January 12' to 'February 12' per user confirmation - price level (5068-5075 range) matched Feb 4-10 data, not the ~4600 level already logged for Jan 12.",5078,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 12 London-NY Overlap (17:05),"February 12, 2026 5:05 PM (GMT+7)",Sell,5075,5073,"VIP group SELL POSITION XAUUSD - OPEN: 5073-5075, SL: 5080, TP1: 5068, TP2: 5058, TP3: 5045, TP4: 5012. Note: displayed timestamp was edited 17:05, may not be original post time. Same-session re-call of 16:29 call - entry ~1 point higher, shares TP1/TP2 exactly (5068/5058), TP4 extended further (5012 vs 5029).",5080,London-NY Overlap,VIP group,TP Hit,XAUUSD,5068,5058,,,
+February 12 NY Open (22:38),"February 12, 2026 10:38 PM (GMT+7)",Sell,5069,5068,"VIP group SELL POSITION XAUUSD - OPEN: 5068-5069, SL: 5073, TP1: 5062, TP2: 5050, TP3: 5042, TP4: 5012. Note: displayed timestamp was edited 22:38, may not be original post time. Third same-direction Sell today, crossing into NY Open.",5073,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+February 12 NY Open (22:58),"February 12, 2026 10:58 PM (GMT+7)",Sell,5070,5069,"VIP group SELL POSITION XAUUSD - OPEN: 5069-5070, SL: 5075, TP1: 5062, TP2: 5050, TP3: 5042, TP4: 5012, TP5: 4950. Note: displayed timestamp was edited 22:58, may not be original post time. Fourth Sell today, same-session re-call of 22:38 - shares TP1-TP4 exactly with it, adds a TP5.",5075,NY Open,VIP group,TP Hit,XAUUSD,5062,5050,5042,5012,4950
+February 13 London-NY Overlap (16:20),"February 13, 2026 4:20 PM (GMT+7)",Buy,4980,4978,"VIP group BUY POSITION XAUUSD - OPEN: 4978-4980, SL: 4973, TP1: 4986, TP2: 4995, TP3: 5003, TP4: 5052",4973,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 13 NY Open (22:06),"February 13, 2026 10:06 PM (GMT+7)",Buy,4998,4996,"VIP group BUY POSITION XAUUSD - OPEN: 4996-4998, SL: 4988, TP1: 5008, TP2: 5020, TP3: 5035, TP4: 5050. Note: same direction as earlier 16:20 call, entry ~18 points higher, crossing into NY Open - continuation of the Buy thesis rather than a re-call in the same zone.",4988,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+February 13 NY Open (22:46),"February 13, 2026 10:46 PM (GMT+7)",Sell,5011,5009,"VIP group SELL POSITION XAUUSD - OPEN: 5009-5011, SL: 5018, TP1: 5000, TP2: 4990, TP3: 4978, TP4: 4950. Note: direction flip 40 min after the 22:06 Buy call - entry (5009-5011) sits right around that Buy's TP1 (5008), consistent with price hitting the Buy target then reversing.",5018,NY Open,VIP group,TP Hit,XAUUSD,5000,4990,4978,4950,
+February 16 NY Open (22:22),"February 16, 2026 10:22 PM (GMT+7)",Buy,4979,4976,"VIP group BUY POSITION XAUUSD - OPEN: 4976-79 (shorthand for 4976-4979), SL: 4973, TP1: 4984, TP2: 4991, TP3: 5000, TP4: 5012. Note: entry range was written in shorthand (""4976-79"" rather than ""4976-4979"") - interpreted as 4976-4979 given the group's consistent price level context, not a typo flag.",4973,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+February 17 London-NY Overlap (16:17),"February 17, 2026 4:17 PM (GMT+7)",Sell,4924,4922,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4922-4924
+SL : 4929
+TP1 : 4917
+TP2 : 4910
+TP3 : 4903
+TP4 : 4887",4929,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 17 NY Afternoon/London Close (23:21),"February 17, 2026 11:21 PM (GMT+7)",Sell,4889,4887,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4887-4889
+SL : 4894
+TP1 : 4882
+TP2 : 4874
+TP3 : 4854
+TP4 : 4833",4894,NY Afternoon/London Close,VIP group,TP Hit,XAUUSD,4882,4874,4854,4833,
+February 17 London-NY Overlap (18:33),"February 17, 2026 6:33 PM (GMT+7)",Sell,4928,4926,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4926-4928
+SL : 4932
+TP1 : 4921
+TP2 : 4913
+TP3 : 4908
+TP4 : 4890",4932,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 18 London-NY Overlap (15:32),"February 18, 2026 3:32 PM (GMT+7)",Buy,4926,4925,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4925-4926
+SL : 4921
+TP1 : 4931
+TP2 : 4941
+TP3 : 4950
+TP4 : 5000",4921,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 18 NY Open (22:31),"February 18, 2026 10:31 PM (GMT+7)",Sell,5004,5002,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5002-5004
+SL : 5009
+TP1 : 4997
+TP2 : 4985
+TP3 : 4970
+TP4 : 4956
+
+[Note: timestamp shown on message was ""edited 22:31"" — this may be an edit time, not necessarily the original post time.]",5009,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+February 18 London-NY Overlap (16:37),"February 18, 2026 4:37 PM (GMT+7)",Sell,4921,4918.5,"VIP group
+SELL POSITION XAUUSD 🙏
+
+OPEN : 4918.5-4921
+SL : 4924
+TP1 : 4913
+TP2 : 4908
+TP3 : 4898
+TP4 : 4888",4924,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 18 London-NY Overlap (17:18),"February 18, 2026 5:18 PM (GMT+7)",Sell,4921,4920,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4920-4921
+SL : 4926
+TP1 : 4915
+TP2 : 4909
+TP3 : 4898
+TP4 : 4888
+
+[Note: timestamp shown on message was ""edited 17:18"" — this may be an edit time, not necessarily the original post time.]",4926,London-NY Overlap,VIP group,TP Hit,XAUUSD,4915,4909,,,
+February 19 London-NY Overlap (17:34),"February 19, 2026 5:34 PM (GMT+7)",Buy,4989.5,4988,"VIP group
+BUY POSITION XAUUSD 🙏
+
+OPEN : 4988-4989.50
+SL : 4984
+TP1 : 4995
+TP2 : 5002
+TP3 : 5022
+TP4 : 5047
+
+[Note: timestamp shown on message was ""edited 17:34"" — this may be an edit time, not necessarily the original post time. Same entry zone and SL as the preceding 17:22 message, TP1 differs (4995 vs 4993) — likely the same call reissued/corrected rather than a distinct setup.]",4984,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+February 19 London-NY Overlap (16:47),"February 19, 2026 4:47 PM (GMT+7)",Buy,5003,5000,"VIP group
+BUY POSITION XAUUSD 🙏
+
+OPEN : 5000-5003
+SL ; 4997
+TP1 : 5008
+TP2 : 5014
+TP3 : 5022
+TP4 : 5047",4997,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 19 London-NY Overlap (17:22),"February 19, 2026 5:22 PM (GMT+7)",Buy,4989.5,4988,"VIP group
+BUY POSITION XAUUSD 🙏
+
+OPEN : 4988-4989.50
+SL : 4984
+TP1 : 4993
+TP2 : 5002
+TP3 : 5022
+TP4 : 5047
+
+[Note: same entry zone and SL as the following 17:34 message, TP1 differs (4993 vs 4995) — likely the same call reissued/corrected rather than a distinct setup.]",4984,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 20 London-NY Overlap (18:07),"February 20, 2026 6:07 PM (GMT+7)",Sell,5035,5033,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5033-5035
+SL : 5039
+TP1 : 5029
+TP2 : 5020
+TP3 : 5000
+TP4 : 4950",5039,London-NY Overlap,VIP group,TP Hit,XAUUSD,5029,5020,,,
+February 20 London-NY Overlap (16:25),"February 20, 2026 4:25 PM (GMT+7)",Sell,5038,5037,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5037-5038
+SL : 5042.5
+TP1 : 5032
+TP2 : 5020
+TP3 : 5000
+TP4 : 4950
+
+[Note: timestamp shown on message was ""edited 16:25"" — this may be an edit time, not necessarily the original post time.]",5042.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,5032,5020,,,
+February 26 London-NY Overlap (18:32),"February 26, 2026 6:32 PM (GMT+7)",Buy,5173,5172,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5172-5173
+SL : 5168
+TP1 : 5178
+TP2 : 5190
+TP3 : 5200
+TP4 : 5250",5168,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 26 London-NY Overlap (15:57),"February 26, 2026 3:57 PM (GMT+7)",Buy,5177,5175,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5175-5177
+SL : 5171
+TP1 : 5183
+TP2 : 5190
+TP3 : 5200
+TP4 : 5250
+
+[Flag: screenshot displays a ""February 20"" date overlay in the top-right corner, which conflicts with the 26 February date you gave for this batch. Logged under 26 February per your instruction — flagging the discrepancy for visibility.]",5171,London-NY Overlap,VIP group,TP Hit,XAUUSD,5183,5190,,,
+February 25 Pre-NY Gap (19:41),"February 25, 2026 7:41 PM (GMT+7)",Buy,5183,5181,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5181-5183
+SL : 5177
+TP1 : 5189
+TP2 : 5197
+TP3 : 5210
+TP4 : 5250",5177,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+February 23 London-NY Overlap (17:10),"February 23, 2026 5:10 PM (GMT+7)",Sell,5150,5148,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5148-5150
+SL : 5153.30
+TP1 : 5143.50
+TP2 : 5135
+TP3 : 5122
+TP4 : 5100",5153.3,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+February 26 NY Afternoon/London Close (23:48),"February 26, 2026 11:48 PM (GMT+7)",Sell,5182,5181,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5181-5182
+SL : 5187
+TP1 : 5175
+TP2 : 5165
+TP3 : 5150
+TP4 : 5100",5187,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+February 27 NY Open (21:31),"February 27, 2026 9:31 PM (GMT+7)",Sell,5232,5229,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5229-5232
+SL : 5235
+TP1 : 5224
+TP2 : 5215
+TP3 : 5200
+TP4 : 5150",5235,NY Open,VIP group,TP Hit,XAUUSD,5224,5215,,,
+March 2 London-NY Overlap (16:25),"March 2, 2026 4:25 PM (GMT+7)",Buy,5394,5392,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5392-5394
+SL : 5386
+TP1 : 5400
+TP2 : 5414
+TP3 : 5450
+TP4 : 5600
+
+[Note: timestamp shown on message was ""edited 16:25"" — this may be an edit time, not necessarily the original post time.]",5386,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 2 London-NY Overlap (15:11),"March 2, 2026 3:11 PM (GMT+7)",Buy,5408,5406,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5406-5408
+SL : 5401
+TP1 : 5414
+TP2 : 5426
+TP3 : 5450
+TP4 : 5600",5401,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 5 NY Open (22:52),"March 5, 2026 10:52 PM (GMT+7)",Buy,5090,5087,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5087-5090
+SL : 5080
+TP1 : 5097
+TP2 : 5109
+TP3 : 5130
+TP4 : 5170",5080,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+March 5 Pre-NY Gap (19:27),"March 5, 2026 7:27 PM (GMT+7)",Sell,5169,5166,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5166-5169
+SL : 5172
+TP1 : 5161
+TP2 : 5152
+TP3 : 5139
+TP4 : 5100
+TP5 : 5000
+
+[Note: timestamp shown on message was ""edited 19:27"" — this may be an edit time, not necessarily the original post time. Same TP3/TP4 as the preceding 18:21 message, entry shifted up slightly, SL widened — likely a reissue/continuation of the same call.]",5172,Pre-NY Gap,VIP group,TP Hit,XAUUSD,5161,5152,5139,5100,5000
+March 5 London-NY Overlap (18:21),"March 5, 2026 6:21 PM (GMT+7)",Sell,5166,5164,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5164-5166
+SL : 5169
+TP1 : 5159
+TP2 : 5150
+TP3 : 5139
+TP4 : 5100",5169,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 9 Asian Open (08:51),"March 9, 2026 8:51 AM (GMT+7)",Sell,5081,5077,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5077-5081
+SL : 5086
+TP1 : 5068
+TP2 : 5060
+TP3 : 5034
+TP4 : 4990
+
+[Note: timestamp shown on message was ""edited 08:51"" — this may be an edit time, not necessarily the original post time.]",5086,Asian Open,VIP group,TP Hit,XAUUSD,5068,5060,,,
+March 9 NY Open (21:16),"March 9, 2026 9:16 PM (GMT+7)",Buy,5069,5067,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5067-5069
+SL : 5060
+TP1 : 5077
+TP2 : 5090
+TP3 : 5100
+TP4 : 5150
+
+[Note: timestamp shown on message was ""edited 21:16"" — this may be an edit time, not necessarily the original post time.]",5060,NY Open,VIP group,TP Hit,XAUUSD,5077,5090,5100,5150,
+March 6 Asian Open (09:30),"March 6, 2026 9:30 AM (GMT+7)",Sell,5131,5129,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5129-5131
+SL : 5135
+TP1 : 5124
+TP2 : 5118
+TP3 : 5109
+TP4 : 5080",5135,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+March 9 NY Open (22:46),"March 9, 2026 10:46 PM (GMT+7)",Buy,5096,5094,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5094-5096
+SL : 5091
+TP1 : 5102
+TP2 : 5115
+TP3 : 5125
+TP4 : 5150",5091,NY Open,VIP group,TP Hit,XAUUSD,5102,5115,5125,5150,
+March 10 NY Open (21:49),"March 10, 2026 9:49 PM (GMT+7)",Sell,5210,5208,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5208-5210
+SL : 5215
+TP1 : 5202
+TP2 : 5195
+TP3 : 5185
+TP4 : 5170",5215,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+March 10 NY Afternoon/London Close (23:42),"March 10, 2026 11:42 PM (GMT+7)",Sell,5233,5231,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5231-5233
+SL : 5237
+TP1 : 5226
+TP2 : 5212
+TP3 : 5195
+TP4 : 5170
+
+[Note: identical TP1–TP4 to the preceding 22:51 message, entry/SL shifted slightly — likely the same call reissued.]",5237,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+March 10 NY Open (22:51),"March 10, 2026 10:51 PM (GMT+7)",Sell,5234,5232,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5232-5234
+SL : 5239
+TP1 : 5226
+TP2 : 5212
+TP3 : 5195
+TP4 : 5170
+
+[Note: same TP1–TP4 as the following 23:42 message, entry/SL shifted — likely a reissue of the same call.]",5239,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+March 11 Asian Open (08:08),"March 11, 2026 8:08 AM (GMT+7)",Sell,5220,5217,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5217-5220
+SL : 5223.5
+TP1 : 5211
+TP2 : 5200
+TP3 : 5193
+TP4 : 5170
+
+[Note: timestamp shown on message was ""edited 08:08"" — this may be an edit time, not necessarily the original post time.]",5223.5,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+March 11 Asian Open (09:15),"March 11, 2026 9:15 AM (GMT+7)",Buy,5202,5199,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5199-5202
+SL : 5195
+TP1 : 5208
+TP2 : 5215
+TP3 : 5230
+TP4 : 5250",5195,Asian Open,VIP group,TP Hit,XAUUSD,5208,5215,,,
+March 11 NY Open (22:51),"March 11, 2026 10:51 PM (GMT+7)",Buy,5170,5168,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 5168-5170
+SL : 5164
+TP1 : 5175
+TP2 : 5188
+TP3 : 5197
+TP4 : 5225",5164,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+March 12 Asian Open (08:30),"March 12, 2026 8:30 AM (GMT+7)",Sell,5159,5157,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5157-5159
+SL : 5162
+TP1 : 5152
+TP2 : 5141
+TP3 : 5130
+TP4 : 5100",5162,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+March 13 NY Open (22:30),"March 13, 2026 10:30 PM (GMT+7)",Sell,5068,5065,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5065-5068
+SL : 5072
+TP1 : 5059
+TP2 : 5050
+TP3 : 5038
+TP4 : 5000",5072,NY Open,VIP group,TP Hit,XAUUSD,5059,5050,5038,5000,
+March 13 Asian Open (08:20),"March 13, 2026 8:20 AM (GMT+7)",Sell,5117,5116.5,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5116.50-5117
+SL : 5121.50
+TP1 : 5111
+TP2 : 5101
+TP3 : 5090
+TP4 : 5075",5121.5,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+March 16 NY Open (21:14),"March 16, 2026 9:14 PM (GMT+7)",Sell,5032,5030,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 5030-5032
+SL : 5037
+TP1 : 5024
+TP2 : 5013
+TP3 : 4996
+TP4 : 4976
+
+[Note: timestamp shown on message was ""edited 21:14"" — this may be an edit time, not necessarily the original post time.]",5037,NY Open,VIP group,TP Hit,XAUUSD,5024,5013,4996,,
+March 16 NY Open (22:09),"March 16, 2026 10:09 PM (GMT+7)",Buy,4996,4995,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4995-4996
+SL : 4990
+TP1 : 5002.50
+TP2 : 5012
+TP3 : 5022
+TP4 : 5033
+
+[Note: timestamp shown on message was ""edited 22:09"" — this may be an edit time, not necessarily the original post time.]",4990,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+March 17 NY Afternoon/London Close (23:07),"March 17, 2026 11:07 PM (GMT+7)",Sell,4997,4995,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4995-4997
+SL : 5000
+TP1 : 4990
+TP2 : 4983
+TP3 : 4976
+TP4 : 4950",5000,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+March 20 NY Open (22:23),"March 20, 2026 10:23 PM (GMT+7)",Buy,4567,4565,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4565-4567
+SL : 4558
+TP1 : 4575
+TP2 : 4600
+TP3 : 4625
+TP4 : 4725",4558,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+March 23 London-NY Overlap (17:31),"March 23, 2026 5:31 PM (GMT+7)",Sell,4267,4265,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4265-4267
+SL : 4275
+TP1 : 4255
+TP2 : 4229
+TP3 : 4204
+TP4 : 4123
+
+[Note: timestamp shown on message was ""edited 17:31"" — this may be an edit time, not necessarily the original post time.]",4275,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 24 London-NY Overlap (17:25),"March 24, 2026 5:25 PM (GMT+7)",Sell,4428,4426,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4426-4428
+SL : 4433
+TP1 : 4418
+TP2 : 4405
+TP3 : 4384
+TP4 : 4355
+
+[Note: timestamp shown on message was ""edited 17:25"" — this may be an edit time, not necessarily the original post time.]",4433,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 26 Pre-NY Gap (19:34),"March 26, 2026 7:34 PM (GMT+7)",Sell,4438,4436,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4436-4438
+SL : 4445
+TP1 : 4429
+TP2 : 4418
+TP3 : 4400
+TP4 : 4350",4445,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+March 26 London-NY Overlap (16:55),"March 26, 2026 4:55 PM (GMT+7)",Buy,4426,4424,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4424-4426
+SL : 4417
+TP1 : 4435
+TP2 : 4445
+TP3 : 4458
+TP4 : 4500
+
+[Note: timestamp shown on message was ""edited 16:55"" — this may be an edit time, not necessarily the original post time. Same direction, close entry/SL to the preceding 16:11 message — possibly a reissue.]",4417,London-NY Overlap,VIP group,TP Hit,XAUUSD,4435,4445,,,
+March 26 London-NY Overlap (16:11),"March 26, 2026 4:11 PM (GMT+7)",Buy,4428,4426,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4426-4428
+SL : 4418
+TP1 : 4437
+TP2 : 4458
+TP3 : 4481
+TP4 : 4529",4418,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+March 26 London-NY Overlap (18:17),"March 26, 2026 6:17 PM (GMT+7)",Sell,4445,4443,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4443-4445
+SL : 4450
+TP1 : 4435
+TP2 : 4426
+TP3 : 4415
+TP4 : 4400
+
+[Note: timestamp shown on message was ""edited 18:17"" — this may be an edit time, not necessarily the original post time.]",4450,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+March 27 NY Open (21:40),"March 27, 2026 9:40 PM (GMT+7)",Sell,4462,4460,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4460-4462
+SL : 4469
+TP1 : 4452
+TP2 : 4441
+TP3 : 4430
+TP4 : 4400",4469,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+March 31 NY Open (21:28),"March 31, 2026 9:28 PM (GMT+7)",Buy,4614,4612,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4612-4614
+SL : 4603
+TP1 : 4621
+TP2 : 4630
+TP3 : 4650
+TP4 : 4700
+
+[Note: timestamp shown on message was ""edited 21:28"" — this may be an edit time, not necessarily the original post time.]",4603,NY Open,VIP group,TP Hit,XAUUSD,4621,4630,,,
+April 1 London-NY Overlap (15:15),"April 1, 2026 3:15 PM (GMT+7)",Buy,4721,4719,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4719-4721
+SL : 4713
+TP1 : 4727
+TP2 : 4738
+TP3 : 4757
+TP4 : 4803
+
+[Note: timestamp shown on message was ""edited 15:15"" — this may be an edit time, not necessarily the original post time.]",4713,London-NY Overlap,VIP group,TP Hit,XAUUSD,4727,4738,,,
+April 1 NY Open (21:36),"April 1, 2026 9:36 PM (GMT+7)",Sell,4743,4742,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4742-4743
+SL : 4750
+TP1 : 4735
+TP2 : 4726
+TP3 : 4700
+TP4 : 4689
+
+[Note: timestamp shown on message was ""edited 21:36"" — this may be an edit time, not necessarily the original post time.]",4750,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+April 1 NY Open (22:17),"April 1, 2026 10:17 PM (GMT+7)",Sell,4770,4767,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4767-4770
+SL : 4775
+TP1 : 4760
+TP2 : 4748
+TP3 : 4728
+TP4 : 4700
+
+[Note: timestamp shown on message was ""edited 22:17"" — this may be an edit time, not necessarily the original post time.]",4775,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+April 2 London-NY Overlap (15:05),"April 2, 2026 3:05 PM (GMT+7)",Sell,4643,4641,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4641-4643
+SL : 4650
+TP1 : 4630
+TP2 : 4625
+TP3 : 4600
+TP4 : 4550
+
+[Note: timestamp shown on message was ""edited 15:05"" — this may be an edit time, not necessarily the original post time. Same entry zone and TP4 as the following 15:41 message — likely a reissue.]",4650,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 2 London-NY Overlap (15:41),"April 2, 2026 3:41 PM (GMT+7)",Sell,4642,4641,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4641-4642
+SL : 4649
+TP1 : 4633
+TP2 : 4619
+TP3 : 4603
+TP4 : 4550
+
+[Note: timestamp shown on message was ""edited 15:41"" — this may be an edit time, not necessarily the original post time. Same entry zone and TP4 as the preceding 15:05 message — likely a reissue.]",4649,London-NY Overlap,VIP group,TP Hit,XAUUSD,4633,4619,4603,,
+April 6 NY Open (21:14),"April 6, 2026 9:14 PM (GMT+7)",Buy,4670,4668,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4668-4670
+SL : 4660
+TP1 : 4678
+TP2 : 4689
+TP3 : 4701
+TP4 : 4750",4660,NY Open,VIP group,TP Hit,XAUUSD,4678,4689,,,
+April 7 NY Open (22:39),"April 7, 2026 10:39 PM (GMT+7)",Sell,4648,4646,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4646-4648
+SL : 4656
+TP1 : 4641
+TP2 : 4628
+TP3 : 4613
+TP4 : 4602
+
+[Note: timestamp shown on message was ""edited 22:39"" — this may be an edit time, not necessarily the original post time.]",4656,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 7 London-NY Overlap (15:01),"April 7, 2026 3:01 PM (GMT+7)",Buy,4645,4643,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4643-4645
+SL : 4639
+TP1 : 4650
+TP2 : 4659
+TP3 : 4672
+TP4 : 4698
+
+[Note: timestamp shown on message was ""edited 15:01"" — this may be an edit time, not necessarily the original post time.]",4639,London-NY Overlap,VIP group,TP Hit,XAUUSD,4650,4659,4672,,
+April 8 London-NY Overlap (14:58),"April 8, 2026 2:58 PM (GMT+7)",Sell,4818,4816,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4816-4818
+SL : 4822
+TP1 : 4810
+TP2 : 4795
+TP3 : 4780
+TP4 : 4750
+
+[Note: identical OPEN and TP1–TP4 to the following 15:10 message, SL differs by only 0.5 (4822 vs 4821.5) — near-identical reissue, likely a minor SL correction on the same call.]",4822,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 8 London-NY Overlap (15:10),"April 8, 2026 3:10 PM (GMT+7)",Sell,4818,4816,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4816-4818
+SL : 4821.50
+TP1 : 4810
+TP2 : 4795
+TP3 : 4780
+TP4 : 4750
+
+[Note: timestamp shown on message was ""edited 15:10"" — this may be an edit time, not necessarily the original post time. Identical OPEN and TP1–TP4 to the preceding 14:58 message, SL differs by only 0.5 (4821.5 vs 4822) — near-identical reissue, likely a minor SL correction on the same call.]",4821.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4810,4795,4780,4750,
+April 9 London-NY Overlap (15:15),"April 9, 2026 3:15 PM (GMT+7)",Sell,4725,4723,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4723-4725
+SL : 4732
+TP1 : 4717
+TP2 : 4704
+TP3 : 4692
+TP4 : 4650
+
+[Note: timestamp shown on message was ""edited 15:15"" — this may be an edit time, not necessarily the original post time.]",4732,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 9 NY Open (21:45),"April 9, 2026 9:45 PM (GMT+7)",Buy,4758,4754,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4754-4758
+SL : 4747
+TP1 : 4765
+TP2 : 4774
+TP3 : 4785
+TP4 : 4797
+
+[Note: timestamp shown on message was ""edited 21:45"" — this may be an edit time, not necessarily the original post time.]",4747,NY Open,VIP group,TP Hit,XAUUSD,4765,4774,4785,4797,
+April 9 London-NY Overlap (15:57),"April 9, 2026 3:57 PM (GMT+7)",Sell,4729,4727,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4727-4729
+SL : 4733.5
+TP1 : 4722
+TP2 : 4708
+TP3 : 4700
+TP4 : 4682",4733.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 10 NY Open (21:10),"April 10, 2026 9:10 PM (GMT+7)",Sell,4776,4775,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4775-4776
+SL : 4781
+TP1 : 4768
+TP2 : 4760
+TP3 : 4750
+TP4 : 4704",4781,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 10 NY Open (21:37),"April 10, 2026 9:37 PM (GMT+7)",Sell,4791,4789,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4789-4791
+SL : 4795
+TP1 : 4783
+TP2 : 4775
+TP3 : 4755
+TP4 : 4737
+
+[Note: timestamp shown on message was ""edited 21:37"" — this may be an edit time, not necessarily the original post time.]",4795,NY Open,VIP group,TP Hit,XAUUSD,4783,4775,4755,4737,
+April 13 NY Open (22:17),"April 13, 2026 10:17 PM (GMT+7)",Buy,4708,4707,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4707-4708
+SL : 4701
+TP1 : 4714
+TP2 : 4722
+TP3 : 4739
+TP4 : 4777
+
+[Note: timestamp shown on message was ""edited 22:17"" — this may be an edit time, not necessarily the original post time.]",4701,NY Open,VIP group,TP Hit,XAUUSD,4714,4722,4739,4777,
+April 13 London-NY Overlap (17:34),"April 13, 2026 5:34 PM (GMT+7)",Buy,4713,4711,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4711-4713
+SL : 4708
+TP1 : 4719
+TP2 : 4729
+TP3 : 4740
+TP4 : 4758
+
+[Note: identical TP2–TP4 to the preceding 16:51 message — likely a reissue.]",4708,London-NY Overlap,VIP group,TP Hit,XAUUSD,4719,4729,,,
+April 13 NY Open (21:38),"April 13, 2026 9:38 PM (GMT+7)",Buy,4717,4714,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4714-4717
+SL : 4709
+TP1 : 4722
+TP2 : 4732
+TP3 : 4745
+TP4 : 4760",4709,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 13 London-NY Overlap (16:51),"April 13, 2026 4:51 PM (GMT+7)",Buy,4716,4714,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4714-4716
+SL : 4710.5
+TP1 : 4721
+TP2 : 4729
+TP3 : 4740
+TP4 : 4758
+
+[Note: identical TP2–TP4 to the following 17:34 message — likely a reissue.]",4710.5,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 14 London-NY Overlap (15:23),"April 14, 2026 3:23 PM (GMT+7)",Sell,4779,4777,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4777-4779
+SL : 4783
+TP1 : 4772
+TP2 : 4760
+TP3 : 4738
+TP4 : 4712
+
+[Note: near-identical to the preceding 14:54 and following 15:50 messages — same TP3/TP4 across all three, entries stepping up progressively. Likely reissues of the same call.]",4783,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 14 London-NY Overlap (15:50),"April 14, 2026 3:50 PM (GMT+7)",Sell,4786,4784,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4784-4786
+SL : 4790
+TP1 : 4770
+TP2 : 4762
+TP3 : 4738
+TP4 : 4712
+
+[Note: timestamp shown on message was ""edited 15:50"" — this may be an edit time, not necessarily the original post time. Near-identical to the preceding 14:54 and 15:23 messages — same TP3/TP4 across all three, entries stepping up progressively. Likely reissues of the same call.]",4790,London-NY Overlap,VIP group,TP Hit,XAUUSD,4770,4762,,,
+April 14 London-NY Overlap (14:54),"April 14, 2026 2:54 PM (GMT+7)",Sell,4778,4776,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4776-4778
+SL : 4782
+TP1 : 4770
+TP2 : 4760
+TP3 : 4738
+TP4 : 4712
+
+[Note: near-identical to the following 15:23 and 15:50 messages — same TP3/TP4 across all three, entries stepping up progressively. Likely reissues of the same call.]",4782,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 15 London-NY Overlap (14:34),"April 15, 2026 2:34 PM (GMT+7)",Buy,4811,4809,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4809-4811
+SL : 4804
+TP1 : 4817
+TP2 : 4826
+TP3 : 4845
+TP4 : 4864
+
+[Flag: 100% identical entry/SL/TP to the following 15:04 message (only view/reaction counts and timestamp differ). Logged as two separate rows since they appear to be two distinct posts in the feed, but this is a full duplicate of the call, not just a partial reissue.]",4804,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 15 London-NY Overlap (15:04),"April 15, 2026 3:04 PM (GMT+7)",Buy,4811,4809,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4809-4811
+SL : 4804
+TP1 : 4817
+TP2 : 4826
+TP3 : 4845
+TP4 : 4864
+
+[Flag: timestamp shown on message was ""edited 15:04"" — this may be an edit time, not necessarily the original post time. 100% identical entry/SL/TP to the preceding 14:34 message (only view/reaction counts and timestamp differ). Logged as two separate rows since they appear to be two distinct posts in the feed, but this is a full duplicate of the call, not just a partial reissue.]",4804,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 15 NY Open (22:18),"April 15, 2026 10:18 PM (GMT+7)",Buy,4807,4805,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4805-4807
+SL : 4800
+TP1 : 4811
+TP2 : 4819
+TP3 : 4827
+TP4 : 4861",4800,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+April 16 NY Open (21:34),"April 16, 2026 9:34 PM (GMT+7)",Buy,4796,4794,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4794-4796
+SL : 4791
+TP1 : 4812
+TP2 : 4822
+TP3 : 4838
+TP4 : 4861
+
+[Note: timestamp shown on message was ""edited 21:34"" — this may be an edit time, not necessarily the original post time.]",4791,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+April 16 London-NY Overlap (15:24),"April 16, 2026 3:24 PM (GMT+7)",Sell,4812,4811,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4811-4812
+SL : 4816
+TP1 : 4807
+TP2 : 4800
+TP3 : 4788
+TP4 : 4768
+
+[Note: timestamp shown on message was ""edited 15:24"" — this may be an edit time, not necessarily the original post time.]",4816,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 16 London-NY Overlap (16:40),"April 16, 2026 4:40 PM (GMT+7)",Buy,4812,4810,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4810-4812
+SL : 4806.5
+TP1 : 4817
+TP2 : 4828
+TP3 : 4838
+TP4 : 4850
+
+[Note: timestamp shown on message was ""edited 16:40"" — this may be an edit time, not necessarily the original post time. Entry zone overlaps with the preceding 15:24 Sell call — direction flip at nearly the same price level.]",4806.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 17 London-NY Overlap (16:45),"April 17, 2026 4:45 PM (GMT+7)",Sell,4796,4795,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4795-4796
+SL : 4801
+TP1 : 4789
+TP2 : 4782
+TP3 : 4772
+TP4 : 4731
+
+[Note: entry zone overlaps with the preceding 15:58 Buy call — direction flip at nearly the same price level.]",4801,London-NY Overlap,VIP group,TP Hit,XAUUSD,4789,4782,,,
+April 17 London-NY Overlap (15:58),"April 17, 2026 3:58 PM (GMT+7)",Buy,4795,4793,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4793-4795
+SL : 4790
+TP1 : 4800
+TP2 : 4808
+TP3 : 4820
+TP4 : 4831",4790,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 20 NY Open (22:18),"April 20, 2026 10:18 PM (GMT+7)",Buy,4798,4796,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4796-4798
+SL : 4792
+TP1 : 4804
+TP2 : 4814
+TP3 : 4826
+TP4 : 4833
+
+[Note: timestamp shown on message was ""edited 22:18"" — this may be an edit time, not necessarily the original post time. Same direction and close entry to the preceding 17:05 message — likely a continuation/reissue.]",4792,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 20 London-NY Overlap (16:24),"April 20, 2026 4:24 PM (GMT+7)",Sell,4797,4795,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4795-4797
+SL : 4800
+TP1 : 4789
+TP2 : 4780
+TP3 : 4767
+TP4 : 4745
+
+[Note: timestamp shown on message was ""edited 16:24"" — this may be an edit time, not necessarily the original post time. Near-identical TP4 to the preceding 15:17 message — likely a reissue.]",4800,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 20 London-NY Overlap (17:05),"April 20, 2026 5:05 PM (GMT+7)",Buy,4791.5,4790,"VIP group
+BUY POSITION XAUUSD 🔴
+
+OPEN : 4790-4791.50
+SL : 4788.50
+TP1 : 4797
+TP2 : 4803
+TP3 : 4811.50
+TP4 : 4831
+
+[Note: timestamp shown on message was ""edited 17:05"" — this may be an edit time, not necessarily the original post time. Entry zone overlaps with the preceding 16:24 Sell call — direction flip at nearly the same price level, continuing the pattern from the last two days.]",4788.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 20 London-NY Overlap (15:17),"April 20, 2026 3:17 PM (GMT+7)",Sell,4789,4788,"VIP group
+SELL POSITION XAUUSD 🔴
+
+OPEN : 4788-4789
+SL : 4793
+TP1 : 4784
+TP2 : 4775
+TP3 : 4766
+TP4 : 4745
+
+[Note: timestamp shown on message was ""edited 15:17"" — this may be an edit time, not necessarily the original post time. Near-identical TP3/TP4 to the following 16:24 message — likely a reissue.]",4793,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 21 London-NY Overlap (15:04),"April 21, 2026 3:04 PM (GMT+7)",Sell,4789,4787,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4787-4789
+SL : 4793
+TP1 : 4781
+TP2 : 4774
+TP3 : 4760
+TP4 : 4748
+
+[Note: timestamp shown on message was ""edited 15:04"" — this may be an edit time, not necessarily the original post time. Same entry zone, SL, TP1, TP3, TP4 as the following 16:00 message (TP2 differs by 1) — likely a reissue. Also related to the 16:37 message which steps the entry down further while keeping the same TP4 — part of a same-direction reissue chain across the afternoon.]",4793,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 21 London-NY Overlap (16:00),"April 21, 2026 4:00 PM (GMT+7)",Sell,4789,4786,"VIP group
+SELL POSITION XAUUSD 🎃
+
+OPEN : 4786-4789
+SL : 4793
+TP1 : 4781
+TP2 : 4775
+TP3 : 4760
+TP4 : 4748
+
+[Note: timestamp shown on message was ""edited 16:00"" — this may be an edit time, not necessarily the original post time. Near-identical to the preceding 15:04 message (same SL, TP1, TP3, TP4; TP2 differs by 1) — likely a reissue. Also related to the following 16:37 message which steps the entry down further while keeping the same TP4 — part of a same-direction reissue chain across the afternoon.]",4793,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 21 London-NY Overlap (16:37),"April 21, 2026 4:37 PM (GMT+7)",Sell,4786,4784,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4784-4786
+SL : 4789
+TP1 : 4780
+TP2 : 4774
+TP3 : 4765
+TP4 : 4748
+
+[Note: timestamp shown on message was ""edited 16:37"". Entry stepped down from the preceding 15:04 and 16:00 messages, keeping the same TP4 (4748) — final leg of a same-direction reissue chain across the afternoon (15:04 → 16:00 → 16:37).]",4789,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 22 London-NY Overlap (14:38),"April 22, 2026 2:38 PM (GMT+7)",Sell,4768,4766,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4766-4768
+SL : 4771
+TP1 : 4760
+TP2 : 4751
+TP3 : 4740
+TP4 : 4708
+
+[Note: timestamp shown on message was ""edited 14:38"" — this may be an edit time, not necessarily the original post time.]",4771,London-NY Overlap,VIP group,TP Hit,XAUUSD,4760,4751,4740,4708,
+April 23 London-NY Overlap (15:11),"April 23, 2026 3:11 PM (GMT+7)",Sell,4721,4719,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4719-4721
+SL : 4725.5
+TP1 : 4714
+TP2 : 4708
+TP3 : 4700
+TP4 : 4674
+
+[Note: timestamp shown on message was ""edited 15:11"" — this may be an edit time, not necessarily the original post time. Same TP3/TP4 as the same-day 22:06 NY Open message, entry stepped up — possible same-narrative continuation later in the session, not a same-window reissue.]",4725.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4714,4708,4700,,
+April 23 NY Open (22:06),"April 23, 2026 10:06 PM (GMT+7)",Sell,4733,4731,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4731-4733
+SL : 4737
+TP1 : 4726
+TP2 : 4715
+TP3 : 4700
+TP4 : 4674
+
+[Note: timestamp shown on message was ""edited 22:06"" — this may be an edit time, not necessarily the original post time. Same TP3/TP4 as the earlier same-day 15:11 London-NY Overlap message, entry stepped up — possible same-narrative continuation, not a same-window reissue.]",4737,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+April 24 NY Open (21:42),"April 24, 2026 9:42 PM (GMT+7)",Sell,4732,4730,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4730-4732
+SL : 4736
+TP1 : 4724
+TP2 : 4712
+TP3 : 4700
+TP4 : 4689
+
+[Note: timestamp shown on message was ""edited 21:42"" — this may be an edit time, not necessarily the original post time.]",4736,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 28 NY Open (21:55),"April 28, 2026 9:55 PM (GMT+7)",Buy,4564,4560,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4560-4564
+SL : 4557
+TP1 : 4570
+TP2 : 4578
+TP3 : 4592
+TP4 : 4609
+
+[Note: timestamp shown on message was ""edited 21:55"" — this may be an edit time, not necessarily the original post time.]",4557,NY Open,VIP group,TP Hit,XAUUSD,4570,4578,4592,4609,
+April 30 NY Open (22:05),"April 30, 2026 10:05 PM (GMT+7)",Sell,4620,4618,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4618-4620
+SL : 4626
+TP1 : 4612
+TP2 : 4600
+TP3 : 4585
+TP4 : 4575
+
+[Note: timestamp shown on message was ""edited 22:05"" — this may be an edit time, not necessarily the original post time. Same TP4 (4575) as the 15:18, 15:40, and 16:36 messages this same day — final leg of a 4-signal same-day cluster spanning London-NY Overlap into NY Open, all sharing TP4 4575.]",4626,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+April 30 London-NY Overlap (15:18),"April 30, 2026 3:18 PM (GMT+7)",Sell,4623,4620,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4620-4623
+SL : 4630
+TP1 : 4610
+TP2 : 4609
+TP3 : 4596
+TP4 : 4575
+
+[Note: timestamp shown on message was ""edited 15:18"" — this may be an edit time, not necessarily the original post time. Same TP4 (4575) as the 15:40, 16:36, and 22:05 messages this same day — part of a 4-signal same-day cluster, though entries move non-monotonically (down at 15:40, back up at 16:36) rather than a clean progressive reissue.]",4630,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+April 30 London-NY Overlap (15:40),"April 30, 2026 3:40 PM (GMT+7)",Sell,4618,4616,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4616-4618
+SL : 4622
+TP1 : 4610
+TP2 : 4600
+TP3 : 4592
+TP4 : 4575
+
+[Note: timestamp shown on message was ""edited 15:40"" — this may be an edit time, not necessarily the original post time. Same TP4 (4575) as the 15:18, 16:36, and 22:05 messages this same day — part of a 4-signal same-day cluster; entry here is lower than the preceding 15:18 call, then the 16:36 call moves back up — non-monotonic.]",4622,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+April 30 London-NY Overlap (16:36),"April 30, 2026 4:36 PM (GMT+7)",Sell,4628,4625,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4625-4628
+SL : 4632
+TP1 : 4618
+TP2 : 4610
+TP3 : 4600
+TP4 : 4575
+
+[Note: timestamp shown on message was ""edited 16:36"" — this may be an edit time, not necessarily the original post time. Same TP4 (4575) as the 15:18, 15:40, and 22:05 messages this same day — part of a 4-signal same-day cluster; entry here is higher than both preceding calls, reversing the 15:18→15:40 move down.]",4632,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 1 Pre-NY Gap (19:08),"May 1, 2026 7:08 PM (GMT+7)",Buy,4578,4576,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4576-4578
+SL : 4572.87
+TP1 : 4584
+TP2 : 4592
+TP3 : 4603
+TP4 : 4616
+TP5 : 4653
+
+[Note: timestamp shown on message was ""edited 19:08"" — this may be an edit time, not necessarily the original post time. Falls at the very start of the Pre-NY Gap window (19:00–21:00 per Bills Signals convention) — flagging the boundary proximity. Buy, same direction and higher entry than the same-day 17:08 message, and this is the first signal in this batch to include a TP5.]",4572.87,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4584,4592,4603,4616,4653
+May 1 London-NY Overlap (17:08),"May 1, 2026 5:08 PM (GMT+7)",Buy,4565,4564,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4564-4565
+SL : 4560
+TP1 : 4570
+TP2 : 4575
+TP3 : 4583
+TP4 : 4607
+
+[Note: timestamp shown on message was ""edited 17:08"" — this may be an edit time, not necessarily the original post time. Direction flips from the recent run of Sell calls on April 30. Related to the same-day 19:08 message which continues Buy at a higher entry — possible same-narrative continuation into the next session, not a same-window reissue.]",4560,London-NY Overlap,VIP group,TP Hit,XAUUSD,4570,4575,,,
+May 4 NY Open (21:46),"May 4, 2026 9:46 PM (GMT+7)",Sell,4578,4576,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4576-4578
+SL : 4583.5
+TP1 : 4570
+TP2 : 4562
+TP3 : 4554
+TP4 : 4533
+
+[Note: timestamp shown on message was ""edited 21:46"" — this may be an edit time, not necessarily the original post time. Direction flips back to Sell from the two Buy calls on May 1.]",4583.5,NY Open,VIP group,TP Hit,XAUUSD,4570,4562,4554,4533,
+May 5 London-NY Overlap (16:08),"May 5, 2026 4:08 PM (GMT+7)",Sell,4558,4556.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4556.50-4558
+SL : 4561.50
+TP1 : 4552
+TP2 : 4543
+TP3 : 4523
+TP4 : 4503
+
+[Note: timestamp shown on message was ""edited 16:08"" — this may be an edit time, not necessarily the original post time. Same TP3/TP4 as the preceding 15:39 message — likely a reissue, entry stepped up.]",4561.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 5 London-NY Overlap (15:39),"May 5, 2026 3:39 PM (GMT+7)",Sell,4553,4551,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4551-4553
+SL : 4558.50
+TP1 : 4545
+TP2 : 4536
+TP3 : 4523
+TP4 : 4503
+
+[Note: no ""edited"" tag visible on this message — 15:39 appears to be the original post time rather than an edit time, unlike most other entries in this log which show an edited timestamp. Same TP3/TP4 as the following 16:08 message — likely a reissue.]",4558.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 5 Pre-NY Gap (20:02),"May 5, 2026 8:02 PM (GMT+7)",Buy,4567,4564,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4564-4567
+SL : 4561
+TP1 : 4572
+TP2 : 4580
+TP3 : 4590
+TP4 : 4600
+
+[Note: timestamp shown on message was ""edited 20:02"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention (falls before the 21:00 threshold used for NY Open in this log). Direction flips to Buy from the two preceding Sell calls same day.]",4561,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4572,4580,,,
+May 6 London-NY Overlap (16:53),"May 6, 2026 4:53 PM (GMT+7)",Buy,4698,4696,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4696-4698
+SL : 4691.5
+TP1 : 4704
+TP2 : 4712
+TP3 : 4724
+TP4 : 4742
+
+[Note: timestamp shown on message was ""edited 16:53"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the preceding same-day Sell call, at a notably higher price level (4696-4698 vs 4678-4680) — not an overlapping-price flip like some earlier examples in this log.]",4691.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 6 London-NY Overlap (15:08),"May 6, 2026 3:08 PM (GMT+7)",Sell,4680,4678,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4678-4680
+SL : 4683.5
+TP1 : 4673
+TP2 : 4666
+TP3 : 4650
+TP4 : 4600
+
+[Note: timestamp shown on message was ""edited 15:08"" — this may be an edit time, not necessarily the original post time.]",4683.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 7 Pre-NY Gap (19:21),"May 7, 2026 7:21 PM (GMT+7)",Sell,4745,4743,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4743-4745
+SL : 4749
+TP1 : 4737
+TP2 : 4730
+TP3 : 4716
+TP4 : 4692
+
+[Note: timestamp shown on message was ""edited 19:21"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention. Same TP2–TP4 as the preceding 15:13 message and same TP4 as 14:30 — final leg of a 3-signal same-day Sell cluster.]",4749,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+May 7 NY Open (21:43),"May 7, 2026 9:43 PM (GMT+7)",Buy,4752.5,4751,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4751-4752.50
+SL : 4747
+TP1 : 4758
+TP2 : 4766
+TP3 : 4778
+TP4 : 4800
+
+[Note: timestamp shown on message was ""edited 21:43"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the three preceding same-day Sell calls, entry sits right around the SL levels of those earlier Sell calls (4749–4750.5) — price reversal at a level that had capped the prior sells.]",4747,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 7 London-NY Overlap (15:13),"May 7, 2026 3:13 PM (GMT+7)",Sell,4748,4746,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4746-4748
+SL : 4753.5
+TP1 : 4738
+TP2 : 4730
+TP3 : 4716
+TP4 : 4692
+
+[Note: timestamp shown on message was ""edited 15:13"" — this may be an edit time, not necessarily the original post time. Same TP4 (4692) as the preceding 14:30 and following 19:21 messages this same day — part of a 3-signal same-day cluster; entry stepped up from 14:30.]",4753.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4738,4730,,,
+May 7 London-NY Overlap (14:30),"May 7, 2026 2:30 PM (GMT+7)",Sell,4743,4741,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4741-4743
+SL : 4750.5
+TP1 : 4733
+TP2 : 4725
+TP3 : 4715
+TP4 : 4692
+
+[Note: no ""edited"" tag visible on this message — 14:30 appears to be the original post time. Same TP4 (4692) as the 15:13 and 19:21 messages this same day — part of a 3-signal same-day cluster.]",4750.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 8 London-NY Overlap (15:54),"May 8, 2026 3:54 PM (GMT+7)",Sell,4720,4718,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4718-4720
+SL : 4724
+TP1 : 4714
+TP2 : 4708
+TP3 : 4700
+TP4 : 4692
+
+[Note: no ""edited"" tag visible on this message — 15:54 appears to be the original post time.]",4724,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 8 NY Open (21:39),"May 8, 2026 9:39 PM (GMT+7)",Buy,4723,4721,"VIP group
+BUY POSITION XAUUSD 🎃
+
+OPEN : 4721-4723
+SL : 4714.5
+TP1 : 4729
+TP2 : 4738
+TP3 : 4750
+TP4 : 4775
+
+[Note: timestamp shown on message was ""edited 21:39"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the earlier same-day Sell call; entry (4721-4723) sits right at/above the earlier Sell's entry zone (4718-4720) — near-overlapping-price flip.]",4714.5,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+May 11 London-NY Overlap (15:07),"May 11, 2026 3:07 PM (GMT+7)",Buy,4669,4668,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4668-4669
+SL : 4664
+TP1 : 4674
+TP2 : 4680
+TP3 : 4690
+TP4 : 4699
+
+[Note: timestamp shown on message was ""edited 15:07"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the preceding 14:46 Sell call, entry sits close to that Sell's TP1 (4667) — reversal near a prior target level. Second of five same-direction Buy calls this day.]",4664,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 11 NY Open (21:20),"May 11, 2026 9:20 PM (GMT+7)",Buy,4727,4725,"VIP group
+BUY POSITION XAUUSD 🎃
+
+OPEN : 4725-4727
+SL : 4718.5
+TP1 : 4734
+TP2 : 4742
+TP3 : 4750
+TP4 : 4800
+
+[Note: no ""edited"" tag visible on this message — 21:20 appears to be the original post time. Fifth of five same-direction Buy calls this day; entry stepped up further from 18:33. Same TP1–TP4 as the following 22:11 message — likely a reissue.]",4718.5,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 11 London-NY Overlap (18:33),"May 11, 2026 6:33 PM (GMT+7)",Buy,4672,4671,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4671-4672
+SL : 4667
+TP1 : 4676
+TP2 : 4684
+TP3 : 4699
+TP4 : 4725
+
+[Note: no ""edited"" tag visible on this message — 18:33 appears to be the original post time. Entry stepped up from the preceding 16:44 Buy call; same direction, TP3 here (4699) matches TP4 of the two preceding Buy calls. Fourth of five same-direction Buy calls this day.]",4667,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 11 London-NY Overlap (14:46),"May 11, 2026 2:46 PM (GMT+7)",Sell,4675,4673,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4673-4675
+SL : 4680.5
+TP1 : 4667
+TP2 : 4660
+TP3 : 4651
+TP4 : 4601
+
+[Note: no ""edited"" tag visible on this message — 14:46 appears to be the original post time. First of six signals logged this day; direction flips to Buy for the following five.]",4680.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 11 NY Open (22:11),"May 11, 2026 10:11 PM (GMT+7)",Buy,4729,4727,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4727-4729
+SL : 4720
+TP1 : 4734
+TP2 : 4742
+TP3 : 4750
+TP4 : 4800
+
+[Note: no ""edited"" tag visible on this message — 22:11 appears to be the original post time. Sixth and final Buy call this day; identical TP1–TP4 to the preceding 21:20 message, only entry/SL shifted — likely a reissue.]",4720,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 11 London-NY Overlap (16:44),"May 11, 2026 4:44 PM (GMT+7)",Buy,4659,4658,"VIP group
+BUY POSITION XAUUSD 🎃
+
+OPEN : 4658-4659
+SL : 4651
+TP1 : 4664.5
+TP2 : 4671
+TP3 : 4683
+TP4 : 4699
+
+[Note: no ""edited"" tag visible on this message — 16:44 appears to be the original post time. Entry lower than the preceding 15:07 Buy call; same direction. Third of five same-direction Buy calls this day.]",4651,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 12 London-NY Overlap (14:20),"May 12, 2026 2:20 PM (GMT+7)",Buy,4697,4695,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4695-4697
+SL : 4686.5
+TP1 : 4703
+TP2 : 4711
+TP3 : 4720
+TP4 : 4740
+TP5 : 4800
+
+[Note: timestamp shown on message was ""edited 14:20"" — this may be an edit time, not necessarily the original post time.]",4686.5,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 12 London-NY Overlap (18:14),"May 12, 2026 6:14 PM (GMT+7)",Buy,4692,4690,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4690-4692
+SL : 4684
+TP1 : 4697
+TP2 : 4707
+TP3 : 4720
+TP4 : 4743
+
+[Note: no ""edited"" tag visible on this message — 18:14 appears to be the original post time. Same direction as the earlier 14:20 Buy call, entry lower.]",4684,London-NY Overlap,VIP group,TP Hit,XAUUSD,4697,4707,,,
+May 12 NY Open (21:26),"May 12, 2026 9:26 PM (GMT+7)",Sell,4690,4688,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4688-4690
+SL : 4696
+TP1 : 4682
+TP2 : 4676
+TP3 : 4662
+TP4 : 4642
+TP5 : 4605
+
+[Note: timestamp shown on message was ""edited 21:26"" — this may be an edit time, not necessarily the original post time. Same TP2 (4676) as the preceding 20:52 Sell message, entry stepped down — likely a reissue/continuation of the same Sell call.]",4696,NY Open,VIP group,TP Hit,XAUUSD,4682,4676,4662,4642,
+May 12 Pre-NY Gap (20:52),"May 12, 2026 8:52 PM (GMT+7)",Sell,4694,4693,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4693-4694
+SL : 4702
+TP1 : 4685
+TP2 : 4676
+TP3 : 4650
+TP4 : 4600
+
+[Note: timestamp shown on message was ""edited 20:52"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention, not NY Open. Direction flips to Sell from the two preceding same-day Buy calls, entry sits close to the 18:14 Buy's entry zone (4690-4692) — near-overlapping-price flip.]",4702,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+May 13 NY Open (21:45),"May 13, 2026 9:45 PM (GMT+7)",Sell,4686,4684,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4684-4686
+SL : 4691
+TP1 : 4678
+TP2 : 4672
+TP3 : 4660
+TP4 : 4650
+
+[Note: timestamp shown on message was ""edited 21:45"" — this may be an edit time, not necessarily the original post time. Same direction as the earlier 16:12 Sell call, entry lower — continuation, not a same-window reissue.]",4691,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 13 London-NY Overlap (16:12),"May 13, 2026 4:12 PM (GMT+7)",Sell,4700,4698,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4698-4700
+SL : 4703.5
+TP1 : 4694
+TP2 : 4687
+TP3 : 4675
+TP4 : 4648
+
+[Note: timestamp shown on message was ""edited 16:12"" — this may be an edit time, not necessarily the original post time.]",4703.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4694,4687,,,
+May 14 London-NY Overlap (15:44),"May 14, 2026 3:44 PM (GMT+7)",Sell,4703,4701,"VIP group
+SELL POSITION 🚨
+
+Open : 4701-4703
+SL : 4707
+TP1 : 4696
+TP2 : 4690
+TP3 : 4675
+TP4 : 4650
+
+[Flag: this message did NOT include ""XAUUSD"" in the header (unlike every other signal in this log) — header read only ""SELL POSITION"". Symbol property left blank rather than assumed, though context (same VIP group, same price range as surrounding XAUUSD calls, entry sits right at the preceding 15:14 Buy's SL/TP1 zone) strongly suggests XAUUSD. Direction flips to Sell from the preceding 15:14 Buy call — near-overlapping-price flip.]",4707,London-NY Overlap,VIP group,TP Hit,,4696,4690,,,
+May 14 London-NY Overlap (15:14),"May 14, 2026 3:14 PM (GMT+7)",Buy,4698,4697,"VIP group
+BUY POSITION XAUUSD 🎃
+
+OPEN : 4697-4698
+SL : 4691
+TP1 : 4704
+TP2 : 4710
+TP3 : 4720
+TP4 : 4750
+
+[Note: timestamp shown on message was ""edited 15:14"" — this may be an edit time, not necessarily the original post time.]",4691,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 15 NY Open (22:08),"May 15, 2026 10:08 PM (GMT+7)",Sell,4558,4556,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4556-4558
+SL : 4567
+TP1 : 4550
+TP2 : 4540
+TP3 : 4530
+TP4 : 4500
+
+[Note: timestamp shown on message was ""edited 22:08"" — this may be an edit time, not necessarily the original post time. Same direction and same TP4 (4500) as the preceding 21:44 message — likely a reissue/continuation, entry stepped up slightly.]",4567,NY Open,VIP group,TP Hit,XAUUSD,4550,4540,4530,,
+May 15 London-NY Overlap (15:26),"May 15, 2026 3:26 PM (GMT+7)",Buy,4559,4558,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4558-4559
+SL : 4553
+TP1 : 4564
+TP2 : 4572
+TP3 : 4582
+TP4 : 4600
+
+[Flag: no ""edited"" tag visible on this message — 15:26 appears to be the original post time. 100% identical OPEN/TP1/TP3/TP4 to the following 15:47 message, SL and TP2 differ only slightly (4553 vs 4552, 4572 vs 4573) — near-identical reissue, likely a minor correction on the same call.]",4553,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+May 15 NY Open (21:44),"May 15, 2026 9:44 PM (GMT+7)",Sell,4556,4554,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4554-4556
+SL : 4564
+TP1 : 4546.5
+TP2 : 4537
+TP3 : 4520
+TP4 : 4500
+
+[Note: timestamp shown on message was ""edited 21:44"" — this may be an edit time, not necessarily the original post time. Direction flips to Sell from the two preceding Buy calls, entry sits below both — clean reversal. Same TP4 (4500) as the following 22:08 message — likely a reissue/continuation.]",4564,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 15 London-NY Overlap (15:47),"May 15, 2026 3:47 PM (GMT+7)",Buy,4559,4558,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4558-4559
+SL : 4552
+TP1 : 4564
+TP2 : 4573
+TP3 : 4582
+TP4 : 4600
+
+[Flag: no ""edited"" tag visible on this message — 15:47 appears to be the original post time. 100% identical OPEN/TP1/TP3/TP4 to the preceding 15:26 message, SL and TP2 differ only slightly (4552 vs 4553, 4573 vs 4572) — near-identical reissue, likely a minor correction on the same call.]",4552,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 18 London-NY Overlap (15:11),"May 18, 2026 3:11 PM (GMT+7)",Sell,4548,4546,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4546-4548
+SL : 4554
+TP1 : 4539
+TP2 : 4530
+TP3 : 4520
+TP4 : 4511
+
+[Note: no ""edited"" tag visible on this message — 15:11 appears to be the original post time. Same TP4 (4511) as the following 15:46 message — likely a reissue.]",4554,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+May 18 London-NY Overlap (15:46),"May 18, 2026 3:46 PM (GMT+7)",Sell,4552,4550,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4550-4552
+SL : 4557
+TP1 : 4544
+TP2 : 4537
+TP3 : 4530
+TP4 : 4511
+
+[Note: no ""edited"" tag visible on this message — 15:46 appears to be the original post time. Same TP4 (4511) and TP3 (4530) as the preceding 15:11 message — likely a reissue, entry stepped up.]",4557,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+May 18 NY Open (21:16),"May 18, 2026 9:16 PM (GMT+7)",Buy,4566,4564,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4564-4566
+SL : 4559
+TP1 : 4571
+TP2 : 4580
+TP3 : 4600
+TP4 : 4628
+
+[Note: timestamp shown on message was ""edited 21:16"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the two preceding same-day Sell calls, entry well above them — not an overlapping-price flip, a clean reversal after a price move.]",4559,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+May 19 Pre-NY Gap (19:43),"May 19, 2026 7:43 PM (GMT+7)",Sell,4543,4541,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4541-4543
+SL : 4550
+TP1 : 4535
+TP2 : 4528
+TP3 : 4522
+TP4 : 4500
+
+[Note: classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention. Same TP3 (4522) and TP4 (4500) as the preceding 15:07 message — likely a reissue/continuation, entry stepped down.]",4550,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4535,4528,4522,4500,
+May 19 London-NY Overlap (15:07),"May 19, 2026 3:07 PM (GMT+7)",Sell,4554,4552.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4552.50-4554
+SL : 4558
+TP1 : 4547
+TP2 : 4540
+TP3 : 4522
+TP4 : 4500
+
+[Note: timestamp shown on message was ""edited 15:07"" — this may be an edit time, not necessarily the original post time. Same TP3 (4522) and TP4 (4500) as the following 19:43 message — likely a reissue/continuation.]",4558,London-NY Overlap,VIP group,TP Hit,XAUUSD,4547,4540,4522,4500,
+May 20 London-NY Overlap (15:36),"May 20, 2026 3:36 PM (GMT+7)",Sell,4484,4482,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4482-4484
+SL : 4490
+TP1 : 4477
+TP2 : 4467
+TP3 : 4460
+TP4 : 4403
+
+[Note: timestamp shown on message was ""edited 15:36"" — this may be an edit time, not necessarily the original post time. Same TP3 (4460) as the following 20:20 message — possible same-narrative continuation, not a same-window reissue.]",4490,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 20 Pre-NY Gap (20:20),"May 20, 2026 8:20 PM (GMT+7)",Sell,4502,4500.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4500.50-4502
+SL : 4507
+TP1 : 4496
+TP2 : 4488
+TP3 : 4480
+TP4 : 4460
+
+[Note: timestamp shown on message was ""edited 20:20"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention, not NY Open. Same TP3 (4460, matching preceding message's TP4) — possible same-narrative continuation.]",4507,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4496,4488,4480,,
+May 21 London-NY Overlap (15:23),"May 21, 2026 3:23 PM (GMT+7)",Sell,4532,4531,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4531-4532
+SL : 4538
+TP1 : 4525
+TP2 : 4518
+TP3 : 4510
+TP4 : 4498
+
+[Note: timestamp shown on message was ""edited 15:23"" — this may be an edit time, not necessarily the original post time. Same TP4 (4498) as the following 16:38 message — likely a reissue.]",4538,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+May 21 Pre-NY Gap (19:16),"May 21, 2026 7:16 PM (GMT+7)",Sell,4516,4514,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4514-4516
+SL : 4520
+TP1 : 4509
+TP2 : 4503
+TP3 : 4496
+TP4 : 4480
+
+[Note: timestamp shown on message was ""edited 19:16"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention. Same direction and progressive continuation from the 15:23/16:38 messages this same day.]",4520,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+May 21 London-NY Overlap (16:38),"May 21, 2026 4:38 PM (GMT+7)",Sell,4538,4536,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4536-4538
+SL : 4543.5
+TP1 : 4529
+TP2 : 4524
+TP3 : 4516
+TP4 : 4498
+
+[Note: timestamp shown on message was ""edited 16:38"" — this may be an edit time, not necessarily the original post time. Same TP4 (4498) as the preceding 15:23 message — likely a reissue, entry stepped up.]",4543.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4529,4524,4516,4498,
+May 22 NY Open (21:32),"May 22, 2026 9:32 PM (GMT+7)",Buy,4498,4496,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4496-4498
+SL : 4491
+TP1 : 4504
+TP2 : 4513
+TP3 : 4520
+TP4 : 4540
+
+[Note: timestamp shown on message was ""edited 21:32"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the earlier same-day Sell call; entry (4496-4498) sits close to that Sell's TP3 (4500) — reversal near a prior target level.]",4491,NY Open,VIP group,TP Hit,XAUUSD,4504,4513,4520,4540,
+May 22 London-NY Overlap (15:27),"May 22, 2026 3:27 PM (GMT+7)",Sell,4528,4527,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4527-4528
+SL : 4532
+TP1 : 4522
+TP2 : 4515
+TP3 : 4500
+TP4 : 4492
+
+[Note: timestamp shown on message was ""edited 15:27"" — this may be an edit time, not necessarily the original post time.]",4532,London-NY Overlap,VIP group,TP Hit,XAUUSD,4522,4515,,,
+May 25 Pre-NY Gap (20:14),"May 25, 2026 8:14 PM (GMT+7)",Sell,4566,4564.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4564.50-4566
+SL : 4571
+TP1 : 4559
+TP2 : 4550
+TP3 : 4540
+TP4 : 4525
+
+[Note: timestamp shown on message was ""edited 20:14"" — this may be an edit time, not necessarily the original post time. Classified as Pre-NY Gap per the Bills Signals 19:00–21:00 window convention. Same TP4 (4525) as the following 21:59 message — likely a reissue.]",4571,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+May 25 NY Open (21:59),"May 25, 2026 9:59 PM (GMT+7)",Sell,4567.5,4566,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4566-4567.50
+SL : 4572
+TP1 : 4561
+TP2 : 4555
+TP3 : 4547
+TP4 : 4525
+
+[Note: timestamp shown on message was ""edited 21:59"" — this may be an edit time, not necessarily the original post time. Same TP4 (4525) as the preceding 20:14 message — likely a reissue, entry stepped up.]",4572,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+May 26 London-NY Overlap (15:11),"May 26, 2026 3:11 PM (GMT+7)",Sell,4535,4533,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4533-4535
+SL : 4539.5
+TP1 : 4528
+TP2 : 4522
+TP3 : 4513
+TP4 : 4501
+
+[Flag: no ""edited"" tag visible on this message — 15:11 appears to be the original post time. Direction flips to Sell from the two preceding London Pre Buy calls, entry sits close to those calls' SL zone (4523/4527). Identical TP1–TP4 to the following 18:03 message — full duplicate of the call, only entry/SL differ.]",4539.5,London-NY Overlap,VIP group,TP Hit,XAUUSD,4528,4522,4513,,
+May 26 London Pre (13:42),"May 26, 2026 1:42 PM (GMT+7)",Buy,4532.5,4530,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4530-4532.50
+SL : 4527
+TP1 : 4538
+TP2 : 4543
+TP3 : 4550
+TP4 : 4575
+
+[Flag: timestamp shown on message was ""edited 13:42"" — this may be an edit time, not necessarily the original post time. Also falls in the 10:00–14:00 WIB ""London Pre"" window — a ""No Trade"" gate window per the Trading Rules, same as the preceding 13:17 message. Same TP3/TP4 — likely a reissue.]",4527,London Pre,VIP group,Breakeven,XAUUSD,,,,,
+May 26 NY Afternoon/London Close (23:23),"May 26, 2026 11:23 PM (GMT+7)",Buy,4504.5,4503,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4503-4504.50
+SL : 4499
+TP1 : 4509
+TP2 : 4516
+TP3 : 4526
+TP4 : 4549
+
+[Note: timestamp shown on message was ""edited 23:23"" — this may be an edit time, not necessarily the original post time. Same direction as the preceding 22:47 Buy call, entry stepped down, TP4 nearly identical (4549 vs 4550) — likely a reissue/continuation. Sixth and final signal logged this day.]",4499,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+May 26 London Pre (13:17),"May 26, 2026 1:17 PM (GMT+7)",Buy,4531,4529,"VIP group
+BUY POSITION XAUUSD 🎃
+
+OPEN : 4529-4531
+SL : 4523
+TP1 : 4536
+TP2 : 4542
+TP3 : 4550
+TP4 : 4575
+
+[Flag: falls in the 10:00–14:00 WIB ""London Pre"" window — a ""No Trade"" gate window per the Trading Rules. Same TP3/TP4 as the following 13:42 message — likely a reissue.]",4523,London Pre,VIP group,Breakeven,XAUUSD,,,,,
+May 26 London-NY Overlap (18:03),"May 26, 2026 6:03 PM (GMT+7)",Sell,4536,4534.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4534.50-4536
+SL : 4541
+TP1 : 4528
+TP2 : 4522
+TP3 : 4513
+TP4 : 4501
+
+[Flag: no ""edited"" tag visible on this message — 18:03 appears to be the original post time. Identical TP1–TP4 to the preceding 15:11 message, only entry/SL differ — full duplicate of the call, not just a partial reissue.]",4541,London-NY Overlap,VIP group,TP Hit,XAUUSD,4528,4522,4513,4501,
+May 26 NY Open (22:47),"May 26, 2026 10:47 PM (GMT+7)",Buy,4508,4507,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4507-4508
+SL : 4502
+TP1 : 4513
+TP2 : 4520
+TP3 : 4530
+TP4 : 4550
+
+[Note: timestamp shown on message was ""edited 22:47"" — this may be an edit time, not necessarily the original post time. Direction flips to Buy from the earlier same-day Sell calls, entry sits below the 15:11/18:03 Sell TP4 (4501) — just above that target. Same TP1–TP3 pattern (roughly) and same direction as the following 23:23 message — likely a continuation.]",4502,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 27 London Pre (13:07),"May 27, 2026 1:07 PM (GMT+7)",Sell,4497,4495.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4495.50-4497
+SL : 4502
+TP1 : 4490
+TP2 : 4482
+TP3 : 4475
+TP4 : 4450
+
+[Flag: falls in the 10:00–14:00 WIB ""London Pre"" window — a ""No Trade"" gate window per the Trading Rules. No ""edited"" tag visible on this message — 13:07 appears to be the original post time.]",4502,London Pre,VIP group,TP Hit,XAUUSD,4490,4482,,,
+May 28 London-NY Overlap (15:48),"May 28, 2026 3:48 PM (GMT+7)",Sell,4390,4388.5,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4388.50-4390
+SL : 4395
+TP1 : 4383
+TP2 : 4376
+TP3 : 4367
+TP4 : 4350
+
+[Note: no ""edited"" tag visible on this message — 15:48 appears to be the original post time.]",4395,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+May 28 NY Open (21:53),"May 28, 2026 9:53 PM (GMT+7)",Sell,4472,4470,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4470-4472
+SL : 4480
+TP1 : 4464
+TP2 : 4457
+TP3 : 4450
+TP4 : 4400
+
+[Note: no ""edited"" tag visible on this message — 21:53 appears to be the original post time. Same direction as the preceding 21:39 message, entry stepped up; this message's TP4 (4400) is likely the value the preceding message's malformed ""400"" TP4 was meant to be.]",4480,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+May 28 NY Open (21:39),"May 28, 2026 9:39 PM (GMT+7)",Sell,4459,4458,"VIP group
+SELL POSITION XAUUSD 🚨
+
+OPEN : 4458-4459
+SL : 4468
+TP1 : 4451
+TP2 : 4440
+TP3 : 4425
+TP4 : 400
+
+[Flag: TP4 shown verbatim as ""400"" on the message — almost certainly a typo missing a digit given every other TP4 in this log is in the 4000s range and the following 21:53 message's TP4 is 4400. Logged exactly as posted (400) per audit-integrity convention rather than silently corrected to 4400. No ""edited"" tag visible — 21:39 appears to be the original post time.]",4468,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+May 29 London-NY Overlap (16:03),"May 29, 2026 4:03 PM (GMT+7)",Buy,4516,4515,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4515-4516
+SL : 4509
+TP1 : 4521
+TP2 : 4527
+TP3 : 4536
+TP4 : 4556
+
+[Note: timestamp shown on message was ""edited 16:03"" — this may be an edit time, not necessarily the original post time. Near-identical entry, TP1/TP3 to the preceding 15:31 message (SL and TP2/TP4 differ slightly) — likely a reissue.]",4509,London-NY Overlap,VIP group,TP Hit,XAUUSD,4521,4527,4536,,
+May 29 London-NY Overlap (15:31),"May 29, 2026 3:31 PM (GMT+7)",Buy,4516.5,4515,"VIP group
+BUY POSITION XAUUSD 🚨
+
+OPEN : 4515-4516.50
+SL : 4510.5
+TP1 : 4521
+TP2 : 4528
+TP3 : 4536
+TP4 : 4550
+
+[Note: no ""edited"" tag visible on this message — 15:31 appears to be the original post time. Near-identical entry, TP1/TP3 to the following 16:03 message (SL and TP2/TP4 differ slightly) — likely a reissue.]",4510.5,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 3 London-NY Overlap (15:11),"July 3, 2026 3:11 PM (GMT+7)",Sell,4164,4161,"VIP group SELL POSITION XAUUSD - OPEN: 4161-4164, SL: 4166.5, TP1: 4155, TP2: 4150, TP3: 4142, TP4: 4125. Note: displayed timestamp was edited 15:11, may not be original post time.",4166.5,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 6 London-NY Overlap (18:48),"July 6, 2026 6:48 PM (GMT+7)",Sell,4156,4154,"VIP group SELL POSITION XAUUSD - OPEN: 4154-4156, SL: 4160, TP1: 4149, TP2: 4142, TP3: 4133, TP4: 4102. Note: displayed timestamp was edited 18:48, may not be original post time.",4160,London-NY Overlap,VIP group,TP Hit,XAUUSD,4149,4142,4133,,
+July 6 NY Open (22:48),"July 6, 2026 10:48 PM (GMT+7)",Sell,4150,4148,"VIP group SELL POSITION XAUUSD - OPEN: 4148-4150, SL: 4153, TP1: 4143, TP2: 4137, TP3: 4131, TP4: 4102. Note: displayed timestamp was edited 22:48, may not be original post time.",4153,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 7 London-NY Overlap (16:27),"July 7, 2026 4:27 PM (GMT+7)",Sell,4130,4127,"VIP group SELL POSITION XAUUSD - OPEN: 4127-4130, SL: 4131, TP1: 4123, TP2: 4115, TP3: 4110, TP4: 4102. Note: same TP ladder as 'July 7 London-NY Overlap (14:55)', entry/SL tightened - likely an edited version of that same message rather than a new call. Displayed timestamp was edited 16:27, may not be original post time.",4131,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 7 London-NY Overlap (14:55),"July 7, 2026 2:55 PM (GMT+7)",Sell,4130,4127.5,"VIP group SELL POSITION XAUUSD - OPEN: 4127.5-4130, SL: 4134, TP1: 4123, TP2: 4115, TP3: 4110, TP4: 4102. Timestamp shown as plain 14:55 (not marked edited) - likely the original post time.",4134,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 7 London-NY Overlap (18:11),"July 7, 2026 6:11 PM (GMT+7)",Sell,4135,4133.5,"VIP group SELL POSITION XAUUSD - OPEN: 4133.5-4135, SL: 4139, TP1: 4129, TP2: 4122, TP3: 4115, TP4: 4102. Timestamp shown as plain 18:11 (not marked edited) - likely the original post time.",4139,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 7 Pre-NY Gap (20:26),"July 7, 2026 8:26 PM (GMT+7)",Sell,4169,4167,"VIP group SELL POSITION XAUUSD - OPEN: 4167-4169, SL: 4175, TP1: 4160, TP2: 4155, TP3: 4140, TP4: 4124. Timestamp shown as plain 20:26 (not marked edited) - likely the original post time.",4175,Pre-NY Gap,VIP group,SL Hit,XAUUSD,,,,,
+July 9 London-NY Overlap (18:53),"July 9, 2026 6:53 PM (GMT+7)",Buy,4105.5,4104,"VIP group BUY POSITION XAUUSD - OPEN: 4104-4105.5, SL: 4099, TP1: 4111, TP2: 4117, TP3: 4123, TP4: 4133. Note: displayed timestamp was edited 18:53, may not be original post time.",4099,London-NY Overlap,VIP group,TP Hit,XAUUSD,4111,4117,,,
+July 9 NY Open (21:41),"July 9, 2026 9:41 PM (GMT+7)",Sell,4125,4123,"VIP group SELL POSITION XAUUSD - OPEN: 4123-4125, SL: 4128, TP1: 4117, TP2: 4110, TP3: 4100, TP4: 4065. Timestamp shown as plain 21:41 (not marked edited) - likely the original post time.",4128,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 10 London-NY Overlap (17:39),"July 10, 2026 5:39 PM (GMT+7)",Sell,4111,4109,"VIP group SELL POSITION XAUUSD - OPEN: 4109-4111, SL: 4113, TP1: 4103, TP2: 4096.5, TP3: 4087, TP4: 4065. Note: displayed timestamp was edited 17:39, may not be original post time.",4113,London-NY Overlap,VIP group,TP Hit,XAUUSD,4103,4096.5,,,
+July 10 NY Afternoon/London Close (01:03),"July 10, 2026 1:03 AM (GMT+7)",Sell,4136,4134,"VIP group SELL POSITION XAUUSD - OPEN: 4134-4136, SL: 4139, TP1: 4128, TP2: 4120, TP3: 4112, TP4: 4065. Note: displayed timestamp was edited 01:03, may not be original post time.",4139,NY Afternoon/London Close,VIP group,TP Hit,XAUUSD,4128,4120,4112,,
+July 13 London-NY Overlap (18:18),"July 13, 2026 6:18 PM (GMT+7)",Sell,4065,4063,"VIP group SELL POSITION XAUUSD - OPEN: 4063-4065, SL: 4069, TP1: 4058, TP2: 4050, TP3: 4041, TP4: 4025. Note: displayed timestamp was edited 18:18, may not be original post time.",4069,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 13 London-NY Overlap (16:03),"July 13, 2026 4:03 PM (GMT+7)",Sell,4077,4075,"VIP group SELL POSITION XAUUSD - OPEN: 4075-4077, SL: 4081, TP1: 4068, TP2: 4060, TP3: 4050, TP4: 4041, TP5: 3972. Note: displayed timestamp was edited 16:03, may not be original post time.",4081,London-NY Overlap,VIP group,TP Hit,XAUUSD,4068,4060,4050,4041,3972
+July 14 London-NY Overlap (16:17),"July 14, 2026 4:17 PM (GMT+7)",Sell,4021,4019,"VIP group SELL POSITION XAUUSD - OPEN: 4019-4021, SL: 4025, TP1: 4015, TP2: 4008, TP3: 4003, TP4: 3974. Note: nearly identical to 'July 14 London-NY Overlap (15:51)' - same SL, TP1/TP2/TP4, entry widened slightly, TP3 changed (4000->4003). Likely an edited version of that same message rather than a new call. Displayed timestamp was edited 16:17, may not be original post time.",4025,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 14 London-NY Overlap (15:51),"July 14, 2026 3:51 PM (GMT+7)",Sell,4021,4020,"VIP group SELL POSITION XAUUSD - OPEN: 4020-4021, SL: 4025, TP1: 4015, TP2: 4008, TP3: 4000, TP4: 3974. Note: displayed timestamp was edited 15:51, may not be original post time.",4025,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 14 NY Open (21:08),"July 14, 2026 9:08 PM (GMT+7)",Buy,4079,4077,"VIP group BUY GOLD NOW [format variant - message used ""BUY GOLD NOW"" / ""ENTRY"" instead of the usual ""BUY POSITION XAUUSD"" / ""OPEN""] - ENTRY: 4077-4079, SL: 4072.5, TP1: 4084, TP2: 4092, TP3: 4103, TP4: 4125. Note: displayed timestamp was edited 21:08, may not be original post time.",4072.5,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 15 NY Afternoon/London Close (02:06),"July 15, 2026 2:06 AM (GMT+7)",Buy,4052,4051,"VIP group BUY POSITION XAUUSD - OPEN: 4051-4052, SL: 4046, TP1: 4058, TP2: 4065, TP3: 4080, TP4: 4096. Timestamp shown as plain 02:06 (not marked edited) - likely the original post time.",4046,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+July 15 NY Afternoon/London Close (00:52),"July 15, 2026 12:52 AM (GMT+7)",Buy,4062,4060,"VIP group BUY POSITION XAUUSD - OPEN: 4060-4062, SL: 4056, TP1: 4067, TP2: 4075, TP3: 4083, TP4: 4103. Timestamp shown as plain 00:52 (not marked edited) - likely the original post time.",4056,NY Afternoon/London Close,VIP group,SL Hit,XAUUSD,,,,,
+July 15 London-NY Overlap (14:32),"July 15, 2026 2:32 PM (GMT+7)",Buy,4026,4024,"VIP group BUY POSITION XAUUSD - OPEN: 4024-4026, SL: 4020, TP1: 4031.5, TP2: 4040, TP3: 4053, TP4: 4072. Timestamp shown as plain 14:32 (not marked edited) - likely the original post time.",4020,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 15 London-NY Overlap (16:15),"July 15, 2026 4:15 PM (GMT+7)",Sell,4033,4031,"VIP group SELL POSITION XAUUSD - OPEN: 4031-4033, SL: 4035, TP1: 4027, TP2: 4020, TP3: 4010, TP4: 3998. Note: displayed timestamp was edited 16:15, may not be original post time.",4035,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 15 NY Open (21:20),"July 15, 2026 9:20 PM (GMT+7)",Sell,4064,4062,"VIP group SELL POSITION XAUUSD - OPEN: 4062-4064, SL: 4067, TP1: 4057, TP2: 4050, TP3: 4039, TP4: 4000. Timestamp shown as plain 21:20 (not marked edited) - likely the original post time.",4067,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 16 NY Afternoon/London Close (23:46),"July 16, 2026 11:46 PM (GMT+7)",Buy,3990,3989,"VIP group BUY POSITION XAUUSD - OPEN: 3989-3990, SL: 3983, TP1: 3995, TP2: 4000, TP3: 4014, TP4: 4040. Note: displayed timestamp was edited 23:46, may not be original post time.",3983,NY Afternoon/London Close,VIP group,Breakeven,XAUUSD,,,,,
+July 16 NY Open (21:52),"July 16, 2026 9:52 PM (GMT+7)",Sell,4003,4000,"VIP group SELL POSITION XAUUSD - OPEN: 4000-4003, SL: 4006, TP1: 3993, TP2: 3986, TP3: 3973, TP4: 3950. Note: displayed timestamp was edited 21:52, may not be original post time.",4006,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 17 NY Afternoon/London Close (00:31),"July 17, 2026 12:31 AM (GMT+7)",Buy,3987,3986,"VIP group BUY POSITION XAUUSD - OPEN: 3986-3987, SL: 3982, TP1: 3992, TP2: 4000, TP3: 4014, TP4: 4040. Timestamp shown as plain 00:31 (not marked edited) - likely the original post time.",3982,NY Afternoon/London Close,VIP group,SL Hit,XAUUSD,,,,,
+July 17 NY Open (21:30),"July 17, 2026 9:30 PM (GMT+7)",Sell,3999,3998,"VIP group SELL POSITION XAUUSD - OPEN: 3998-3999, SL: 4005, TP1: 3992, TP2: 3985, TP3: 3973, TP4: 3960. Note: displayed timestamp was edited 21:30, may not be original post time.",4005,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+July 21 NY Open (21:03),"July 21, 2026 9:03 PM (GMT+7)",Buy,4053,4052,"VIP group BUY POSITION XAUUSD - OPEN: 4052-4053, SL: 4045, TP1: 4058, TP2: 4064, TP3: 4079, TP4: 4110, TP5: 4175. Note: displayed timestamp was edited 21:03, may not be original post time.",4045,NY Open,VIP group,TP Hit,XAUUSD,4058,4064,4079,4110,4175
+July 21 Pre-NY Gap (19:20),"July 21, 2026 7:20 PM (GMT+7)",Buy,4059,4058,"VIP group BUY POSITION XAUUSD - OPEN: 4058-4059, SL: 4054, TP1: 4064, TP2: 4073, TP3: 4080, TP4: 4110. Note: displayed timestamp was edited 19:20, may not be original post time.",4054,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+July 22 NY Open (21:40),"July 22, 2026 9:40 PM (GMT+7)",Buy,4150,4149,"VIP group BUY POSITION XAUUSD - OPEN: 4149-4150, SL: 4144, TP1: 4156, TP2: 4163, TP3: 4175, TP4: 4193. Note: displayed timestamp was edited 21:40, may not be original post time.",4144,NY Open,VIP group,TP Hit,XAUUSD,4156,4163,,,
+July 23 London-NY Overlap (16:44),"July 23, 2026 4:44 PM (GMT+7)",Buy,4092,4090,"VIP group BUY POSITION XAUUSD - OPEN: 4090-4092, SL: 4088, TP1: 4097, TP2: 4105, TP3: 4117, TP4: 4175. Note: nearly identical to 'July 23 London-NY Overlap (15:56)' - same TP2/TP3/TP4, entry widened slightly, TP1 and SL each shifted by ~1 point. Likely an edited version of that same message rather than a new call. Displayed timestamp was edited 16:44, may not be original post time.",4088,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+July 23 London-NY Overlap (15:56),"July 23, 2026 3:56 PM (GMT+7)",Buy,4091.5,4090,"VIP group BUY POSITION XAUUSD - OPEN: 4090-4091.5, SL: 4087, TP1: 4096, TP2: 4105, TP3: 4117, TP4: 4175. Timestamp shown as plain 15:56 (not marked edited) - likely the original post time.",4087,London-NY Overlap,VIP group,Breakeven,XAUUSD,,,,,
+July 24 Pre-NY Gap (20:27),"July 24, 2026 8:27 PM (GMT+7)",Buy,4048,4047,"VIP group BUY POSITION XAUUSD - OPEN: 4047-4048, SL: 4043, TP1: 4053, TP2: 4060, TP3: 4075, TP4: 4093, TP5: 4175. Note: displayed timestamp was edited 20:27, may not be original post time.",4043,Pre-NY Gap,VIP group,TP Hit,XAUUSD,4053,4060,4075,4093,4175
+August 3 NY Open (22:03),"August 3, 2026 10:03 PM (GMT+7)",Sell,4037,4036,"VIP group SELL POSITION XAUUSD - OPEN: 4036-4037, SL: 4040, TP1: 4031, TP2: 4025, TP3: 4012, TP4: 3996. Timestamp shown as plain 22:03 (not marked edited) - likely the original post time.",4040,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 4 NY Open (21:31),"August 4, 2026 9:31 PM (GMT+7)",Buy,4084,4082,"VIP group BUY POSITION XAUUSD - OPEN: 4082-4084, SL: 4078, TP1: 4090, TP2: 4097, TP3: 4108, TP4: 4125. Note: displayed timestamp was edited 21:31, may not be original post time.",4078,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 4 NY Open (23:05),"August 4, 2026 11:05 PM (GMT+7)",Sell,4087,4085.5,"VIP group SELL POSITION XAUUSD - OPEN: 4085.5-4087, SL: 4090, TP1: 4080, TP2: 4074, TP3: 4066, TP4: 4051. Note: displayed timestamp was edited 23:05, may not be original post time.",4090,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 5 London-NY Overlap (16:58),"August 5, 2026 4:58 PM (GMT+7)",Buy,4158,4157,"VIP group BUY POSITION XAUUSD - OPEN: 4157-4158, SL: 4153, TP1: 4162, TP2: 4170, TP3: 4180, TP4: 4200. Note: displayed timestamp was edited 16:58, may not be original post time.",4153,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+August 6 Pre-NY Gap (19:23),"August 6, 2026 7:23 PM (GMT+7)",Buy,4260,4259,"VIP group BUY POSITION XAUUSD - OPEN: 4259-4260, SL: 4253, TP1: 4267, TP2: 4274, TP3: 4283, TP4: 4300. Note: displayed timestamp was edited 19:23, may not be original post time.",4253,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+August 6 London-NY Overlap (18:35),"August 6, 2026 6:35 PM (GMT+7)",Buy,4265,4263,"VIP group BUY POSITION XAUUSD - OPEN: 4263-4265, SL: 4259, TP1: 4270, TP2: 4280, TP3: 4293, TP4: 4300. Timestamp shown as plain 18:35 (not marked edited) - likely the original post time.",4259,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+August 6 NY Open (21:49),"August 6, 2026 9:49 PM (GMT+7)",Sell,4272,4271,"VIP group SELL POSITION XAUUSD - OPEN: 4271-4272, SL: 4276, TP1: 4265, TP2: 4258, TP3: 4250, TP4: 4200. Note: displayed timestamp was edited 21:49, may not be original post time.",4276,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 6 NY Open (22:07),"August 6, 2026 10:07 PM (GMT+7)",Sell,4272,4270,"VIP group SELL POSITION XAUUSD - OPEN: 4270-4272, SL: 4276, TP1: 4265, TP2: 4258, TP3: 4249, TP4: 4235, TP5: 4196. Note: near-identical to 'August 6 NY Open (21:49)' - same entry range, SL, TP1, TP2; TP3 shifted slightly (4250->4249) and TP4 changed materially (4200->4235) with a new TP5 added (4196). Likely a revised/extended version of that same call rather than an independent one. Displayed timestamp was edited 22:07, may not be original post time.",4276,NY Open,VIP group,TP Hit,XAUUSD,4265,4258,4249,4235,4196
+August 7 NY Open (21:43),"August 7, 2026 9:43 PM (GMT+7)",Buy,4347,4345,"VIP group BUY POSITION XAUUSD - OPEN: 4345-4347, SL: 4342, TP1: 4352, TP2: 4360, TP3: 4375, TP4: 4400. Note: displayed timestamp was edited 21:43, may not be original post time.",4342,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 7 NY Open (22:40),"August 7, 2026 10:40 PM (GMT+7)",Buy,4352,4351,"VIP group BUY POSITION XAUUSD - OPEN: 4351-4352, SL: 4346, TP1: 4358, TP2: 4365, TP3: 4375, TP4: 4400. Note: displayed timestamp was edited 22:40, may not be original post time.",4346,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 11 NY Open (22:07),"August 11, 2026 10:07 PM (GMT+7)",Sell,4395,4394,"VIP group SELL POSITION XAUUSD - OPEN: 4394-4395, SL: 4399, TP1: 4388, TP2: 4380, TP3: 4374, TP4: 4362, TP5: 4348. Note: displayed timestamp was edited 22:07, may not be original post time.",4399,NY Open,VIP group,TP Hit,XAUUSD,4388,4380,4374,4362,4348
+August 12 Asian Open (09:32),"August 12, 2026 9:32 AM (GMT+7)",Sell,4401,4400,"VIP group SELL POSITION XAUUSD - OPEN: 4400-4401, SL: 4405, TP1: 4395, TP2: 4387, TP3: 4380, TP4: 4362. Timestamp shown as plain 09:32 (not marked edited) - likely the original post time.",4405,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+August 12 Asian Open (08:32),"August 12, 2026 8:32 AM (GMT+7)",Sell,4390,4389,"VIP group SELL POSITION XAUUSD - OPEN: 4389-4390, SL: 4395, TP1: 4384, TP2: 4375, TP3: 4362, TP4: 4348. Timestamp shown as plain 08:32 (not marked edited) - likely the original post time.",4395,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+August 12 NY Open (22:11),"August 12, 2026 10:11 PM (GMT+7)",Buy,4421,4419,"VIP group BUY POSITION XAUUSD - OPEN: 4419-4421, SL: 4414, TP1: 4427, TP2: 4433, TP3: 4447, TP4: 4462. Note: displayed timestamp was edited 22:11, may not be original post time.",4414,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 13 Asian Open (09:41),"August 13, 2026 9:41 AM (GMT+7)",Buy,4406.5,4405,"VIP group BUY POSITION XAUUSD - OPEN: 4405-4406.5, SL: 4399, TP1: 4411, TP2: 4417, TP3: 4430, TP4: 4450. Note: displayed timestamp was edited 09:41, may not be original post time.",4399,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+August 13 Asian Open (09:13),"August 13, 2026 9:13 AM (GMT+7)",Buy,4411,4409,"VIP group BUY POSITION XAUUSD - OPEN: 4409-4411, SL: 4405.5, TP1: 4416, TP2: 4420, TP3: 4432, TP4: 4450. Note: displayed timestamp was edited 09:13, may not be original post time.",4405.5,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+August 13 NY Open (21:15),"August 13, 2026 9:15 PM (GMT+7)",Buy,4371,4370,"VIP group BUY POSITION XAUUSD - OPEN: 4370-4371, SL: 4366, TP1: 4378, TP2: 4389, TP3: 4396, TP4: 4417. Timestamp shown as plain 21:15 (not marked edited) - likely the original post time.",4366,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 13 Pre-NY Gap (20:45),"August 13, 2026 8:45 PM (GMT+7)",Buy,4380,4378,"VIP group BUY POSITION XAUUSD - OPEN: 4378-4380, SL: 4374, TP1: 4385, TP2: 4395, TP3: 4402, TP4: 4410. Timestamp shown as plain 20:45 (not marked edited) - likely the original post time.",4374,Pre-NY Gap,VIP group,SL Hit,XAUUSD,,,,,
+August 13 NY Open (22:26),"August 13, 2026 10:26 PM (GMT+7)",Buy,4371,4370,"VIP group BUY POSITION XAUUSD - OPEN: 4370-4371, SL: 4363.5, TP1: 4378, TP2: 4389, TP3: 4396, TP4: 4417. Note: identical entry and TP1-4 to 'August 13 NY Open (21:15)', SL widened (4366->4363.5). Likely an edited version of that same message rather than a new call. Displayed timestamp was edited 22:26, may not be original post time.",4363.5,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 14 NY Open (21:30),"August 14, 2026 9:30 PM (GMT+7)",Sell,4392,4390,"VIP group SELL GOLD NOW [format variant - message used ""SELL GOLD NOW"" / ""ENTRY"" instead of the usual ""SELL POSITION XAUUSD"" / ""OPEN""] - ENTRY: 4390-4392, SL: 4397, TP1: 4384, TP2: 4377, TP3: 4364, TP4: 4344. Note: displayed timestamp was edited 21:30, may not be original post time.",4397,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 17 NY Open (21:50),"August 17, 2026 9:50 PM (GMT+7)",Buy,4419,4418,"VIP group BUY POSITION XAUUSD - OPEN: 4418-4419, SL: 4414, TP1: 4424, TP2: 4429, TP3: 4435, TP4: 4500. Note: displayed timestamp was edited 21:50, may not be original post time. Flag: TP3->TP4 gap (4435->4500, 65 pts) is far wider than TP1-3 spacing (~5-6 pts each). Confirmed likely typo: the near-identical 'August 18 NY Afternoon/London Close (00:50)' call (same entry range, TP2, TP3) shows TP4 = 4450, not 4500. Logged verbatim as originally shown.",4414,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 18 NY Afternoon/London Close (00:50),"August 18, 2026 12:50 AM (GMT+7)",Buy,4419,4418,"VIP group BUY POSITION XAUUSD - OPEN: 4418-4419, SL: 4411, TP1: 4425, TP2: 4429, TP3: 4435, TP4: 4450. Note: near-identical to 'August 17 NY Open (21:50)' - same entry range, TP2, TP3; TP1/SL shifted slightly, and TP4 here is 4450 vs 4500 there. This confirms the 4500 in that earlier entry was likely a typo for 4450. Displayed timestamp shown as plain 00:50 (not marked edited) - likely the original post time.",4411,NY Afternoon/London Close,VIP group,SL Hit,XAUUSD,,,,,
+August 20 Asian Open (08:38),"August 20, 2026 8:38 AM (GMT+7)",Sell,4500,4498,"VIP group SELL GOLD NOW [format variant - lowercase ""entry""/""Sl"" instead of ""SELL POSITION XAUUSD""/""OPEN""] - entry: 4498-4500, Sl: 4504, TP1: 4492, TP2: 4485, TP3: 4478. No TP4 given in this message (only 3 TPs shown). Note: displayed timestamp was edited 08:38, may not be original post time.",4504,Asian Open,VIP group,Breakeven,XAUUSD,4492,4485,4478,,
+August 20 Asian Open (09:18),"August 20, 2026 9:18 AM (GMT+7)",Sell,4498,4496,"VIP group SELL GOLD NOW [format variant - lowercase ""entry""/""Sl"" instead of ""SELL POSITION XAUUSD""/""OPEN""] - entry: 4496-4498, Sl: 4500, TP1: 4491, TP2: 4485, TP3: 4478, TP4: 4448. Note: entry range overlaps and TP2/TP3 match 'August 20 Asian Open (08:38)', with SL/TP1 shifted and a TP4 added here - likely a revised/extended version of that same call. Displayed timestamp was edited 09:18, may not be original post time.",4500,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+August 20 NY Open (21:04),"August 20, 2026 9:04 PM (GMT+7)",Sell,4486,4485,"VIP group SELL GOLD NOW [format variant - ""Entry zone"" instead of ""OPEN""] - Entry zone: 4485-4486, SL: 4491, TP1: 4479, TP2: 4472, TP3: 4465, TP4: 4448. Note: displayed timestamp was edited 21:04, may not be original post time.",4491,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 21 Asian Open (09:22),"August 21, 2026 9:22 AM (GMT+7)",Buy,4523,4522,"VIP group BUY POSITION XAUUSD - OPEN: 4522-4523, SL: 4518, TP1: 4529, TP2: 4535, TP3: 4545, TP4: 4561, TP5: 4577, TP6: 4600, TP7: 4679. Note: message includes TP6 (4600) and TP7 (4679) which exceed the database's TP1-TP5 schema - preserved here verbatim since no columns exist for them. Displayed timestamp was edited 09:22, may not be original post time.",4518,Asian Open,VIP group,TP Hit,XAUUSD,4529,4535,4545,4561,4577
+August 24 NY Open (21:24),"August 24, 2026 9:24 PM (GMT+7)",Buy,4664,4661,"VIP group BUY POSITION XAUUSD - OPEN: 4661-4664, SL: 4656, TP1: 4670, TP2: 4679, TP3: 4690, TP4: 4700. Note: displayed timestamp was edited 21:24, may not be original post time.",4656,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 24 Asian Open (08:37),"August 24, 2026 8:37 AM (GMT+7)",Buy,4616,4615,"VIP group BUY POSITION XAUUSD - OPEN: 4615-4616, SL: 4608, TP1: 4621, TP2: 4628, TP3: 4635, TP4: 4650, TP5: 4679, TP6: 4700. Note: TP6 (4700) exceeds the database's TP1-TP5 schema - preserved here verbatim. Displayed timestamp was edited 08:37, may not be original post time.",4608,Asian Open,VIP group,TP Hit,XAUUSD,4621,4628,4635,4650,4679
+August 25 London Pre (10:01),"August 25, 2026 10:01 AM (GMT+7)",Buy,4626,4624,"VIP group BUY POSITION XAUUSD - OPEN: 4624-4626, SL: 4618, TP1: 4632, TP2: 4640, TP3: 4650, TP4: 4666. Note: displayed timestamp was edited 10:01, may not be original post time.",4618,London Pre,VIP group,TP Hit,XAUUSD,4632,4640,,,
+August 25 Asian Open (08:12),"August 25, 2026 8:12 AM (GMT+7)",Buy,4677,4676,"VIP group BUY POSITION XAUUSD - OPEN: 4676-4677, SL: 4670, TP1: 4682.5, TP2: 4690, TP3: 4700, TP4: 4725. Note: displayed timestamp was edited 08:12, may not be original post time.",4670,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+August 25 NY Open (21:51),"August 25, 2026 9:51 PM (GMT+7)",Sell,4636,4635,"VIP group SELL GOLD NOW [format variant - ""Entry"" instead of ""OPEN""] - Entry: 4635-4636, SL: 4641, TP1: 4630, TP2: 4623, TP3: 4615, TP4: 4606. Note: displayed timestamp was edited 21:51, may not be original post time.",4641,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 25 London Pre (13:49),"August 25, 2026 1:49 PM (GMT+7)",Sell,4649,4648,"VIP group SELL POSITION XAUUSD - OPEN: 4648-4649, SL: 4654, TP1: 4643, TP2: 4635, TP3: 4625, TP4: 4600. Note: displayed timestamp was edited 13:49, may not be original post time.",4654,London Pre,VIP group,TP Hit,XAUUSD,4643,4635,4625,4600,
+August 26 Asian Open (08:25),"August 26, 2026 8:25 AM (GMT+7)",Sell,4648,4646,"VIP group SELL GOLD NOW [format variant - ""Entry"" instead of ""OPEN""] - Entry 4646-4648, SL: 4651, TP1: 4640, TP2: 4632, TP3: 4625. No TP4 given in this message. Timestamp shown as plain 08:25 (not marked edited) - likely the original post time.",4651,Asian Open,VIP group,Breakeven,XAUUSD,,,,,
+August 26 Asian Open (08:47),"August 26, 2026 8:47 AM (GMT+7)",Sell,4647,4645.5,"VIP group SELL GOLD NOW [format variant - ""Entry"" instead of ""OPEN""] - Entry 4645.5-4647, SL: 4651, TP1: 4640, TP2: 4632, TP3: 4625. No TP4 given. Note: identical SL and TP1-3 to 'August 26 Asian Open (08:25)', entry narrowed slightly - likely an edited version of that same message rather than a new call. Timestamp shown as plain 08:47 (not marked edited) - likely the original post time.",4651,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+August 26 Asian Open (09:26),"August 26, 2026 9:26 AM (GMT+7)",Sell,4660,4659,"VIP group SELL GOLD NOW [format variant - colon after ""Entry""] - Entry: 4659-4660, SL: 4663, TP1: 4654, TP2: 4645, TP3: 4631, TP4: 4606. Note: displayed timestamp was edited 09:26, may not be original post time.",4663,Asian Open,VIP group,SL Hit,XAUUSD,,,,,
+August 27 London Pre (13:15),"August 27, 2026 1:15 PM (GMT+7)",Buy,4605.5,4604,"VIP group BUY POSITION XAUUSD - OPEN: 4604-4605.5, SL: 4599, TP1: 4610, TP2: 4616, TP3: 4625, TP4: 4638. Note: displayed timestamp was edited 13:15, may not be original post time.",4599,London Pre,VIP group,Breakeven,XAUUSD,,,,,
+August 27 Asian Open (09:16),"August 27, 2026 9:16 AM (GMT+7)",Sell,4640,4639.5,"VIP group SELL POSITION XAUUSD - OPEN: 4639.5-4640, SL: 4643.5, TP1: 4635, TP2: 4627.5, TP3: 4619, TP4: 4607, TP5: 4591, TP6: 4554. Note: TP6 (4554) exceeds the database's TP1-TP5 schema - preserved here verbatim. Displayed timestamp was edited 09:16, may not be original post time.",4643.5,Asian Open,VIP group,TP Hit,XAUUSD,4635,4627.5,4619,4607,4591
+August 27 NY Open (22:07),"August 27, 2026 10:07 PM (GMT+7)",Sell,4595,4593.5,"VIP group SELL POSITION XAUUSD - OPEN: 4593.5-4595, SL: 4599, TP1: 4587, TP2: 4580, TP3: 4570, TP4: 4554. Note: displayed timestamp was edited 22:07, may not be original post time.",4599,NY Open,VIP group,Breakeven,XAUUSD,,,,,
+August 28 Pre-NY Gap (20:16),"August 28, 2026 8:16 PM (GMT+7)",Sell,4601,4600,"VIP group SELL POSITION XAUUSD - OPEN: 4600-4601, SL: 4606, TP1: 4594, TP2: 4588, TP3: 4580, TP4: 4550. Note: displayed timestamp was edited 20:16, may not be original post time.",4606,Pre-NY Gap,VIP group,Breakeven,XAUUSD,,,,,
+August 31 London-NY Overlap (17:21),"August 31, 2026 5:21 PM (GMT+7)",Sell,4451,4449.5,"VIP group SELL GOLD NOW [format variant - ""Entry zone"" instead of ""OPEN""] - Entry zone: 4449.5-4451, SL: 4454, TP1: 4444, TP2: 4435, TP3: 4425. No TP4 given in this message. Timestamp shown as plain 17:21 (not marked edited) - likely the original post time.",4454,London-NY Overlap,VIP group,SL Hit,XAUUSD,,,,,
+August 31 London-NY Overlap (18:33),"August 31, 2026 6:33 PM (GMT+7)",Sell,4462,4461,"VIP group SELL GOLD NOW [format variant - ""Entry zone"" instead of ""OPEN""] - Entry zone: 4461-4462, SL: 4466, TP1: 4456, TP2: 4450, TP3: 4442, TP4: 4425, TP5: 4405. Timestamp shown as plain 18:33 (not marked edited) - likely the original post time.",4466,London-NY Overlap,VIP group,TP Hit,XAUUSD,4456,4450,4442,4425,4405
+August 31 NY Open (22:06),"August 31, 2026 10:06 PM (GMT+7)",Sell,4433,4431,"VIP group SELL GOLD NOW [format variant - ""Entry zone"" instead of ""OPEN"", lowercase ""Sl""] - Entry zone: 4431-4433, Sl: 4437, TP1: 4426, TP2: 4420, TP3: 4412, TP4: 4405. Note: displayed timestamp was edited 22:06, may not be original post time.",4437,NY Open,VIP group,SL Hit,XAUUSD,,,,,
+August 31 NY Open (21:26),"August 31, 2026 9:26 PM (GMT+7)",Sell,4426,4424.5,"VIP group SELL GOLD NOW [format variant - ""Entry zone"" instead of ""OPEN""] - Entry zone: 4424.5-4426, SL: 4431, TP1: 4418, TP2: 4412, TP3: 4405, TP4: 4396, TP5: 4385. Timestamp shown as plain 21:26 (not marked edited) - likely the original post time.",4431,NY Open,VIP group,Breakeven,XAUUSD,,,,,
