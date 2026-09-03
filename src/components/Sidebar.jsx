@@ -7,7 +7,7 @@ export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
     { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: '#f43f5e' },
     { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: '#10b981' },
     { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: '#f59e0b' },
-    { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: '#0ea5e9' },
+    { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: '#0ea5e9', subItem: true },
     { id: 'weekly_journal', label: 'Weekly Journal', icon: BookOpen, color: '#8b5cf6' },
   ];
 
@@ -40,6 +40,13 @@ export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
                 }}
                 style={{
                   '--active-color': item.color,
+                  ...(item.subItem ? { 
+                    marginLeft: '24px', 
+                    paddingLeft: '12px', 
+                    fontSize: '0.9em', 
+                    borderLeft: '2px solid rgba(255,255,255,0.1)',
+                    width: 'calc(100% - 24px)'
+                  } : {})
                 }}
               >
                 <item.icon size={18} />
