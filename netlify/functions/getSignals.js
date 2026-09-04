@@ -60,7 +60,6 @@ export const handler = async (event, context) => {
           raw_signal_text,
           sl,
           '' as session,
-          model,
           'FX Clarity' as source,
           status,
           symbol,
@@ -68,7 +67,9 @@ export const handler = async (event, context) => {
           tp2,
           tp3,
           tp4,
-          tp5
+          tp5,
+          tp6,
+          tp7
         FROM fx_clarity_signals
         ORDER BY signal_date ASC
       `;
@@ -91,7 +92,9 @@ export const handler = async (event, context) => {
           tp2,
           tp3,
           tp4,
-          tp5
+          tp5,
+          tp6,
+          tp7
         FROM bills_signals
         ORDER BY signal_date ASC
       `;
