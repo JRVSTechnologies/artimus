@@ -8,6 +8,10 @@ import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import SignalFeed from './components/SignalFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
+import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
+import SequentialTradeTimeline from './components/SequentialTradeTimeline';
+import SubmitSignalForm from './components/SubmitSignalForm';
+import EvaluationSimulator from './components/EvaluationSimulator';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
 
 const nhost = new NhostClient({
@@ -119,7 +123,15 @@ export default function App() {
       
       {currentView === 'analysis' && <PriceAnalysisDashboard />}
       
+      {currentView === 'statistics' && <SignalStatisticsDashboard />}
+
+      {currentView === 'tradeTimeline' && <SequentialTradeTimeline />}
+      
       {currentView === 'signal_feed' && <SignalFeed />}
+      
+      {currentView === 'submit_signal' && <SubmitSignalForm />}
+
+      {currentView === 'simulator' && <EvaluationSimulator />}
       
       {currentView === 'weekly_journal' && <WeeklyAnalysisJournal />}
 

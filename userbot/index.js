@@ -59,18 +59,25 @@ const webhookUrl = process.env.WEBHOOK_URL;
 
   client.addEventHandler(async (event) => {
     const message = event.message;
+    const text = message.message || '';
+    
+    // Log all incoming messages for debugging/monitoring
+    const debugChatId = message.chatId ? message.chatId.toString() : 'Unknown';
+    if (text) {
+      console.log(`[LOG] Read message from chat: ${debugChatId} | Preview: ${text.substring(0, 60).replace(/\n/g, ' ')}...`);
+    }
+
     // Check if the message is from our target group
     if (message.peerId && message.peerId.channelId) {
       const currentId = '-100' + message.peerId.channelId.toString(); // standard channel prefix
       
       // Match the channel ID or raw ID
       if (currentId === targetChatId || message.chatId.toString() === targetChatId) {
-        const text = message.message || '';
         if (text) {
           console.log(`\n📩 New message detected in VIP Group!`);
-          console.log(`--- Content Preview ---`);
-          console.log(text.substring(0, 100) + '...');
-          console.log(`-----------------------`);
+          console.log(`--- Full Content ---`);
+          console.log(text);
+          console.log(`--------------------`);
 
           // Forward to Webhook
           if (webhookUrl) {
