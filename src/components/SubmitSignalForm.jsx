@@ -3,7 +3,7 @@ import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function SubmitSignalForm() {
   const [formData, setFormData] = useState({
-    symbol: '',
+    symbol: 'XAUUSD',
     direction: 'Buy',
     entry_high: '',
     entry_low: '',
@@ -13,6 +13,8 @@ export default function SubmitSignalForm() {
     tp3: '',
     tp4: '',
     tp5: '',
+    tp6: '',
+    tp7: '',
     session: 'London',
     status: 'Open',
     source: 'Manual Entry',
@@ -60,7 +62,7 @@ export default function SubmitSignalForm() {
       // Reset numeric fields to keep it easy for next entry, but keep session/source
       setFormData(prev => ({
         ...prev,
-        symbol: '',
+        symbol: 'XAUUSD',
         entry_high: '',
         entry_low: '',
         sl: '',
@@ -183,7 +185,7 @@ export default function SubmitSignalForm() {
           </div>
 
           <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-            {['tp1', 'tp2', 'tp3', 'tp4', 'tp5'].map((tp, idx) => (
+            {['tp1', 'tp2', 'tp3', 'tp4', 'tp5', 'tp6', 'tp7'].map((tp, idx) => (
               <div key={tp} className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <label style={{ fontSize: '13px', color: 'var(--text-subtle)', fontWeight: 600 }}>TP {idx + 1}</label>
                 <input 

@@ -42,9 +42,9 @@ export const handler = async (event, context) => {
       INSERT INTO bills_signals (
         signal, signal_date, direction, entry_high, entry_low,
         raw_signal_text, sl, session, source, status, symbol,
-        tp1, tp2, tp3, tp4, tp5
+        tp1, tp2, tp3, tp4, tp5, tp6, tp7
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
       ) RETURNING id, signal, signal_date
     `;
 
@@ -65,7 +65,9 @@ export const handler = async (event, context) => {
       body.tp2 ? parseFloat(body.tp2) : null,
       body.tp3 ? parseFloat(body.tp3) : null,
       body.tp4 ? parseFloat(body.tp4) : null,
-      body.tp5 ? parseFloat(body.tp5) : null
+      body.tp5 ? parseFloat(body.tp5) : null,
+      body.tp6 ? parseFloat(body.tp6) : null,
+      body.tp7 ? parseFloat(body.tp7) : null
     ];
     
     const result = await client.query(query, values);

@@ -62,6 +62,17 @@ async function run() {
         
         if (textLower.startsWith('poi round')) {
           
+          let model = null;
+          const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+          if (lines.length > 0) {
+            const firstLineMatch = lines[0].match(/POI ROUND\s*\d+\s*(.+)/i);
+            if (firstLineMatch && firstLineMatch[1].trim()) {
+              model = firstLineMatch[1].trim();
+            } else if (lines.length > 1) {
+              model = lines[1];
+            }
+          }
+
           const symbolMatch = text.match(/(XAU\/?USD|GOLD|GBP\/?JPY)/i);
           const symbol = symbolMatch ? symbolMatch[1].replace('/', '') : 'XAUUSD';
           
@@ -113,6 +124,7 @@ async function run() {
             id: msgId,
             signal_date: isoDate,
             symbol, direction, entryLow, entryHigh, sl, tp1, tp2, tp3,
+            model,
             raw: text,
             status: 'Open' // default
           };
@@ -153,10 +165,10 @@ async function run() {
     let inserted = 0;
     for (const s of Object.values(signalsMap)) {
       const query = `
-        INSERT INTO fx_clarity_signals (signal_date, symbol, direction, entry_low, entry_high, sl, tp1, tp2, tp3, raw_signal_text, status)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        INSERT INTO fx_clarity_signals (signal_date, symbol, direction, entry_low, entry_high, sl, tp1, tp2, tp3, model, raw_signal_text, status)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       `;
-      const values = [s.signal_date, s.symbol, s.direction, s.entryLow, s.entryHigh, s.sl, s.tp1, s.tp2, s.tp3, s.raw, s.status];
+      const values = [s.signal_date, s.symbol, s.direction, s.entryLow, s.entryHigh, s.sl, s.tp1, s.tp2, s.tp3, s.model, s.raw, s.status];
       await client.query(query, values);
       inserted++;
     }

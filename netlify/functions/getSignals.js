@@ -60,6 +60,7 @@ export const handler = async (event, context) => {
           raw_signal_text,
           sl,
           '' as session,
+          model,
           'FX Clarity' as source,
           status,
           symbol,
@@ -74,6 +75,7 @@ export const handler = async (event, context) => {
     } else {
       query = `
         SELECT 
+          id,
           signal,
           signal_date,
           direction,

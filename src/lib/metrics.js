@@ -21,7 +21,7 @@ export function computeSignalMetrics(rawSignal) {
   const zone_width = Math.abs(entryHigh - entryLow);
   const sl_dist_pct = risk_pts > 0 ? (risk_pts / entry_mid * 100) : 0;
 
-  const tps = [rawSignal.TP1, rawSignal.TP2, rawSignal.TP3, rawSignal.TP4, rawSignal.TP5]
+  const tps = [rawSignal.TP1, rawSignal.TP2, rawSignal.TP3, rawSignal.TP4, rawSignal.TP5, rawSignal.TP6, rawSignal.TP7]
     .map(v => parseFloat(v))
     .filter(v => !isNaN(v));
     
@@ -41,10 +41,18 @@ export function computeSignalMetrics(rawSignal) {
       realizedR_conservative = tp1_r;
       realizedR_optimistic = max_tp_r;
       
-      if (tpRs.length >= 2) {
-        realizedR_ladder = (tp1_r * 0.5) + (tpRs[1] * 0.25) + (max_tp_r * 0.25);
+      if (tpRs.length >= 5) {
+        // Hit TP5 or higher: 50% at TP3, 25% at TP4, 25% at Max TP
+        realizedR_ladder = (tpRs[2] * 0.5) + (tpRs[3] * 0.25) + (max_tp_r * 0.25);
+      } else if (tpRs.length === 4) {
+        // Stuck at TP4: 50% at TP3, 25% at TP4, 25% stopped at Breakeven (0R)
+        realizedR_ladder = (tpRs[2] * 0.5) + (tpRs[3] * 0.25);
+      } else if (tpRs.length === 3) {
+        // Stuck at TP3: 50% at TP3, 50% stopped at Breakeven (0R)
+        realizedR_ladder = (tpRs[2] * 0.5);
       } else {
-        realizedR_ladder = max_tp_r;
+        // Didn't reach TP3: No profits taken, stopped at Breakeven (0R)
+        realizedR_ladder = 0;
       }
     } else {
       realizedR_conservative = 1;
@@ -280,11 +288,53 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
 
   const dailyArray = Object.values(dailyStatsMap).sort((a, b) => a.dateVal - b.dateVal);
 
+  // Calculate Weekly Stats
+  const weeklyStatsMap = {};
+  closedSignals.forEach(s => {
+    let cleanDateStr = s.Date;
+    if (s.Date) cleanDateStr = s.Date.replace(' (GMT+7)', '').replace(' at ', ' ');
+    const dateObj = new Date(cleanDateStr);
+    
+    if (!isNaN(dateObj.getTime())) {
+      const getWeekInfo = (d) => {
+        const date = new Date(d.getTime());
+        date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+        const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+        return { weekNo, year: date.getUTCFullYear() };
+      };
+      
+      const { weekNo, year } = getWeekInfo(dateObj);
+      const weekStr = `Week ${weekNo}, ${year}`;
+      
+      // Calculate start of week just for sorting purposes
+      const day = dateObj.getDay();
+      const diff = dateObj.getDate() - day + (day === 0 ? -6 : 1);
+      const weekStart = new Date(dateObj);
+      weekStart.setDate(diff);
+      weekStart.setHours(0, 0, 0, 0);
+      
+      if (!weeklyStatsMap[weekStr]) {
+        weeklyStatsMap[weekStr] = { weekStr, dateVal: weekStart.getTime(), total: 0, wins: 0, losses: 0, r: 0 };
+      }
+      weeklyStatsMap[weekStr].total++;
+      if (s.Status === 'TP Hit') weeklyStatsMap[weekStr].wins++;
+      if (s.Status === 'SL Hit') weeklyStatsMap[weekStr].losses++;
+      weeklyStatsMap[weekStr].r += s.realizedR[exitModel] || 0;
+    }
+  });
+
+  const weeklyArray = Object.values(weeklyStatsMap).sort((a, b) => a.dateVal - b.dateVal);
+
+  const totalRiskPts = closedSignals.reduce((acc, s) => acc + s.risk_pts, 0);
+  const avgSLPips = totalClosed > 0 ? (totalRiskPts / totalClosed) * 10 : 0;
+
   return {
     totalSignals: computedSignals.length,
     totalClosed,
     winRate,
     beRate,
+    avgSLPips,
     expectancy,
     profitFactor,
     maxDD,
@@ -297,6 +347,7 @@ export function aggregateSignals(computedSignals, exitModel = 'ladder') {
     rollingPerformance,
     cfxStats,
     monthlyStats: monthlyArray,
+    weeklyStats: weeklyArray,
     dailyStats: dailyArray
   };
 }
