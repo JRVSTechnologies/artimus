@@ -17,6 +17,7 @@ export default function SignalStatisticsDashboard() {
   const [exitModel, setExitModel] = useState('ladder');
   const [selectedSession, setSelectedSession] = useState('All');
   const [selectedDirection, setSelectedDirection] = useState('All');
+  const [heatmapTpFilter, setHeatmapTpFilter] = useState('All');
   const [performanceViewMode, setPerformanceViewMode] = useState('monthly');
   const [refreshKey, setRefreshKey] = useState(0);
   const [editingSignal, setEditingSignal] = useState(null);
@@ -400,6 +401,9 @@ export default function SignalStatisticsDashboard() {
   // Create a 7x24 grid
   const heatmapGrid = Array(7).fill(0).map(() => Array(24).fill({ count: 0, r: 0 }));
   agg.sortedSignals.forEach(s => {
+    if (heatmapTpFilter !== 'All' && s.maxTpLevel !== parseInt(heatmapTpFilter.replace('TP', ''), 10)) {
+      return;
+    }
     if (s.wibDay !== undefined && s.wibHour !== undefined) {
       const cell = heatmapGrid[s.wibDay][s.wibHour];
       heatmapGrid[s.wibDay][s.wibHour] = {
@@ -583,7 +587,18 @@ export default function SignalStatisticsDashboard() {
 
       {/* Row 4: Timing Heatmap */}
       <div className="chart-card-premium" style={{ overflowX: 'auto' }}>
-        <h3 className="chart-card-title">Timing Heatmap (WIB)</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+          <h3 className="chart-card-title" style={{ margin: 0 }}>Timing Heatmap (WIB)</h3>
+          <div className="filter-group" style={{ margin: 0, flexDirection: 'row', alignItems: 'center', gap: '8px' }}>
+            <label style={{ margin: 0 }}>Target TP Filter:</label>
+            <select value={heatmapTpFilter} onChange={(e) => setHeatmapTpFilter(e.target.value)} className="filter-select" style={{ padding: '6px 12px', fontSize: '13px', width: 'auto' }}>
+              <option value="All">All Targets</option>
+              {[1, 2, 3, 4, 5, 6, 7].map(tp => (
+                <option key={`TP${tp}`} value={`TP${tp}`}>TP{tp} Only</option>
+              ))}
+            </select>
+          </div>
+        </div>
         <p className="stat-card-sub" style={{ marginBottom: '20px' }}>Hover to see signal count and average R. Green = Positive Expectancy, Red = Negative Expectancy.</p>
         <div style={{ display: 'grid', gridTemplateColumns: '50px repeat(24, 1fr)', gap: '4px', minWidth: '800px' }}>
           <div></div>
