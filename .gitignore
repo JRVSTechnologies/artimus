@@ -18,6 +18,8 @@ node_modules
 .env
 .env.local
 .env.*.local
+*.session
+*.session-journal
 
 # Production Build Output
 dist

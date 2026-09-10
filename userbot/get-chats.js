@@ -32,6 +32,7 @@ const stringSession = new StringSession(process.env.SESSION_STRING || '');
   }
   
   console.log('=========================================');
-  console.log('Copy the ID you want and place it in your .env file as TARGET_CHAT_ID');
+  console.log('Copy the ID(s) you want and place them in your .env file as TARGET_CHAT_IDS:');
+  console.log('Example: TARGET_CHAT_IDS=-1001234567890, -1009876543210');
   process.exit(0);
 })();

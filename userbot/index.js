@@ -11,10 +11,59 @@ const stringSession = new StringSession(process.env.SESSION_STRING || ''); // Fi
 const targetChatId = process.env.TARGET_CHAT_ID;
 const webhookUrl = process.env.WEBHOOK_URL;
 
+// Helper to extract all possible ID formats for a message
+function getCandidateChatIds(message) {
+  const ids = new Set();
+  if (message.chatId !== undefined && message.chatId !== null) {
+    const cid = message.chatId.toString();
+    ids.add(cid);
+    if (cid.startsWith('-100')) {
+      ids.add(cid.slice(4)); // without -100 prefix
+    } else if (/^\d+$/.test(cid)) {
+      ids.add('-100' + cid); // with -100 prefix
+    }
+  }
+  if (message.peerId) {
+    if (message.peerId.channelId) {
+      const ch = message.peerId.channelId.toString();
+      ids.add(ch);
+      ids.add('-100' + ch);
+    }
+    if (message.peerId.chatId) {
+      const grp = message.peerId.chatId.toString();
+      ids.add(grp);
+      ids.add('-' + grp);
+    }
+    if (message.peerId.userId) {
+      ids.add(message.peerId.userId.toString());
+    }
+  }
+  return ids;
+}
+
 (async () => {
   if (!apiId || !apiHash) {
     console.error("❌ API_ID and API_HASH are missing in .env file.");
     process.exit(1);
+  }
+
+  // Parse target chat IDs (supports comma-separated TARGET_CHAT_IDS or single TARGET_CHAT_ID)
+  const rawTargetConfig = (process.env.TARGET_CHAT_IDS || process.env.TARGET_CHAT_ID || '').trim();
+  const targetList = rawTargetConfig
+    ? rawTargetConfig.split(',').map(s => s.trim()).filter(Boolean)
+    : [];
+
+  const monitorAll = targetList.includes('*') || targetList.map(s => s.toLowerCase()).includes('all');
+
+  // Build a lookup set containing both raw and normalized ID variants
+  const targetIdSet = new Set();
+  for (const target of targetList) {
+    targetIdSet.add(target);
+    if (target.startsWith('-100')) {
+      targetIdSet.add(target.slice(4));
+    } else if (/^\d+$/.test(target)) {
+      targetIdSet.add('-100' + target);
+    }
   }
 
   console.log('Connecting to Telegram...');
@@ -38,27 +87,38 @@ const webhookUrl = process.env.WEBHOOK_URL;
     console.log('======================================================\n');
   }
 
-  if (!targetChatId) {
-    console.log('🔍 TARGET_CHAT_ID is not set in .env.');
-    console.log('Fetching your dialogs to help you find the correct Chat ID...');
+  if (targetList.length === 0) {
+    console.log('🔍 TARGET_CHAT_IDS (or TARGET_CHAT_ID) is not set in .env.');
+    console.log('Fetching your dialogs to help you find the correct Chat ID(s)...');
     
     const dialogs = await client.getDialogs();
     console.log('\n--- Your Recent Chats ---');
     for (const dialog of dialogs.slice(0, 30)) { // Show top 30
-      console.log(`[${dialog.id.toString()}] ${dialog.title || dialog.name}`);
+      const type = dialog.isChannel ? 'Channel' : dialog.isGroup ? 'Group' : 'User';
+      console.log(`[${dialog.id.toString()}] (${type}) ${dialog.title || dialog.name}`);
     }
     
-    console.log('\n⚠️ Please find the Chat ID for your VIP group above, add it as TARGET_CHAT_ID in .env, and restart the script.');
+    console.log('\n⚠️ Please find the Chat ID(s) above and add them to your .env file:');
+    console.log('   Single chat:      TARGET_CHAT_IDS=-1001234567890');
+    console.log('   Multiple chats:   TARGET_CHAT_IDS=-1001234567890, -1009876543210');
+    console.log('   All chats:        TARGET_CHAT_IDS=*');
+    console.log('Then restart the script.');
     process.exit(0);
   }
 
-  console.log(`\n🎧 Listening for new messages in chat ID: ${targetChatId}`);
+  if (monitorAll) {
+    console.log(`\n🎧 Listening for new messages in ALL chats/channels (wildcard mode)`);
+  } else {
+    console.log(`\n🎧 Listening for new messages across ${targetList.length} configured chat(s): ${targetList.join(', ')}`);
+  }
+
   if (!webhookUrl) {
     console.warn("⚠️ WEBHOOK_URL is missing. Messages will be logged but not forwarded.");
   }
 
   client.addEventHandler(async (event) => {
     const message = event.message;
+    if (!message) return;
     const text = message.message || '';
     
     // Log all incoming messages for debugging/monitoring
@@ -67,39 +127,50 @@ const webhookUrl = process.env.WEBHOOK_URL;
       console.log(`[LOG] Read message from chat: ${debugChatId} | Preview: ${text.substring(0, 60).replace(/\n/g, ' ')}...`);
     }
 
-    // Check if the message is from our target group
-    if (message.peerId && message.peerId.channelId) {
-      const currentId = '-100' + message.peerId.channelId.toString(); // standard channel prefix
-      
-      // Match the channel ID or raw ID
-      if (currentId === targetChatId || message.chatId.toString() === targetChatId) {
-        if (text) {
-          console.log(`\n📩 New message detected in VIP Group!`);
-          console.log(`--- Full Content ---`);
-          console.log(text);
-          console.log(`--------------------`);
+    // Check if the message is from any of our target chats
+    const candidateIds = getCandidateChatIds(message);
+    const isTarget = monitorAll || [...candidateIds].some(id => targetIdSet.has(id));
 
-          // Forward to Webhook
-          if (webhookUrl) {
-            try {
-              console.log(`🚀 Forwarding to Webhook: ${webhookUrl}`);
-              const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  message: { text: text }
-                })
-              });
-              
-              if (response.ok) {
-                console.log('✅ Successfully forwarded signal to Artimus Webhook!');
-              } else {
-                console.error(`❌ Webhook returned error status: ${response.status}`);
+    if (isTarget && text) {
+      let chatTitle = 'Unknown';
+      try {
+        const chat = await message.getChat();
+        chatTitle = chat?.title || chat?.username || (chat?.firstName ? `${chat.firstName} ${chat.lastName || ''}`.trim() : 'Unknown');
+      } catch {
+        // Chat title resolution is non-blocking
+      }
+
+      const matchedId = [...candidateIds].find(id => targetIdSet.has(id)) || debugChatId;
+      console.log(`\n📩 New message detected in [${chatTitle}] (ID: ${matchedId})!`);
+      console.log(`--- Full Content ---`);
+      console.log(text);
+      console.log(`--------------------`);
+
+      // Forward to Webhook
+      if (webhookUrl) {
+        try {
+          console.log(`🚀 Forwarding to Webhook: ${webhookUrl}`);
+          const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: {
+                text: text,
+                chat: {
+                  id: matchedId,
+                  title: chatTitle
+                }
               }
-            } catch (err) {
-              console.error('❌ Failed to send webhook request:', err.message);
-            }
+            })
+          });
+          
+          if (response.ok) {
+            console.log('✅ Successfully forwarded signal to Artimus Webhook!');
+          } else {
+            console.error(`❌ Webhook returned error status: ${response.status}`);
           }
+        } catch (err) {
+          console.error('❌ Failed to send webhook request:', err.message);
         }
       }
     }
