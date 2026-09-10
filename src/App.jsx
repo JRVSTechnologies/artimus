@@ -6,6 +6,7 @@ import SignalLogger from './components/SignalLogger';
 import SettingsModal from './components/SettingsModal';
 import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import SignalFeed from './components/SignalFeed';
+import TelegramLiveFeed from './components/TelegramLiveFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
 import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
@@ -128,6 +129,8 @@ export default function App() {
       {currentView === 'tradeTimeline' && <SequentialTradeTimeline />}
       
       {currentView === 'signal_feed' && <SignalFeed />}
+      
+      {currentView === 'telegram_feed' && <TelegramLiveFeed />}
       
       {currentView === 'submit_signal' && <SubmitSignalForm />}
 
