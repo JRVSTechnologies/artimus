@@ -18,6 +18,8 @@ node_modules
 .env
 .env.local
 .env.*.local
+*.session
+*.session-journal
 
 # Production Build Output
 dist
@@ -40,3 +42,4 @@ dist-ssr
 
 # Userbot Chats
 userbot/chats.txt
+local_group_bot/

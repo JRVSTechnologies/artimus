@@ -94,7 +94,6 @@ export default function BotHealthStatus() {
                 </div>
               </div>
             </div>
-
             <div className="stats-row" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
               <div className="stat-card" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
                 <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', width: '32px', height: '32px' }}>
