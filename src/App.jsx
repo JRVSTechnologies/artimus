@@ -12,10 +12,11 @@ import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
 import SequentialTradeTimeline from './components/SequentialTradeTimeline';
 import SubmitSignalForm from './components/SubmitSignalForm';
 import EvaluationSimulator from './components/EvaluationSimulator';
+import BotHealthStatus from './components/BotHealthStatus';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
 
 const nhost = new NhostClient({
-  subdomain: import.meta.env.VITE_NHOST_SUBDOMAIN || '',
+  subdomain: import.meta.env.VITE_NHOST_SUBDOMAIN || 'local',
   region: import.meta.env.VITE_NHOST_REGION || ''
 });
 
@@ -134,6 +135,8 @@ export default function App() {
       {currentView === 'simulator' && <EvaluationSimulator />}
       
       {currentView === 'weekly_journal' && <WeeklyAnalysisJournal />}
+
+      {currentView === 'bot_health' && <BotHealthStatus />}
 
       {/* Footer info */}
       <footer style={{
