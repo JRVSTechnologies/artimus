@@ -15,6 +15,8 @@ export default function BotHealthStatus() {
     {
       id: 'artimus',
       name: 'Artimus Bot',
+      purpose: 'Core signal processing, telemetry orchestration, and webhook management hub.',
+      skillset: ['Signal Parsing', 'Webhook Routing', 'Task Orchestration'],
       status: 'Online',
       uptime: '99.98%',
       memory: '142 MB',
@@ -27,6 +29,8 @@ export default function BotHealthStatus() {
     {
       id: 'mcn_markets',
       name: 'MCN Markets Bot',
+      purpose: 'Monitors real-time market data, executes price analysis, and manages market alerts.',
+      skillset: ['Price Tracking', 'Algorithmic Evaluation', 'Statistical Analysis'],
       status: 'Online',
       uptime: '99.95%',
       memory: '210 MB',
@@ -74,6 +78,22 @@ export default function BotHealthStatus() {
               </div>
             </div>
 
+            <div style={{ marginBottom: '24px', padding: '16px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px', border: '1px solid var(--border-card)' }}>
+              <div style={{ marginBottom: '12px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '600', marginBottom: '4px' }}>Primary Purpose</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-main)', lineHeight: '1.5' }}>{bot.purpose}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: '600', marginBottom: '6px' }}>Core Skillset</div>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  {bot.skillset.map((skill, idx) => (
+                    <span key={idx} style={{ padding: '4px 10px', background: `rgba(${bot.color === '#38BDF8' ? '56, 189, 248' : '16, 185, 129'}, 0.1)`, color: bot.color, fontSize: '12px', borderRadius: '999px', border: `1px solid rgba(${bot.color === '#38BDF8' ? '56, 189, 248' : '16, 185, 129'}, 0.2)` }}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
             <div className="stats-row" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
               <div className="stat-card" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
                 <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', width: '32px', height: '32px' }}>
