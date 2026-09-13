@@ -20,6 +20,10 @@ node_modules
 .env.*.local
 *.session
 *.session-journal
+generate-session.js
+test-auth.js
+userbot/generate-session.js
+userbot/test-auth.js
 
 # Production Build Output
 dist
