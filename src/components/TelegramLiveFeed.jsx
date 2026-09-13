@@ -46,19 +46,29 @@ export default function TelegramLiveFeed() {
     fetchMessages();
     
     // Set up real-time subscription for Telegram messages
+    let subscription;
     if (SUPABASE_URL && SUPABASE_ANON_KEY) {
       const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      const subscription = client
+      subscription = client
         .channel('public:tv_alerts:telegram')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tv_alerts', filter: 'interval=eq.TG_GROUP' }, payload => {
           setMessages(current => [payload.new, ...current.slice(0, 49)]);
         })
         .subscribe();
-
-      return () => {
-        client.removeChannel(subscription);
-      };
     }
+
+    // Fallback: Auto-refresh every 5 seconds in case Supabase Realtime is not enabled on the table
+    const pollInterval = setInterval(() => {
+      fetchMessages();
+    }, 5000);
+
+    return () => {
+      clearInterval(pollInterval);
+      if (subscription && SUPABASE_URL && SUPABASE_ANON_KEY) {
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        client.removeChannel(subscription);
+      }
+    };
   }, []);
 
   return (
