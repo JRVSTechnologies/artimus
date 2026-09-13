@@ -69,7 +69,8 @@ export async function handler(event, context) {
     const alertData = {
       message: rawText,
       interval: 'TG_GROUP',
-      received_at: new Date().toISOString()
+      received_at: new Date().toISOString(),
+      owner_id: '00000000-0000-0000-0000-000000000000'
     };
 
     // Insert into Supabase
