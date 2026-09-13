@@ -67,12 +67,7 @@ export async function handler(event, context) {
     // Construct the payload for Supabase
     // Matching the expected schema of tv_alerts used by PriceAnalysisDashboard
     const alertData = {
-      symbol: symbol,
-      action: action,
-      price: price,
       message: rawText,
-      // Fallbacks to simulate TV alert structure
-      bar_close: price,
       interval: 'TG_GROUP',
       received_at: new Date().toISOString()
     };
