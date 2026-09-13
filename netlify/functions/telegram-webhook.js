@@ -87,7 +87,7 @@ export async function handler(event, context) {
       // Still return 200 to Telegram so it doesn't retry infinitely on DB error
       return { 
         statusCode: 200, 
-        body: JSON.stringify({ error: 'DB insert failed but webhook acknowledged' }) 
+        body: JSON.stringify({ error: 'DB insert failed', details: error }) 
       };
     }
 
