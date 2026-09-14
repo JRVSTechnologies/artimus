@@ -115,7 +115,19 @@ export default function TelegramLiveFeed() {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {messages.map((msg) => (
+            {messages.map((msg) => {
+              let chatTitle = 'Unknown Group';
+              let displayMessage = msg.message || 'No content provided.';
+              
+              if (displayMessage.startsWith('[')) {
+                const endBracket = displayMessage.indexOf(']\n');
+                if (endBracket !== -1) {
+                  chatTitle = displayMessage.substring(1, endBracket);
+                  displayMessage = displayMessage.substring(endBracket + 2);
+                }
+              }
+
+              return (
               <div 
                 key={msg.id || Math.random().toString()} 
                 style={{
@@ -129,7 +141,7 @@ export default function TelegramLiveFeed() {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                     <div style={{
                       background: 'rgba(56, 189, 248, 0.15)',
                       color: '#38BDF8',
@@ -140,6 +152,18 @@ export default function TelegramLiveFeed() {
                     }}>
                       Telegram
                     </div>
+                    {chatTitle !== 'Unknown Group' && (
+                      <div style={{
+                        background: 'rgba(148, 163, 184, 0.15)',
+                        color: '#94A3B8',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        fontWeight: '600',
+                        fontSize: '12px'
+                      }}>
+                        {chatTitle}
+                      </div>
+                    )}
                   </div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-subtle)', fontSize: '12px' }}>
@@ -159,10 +183,10 @@ export default function TelegramLiveFeed() {
                   fontFamily: 'var(--font-sans)',
                   whiteSpace: 'pre-wrap'
                 }}>
-                  {msg.message || 'No content provided.'}
+                  {displayMessage}
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>
