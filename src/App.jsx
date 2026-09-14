@@ -34,7 +34,23 @@ export default function App() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [currentView, setCurrentView] = useState('main');
+  const [currentView, setCurrentView] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash || 'main';
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      setCurrentView(hash || 'main');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleSetView = (view) => {
+    window.location.hash = view;
+  };
 
   useEffect(() => {
     localStorage.setItem('artimus_bot_config', JSON.stringify(botConfig));
@@ -63,7 +79,7 @@ export default function App() {
         isOpen={isSidebarOpen} 
         onClose={() => setIsSidebarOpen(false)} 
         currentView={currentView} 
-        onSetView={setCurrentView} 
+        onSetView={handleSetView} 
       />
       <Header 
         onOpenSettings={() => setIsSettingsOpen(true)} 

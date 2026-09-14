@@ -10,6 +10,7 @@ export default function TelegramLiveFeed() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('All');
 
   const fetchMessages = async () => {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -115,7 +116,65 @@ export default function TelegramLiveFeed() {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {messages.map((msg) => (
+            {(() => {
+              const uniqueGroups = ['All', ...new Set(messages.map(msg => {
+                if (msg.message && msg.message.startsWith('[')) {
+                  const endBracket = msg.message.indexOf(']\n');
+                  if (endBracket !== -1) return msg.message.substring(1, endBracket);
+                }
+                return null;
+              }).filter(Boolean))];
+
+              const filteredMessages = activeFilter === 'All' ? messages : messages.filter(msg => {
+                if (msg.message && msg.message.startsWith('[')) {
+                  const endBracket = msg.message.indexOf(']\n');
+                  if (endBracket !== -1) return msg.message.substring(1, endBracket) === activeFilter;
+                }
+                return false;
+              });
+
+              return (
+                <>
+                  {uniqueGroups.length > 1 && (
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                      {uniqueGroups.map(group => (
+                        <button
+                          key={group}
+                          onClick={() => setActiveFilter(group)}
+                          style={{
+                            background: activeFilter === group ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                            color: activeFilter === group ? '#38BDF8' : 'var(--text-subtle)',
+                            border: `1px solid ${activeFilter === group ? 'rgba(56, 189, 248, 0.3)' : 'transparent'}`,
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '13px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          {group}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {filteredMessages.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>
+                      No messages match this filter.
+                    </div>
+                  ) : filteredMessages.map((msg) => {
+              let chatTitle = 'Unknown Group';
+              let displayMessage = msg.message || 'No content provided.';
+              
+              if (displayMessage.startsWith('[')) {
+                const endBracket = displayMessage.indexOf(']\n');
+                if (endBracket !== -1) {
+                  chatTitle = displayMessage.substring(1, endBracket);
+                  displayMessage = displayMessage.substring(endBracket + 2);
+                }
+              }
+
+              return (
               <div 
                 key={msg.id || Math.random().toString()} 
                 style={{
@@ -129,7 +188,7 @@ export default function TelegramLiveFeed() {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                     <div style={{
                       background: 'rgba(56, 189, 248, 0.15)',
                       color: '#38BDF8',
@@ -140,6 +199,18 @@ export default function TelegramLiveFeed() {
                     }}>
                       Telegram
                     </div>
+                    {chatTitle !== 'Unknown Group' && (
+                      <div style={{
+                        background: 'rgba(148, 163, 184, 0.15)',
+                        color: '#94A3B8',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        fontWeight: '600',
+                        fontSize: '12px'
+                      }}>
+                        {chatTitle}
+                      </div>
+                    )}
                   </div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-subtle)', fontSize: '12px' }}>
@@ -159,10 +230,13 @@ export default function TelegramLiveFeed() {
                   fontFamily: 'var(--font-sans)',
                   whiteSpace: 'pre-wrap'
                 }}>
-                  {msg.message || 'No content provided.'}
+                  {displayMessage}
                 </div>
               </div>
-            ))}
+            )})}
+                </>
+              );
+            })()}
           </div>
         )}
       </div>
