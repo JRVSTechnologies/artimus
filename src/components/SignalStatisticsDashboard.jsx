@@ -21,6 +21,7 @@ export default function SignalStatisticsDashboard() {
   const [heatmapTpFilter, setHeatmapTpFilter] = useState('All');
   const [performanceViewMode, setPerformanceViewMode] = useState('monthly');
   const [refreshKey, setRefreshKey] = useState(0);
+  const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [isRollingExpanded, setIsRollingExpanded] = useState(false);
