@@ -21,10 +21,10 @@ export default function SignalStatisticsDashboard() {
   const [heatmapTpFilter, setHeatmapTpFilter] = useState('All');
   const [performanceViewMode, setPerformanceViewMode] = useState('monthly');
   const [refreshKey, setRefreshKey] = useState(0);
-  const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [isRollingExpanded, setIsRollingExpanded] = useState(false);
+  const [isTimelineExpanded, setIsTimelineExpanded] = useState(false);
   const [editStatusMsg, setEditStatusMsg] = useState({ type: '', text: '' });
 
   const handleSyncNotion = async () => {
@@ -722,9 +722,18 @@ export default function SignalStatisticsDashboard() {
 
       {/* Performance Timeline Section */}
       <div className="dashboard-grid" style={{ gridTemplateColumns: performanceViewMode === 'monthly' ? '2fr 1fr' : '1fr', marginBottom: '24px' }}>
-        <div className="chart-card-premium" style={{ marginBottom: 0, minWidth: 0, width: '100%' }}>
+        <div className="chart-card-premium" style={{ marginBottom: 0, minWidth: 0, width: '100%', position: 'relative' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
-            <h3 className="chart-card-title" style={{ margin: 0 }}>Performance Timeline</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <h3 className="chart-card-title" style={{ margin: 0 }}>Performance Timeline</h3>
+              <button 
+                onClick={() => setIsTimelineExpanded(true)}
+                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
+                title="Expand Timeline"
+              >
+                <Maximize2 size={18} />
+              </button>
+            </div>
             <div className="provider-toggle" style={{ transform: 'scale(0.85)', transformOrigin: 'right center', margin: 0 }}>
               <button
                 onClick={() => setPerformanceViewMode('monthly')}
@@ -959,6 +968,87 @@ export default function SignalStatisticsDashboard() {
           </div>
           <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
             <Line data={rollingChartData} options={{ ...rollingOptions, maintainAspectRatio: false }} />
+          </div>
+        </div>
+      )}
+
+      {isTimelineExpanded && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
+          backgroundColor: 'rgba(15, 23, 42, 0.95)', zIndex: 9999,
+          display: 'flex', flexDirection: 'column', padding: '24px'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '24px' }}>Performance Timeline</h2>
+            <div className="provider-toggle" style={{ transform: 'scale(0.85)', margin: 0 }}>
+              <button onClick={() => setPerformanceViewMode('monthly')} className={performanceViewMode === 'monthly' ? 'active-bills' : ''}>Month by Month</button>
+              <button onClick={() => setPerformanceViewMode('weekly')} className={performanceViewMode === 'weekly' ? 'active-bills' : ''}>Week by Week</button>
+              <button onClick={() => setPerformanceViewMode('daily')} className={performanceViewMode === 'daily' ? 'active-bills' : ''}>Day by Day</button>
+            </div>
+            <button 
+              onClick={() => setIsTimelineExpanded(false)}
+              style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#f8fafc', cursor: 'pointer', padding: '8px', borderRadius: '50%', display: 'flex' }}
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <div className="custom-scrollbar" style={{ flex: 1, overflowX: 'auto', overflowY: 'hidden', position: 'relative', width: '100%', backgroundColor: 'rgba(15, 23, 42, 0.3)', borderRadius: '12px' }}>
+            {(() => {
+               let timelineData = [];
+               if (performanceViewMode === 'monthly') {
+                 timelineData = (agg.monthlyStats || []).map(m => ({ label: m.monthYear, r: m.r }));
+               } else if (performanceViewMode === 'weekly') {
+                 timelineData = (agg.weeklyStats || []).map(w => ({ label: w.weekStr, r: w.r }));
+               } else {
+                 timelineData = (agg.dailyStats || []).map(d => ({ label: d.dayStr.replace(/, \d{4}/, ''), r: d.r }));
+               }
+               const maxAbsR = Math.max(...timelineData.map(d => Math.abs(d.r)), 1);
+               
+               return (
+                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center', height: '100%', padding: '0 40px', minWidth: 'min-content' }}>
+                   <div style={{ position: 'absolute', top: '50%', left: '20px', right: '20px', height: '2px', backgroundColor: '#334155', zIndex: 0 }} />
+                   
+                   {timelineData.map((item, i) => {
+                     const rValue = item.r;
+                     const isPositive = rValue >= 0;
+                     const heightRatio = Math.abs(rValue) / maxAbsR;
+                     const stemHeight = Math.max(20, heightRatio * 250); // Max stem taller for full screen
+                     
+                     return (
+                       <div key={i} style={{ position: 'relative', width: '120px', flexShrink: 0, height: '100%' }}>
+                         <div style={{ 
+                           position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                           marginTop: isPositive ? '24px' : '-24px', color: '#94a3b8', fontSize: '12px', textAlign: 'center', width: '110px', fontWeight: 500
+                         }}>
+                           {item.label}
+                         </div>
+                         <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#64748b', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }} />
+                         <div style={{
+                           position: 'absolute', left: '50%', width: '2px', backgroundColor: isPositive ? '#10b981' : '#f43f5e', transform: 'translateX(-50%)', zIndex: 1,
+                           ...(isPositive ? { bottom: '50%', height: `${stemHeight}px` } : { top: '50%', height: `${stemHeight}px` })
+                         }} />
+                         <div style={{
+                           position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center',
+                           ...(isPositive ? { bottom: `calc(50% + ${stemHeight}px)` } : { top: `calc(50% + ${stemHeight}px)` })
+                         }}>
+                           {isPositive ? (
+                             <>
+                               <div style={{ color: '#10b981', fontWeight: 'bold', marginBottom: '8px', fontSize: '15px' }}>+{rValue.toFixed(2)}R</div>
+                               <div style={{ width: '14px', height: '14px', backgroundColor: '#10b981', transform: 'rotate(45deg)', border: '2px solid var(--bg-dashboard)' }} />
+                             </>
+                           ) : (
+                             <>
+                               <div style={{ width: '14px', height: '14px', backgroundColor: '#f43f5e', transform: 'rotate(45deg)', border: '2px solid var(--bg-dashboard)' }} />
+                               <div style={{ color: '#f43f5e', fontWeight: 'bold', marginTop: '8px', fontSize: '15px' }}>{rValue.toFixed(2)}R</div>
+                             </>
+                           )}
+                         </div>
+                       </div>
+                     );
+                   })}
+                 </div>
+               );
+            })()}
           </div>
         </div>
       )}
