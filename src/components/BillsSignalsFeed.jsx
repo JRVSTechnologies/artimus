@@ -55,61 +55,10 @@ export default function BillsSignalsFeed() {
     fetchMessages();
   }, []);
 
-  const renderSignalTable = (msg) => {
-    const direction = (msg.direction || 'UNKNOWN').toUpperCase();
-    const symbol = (msg.symbol || '').toUpperCase();
-    const isBuy = direction === 'BUY';
-    const alertIcon = '🚨'; // Using the siren icon from your screenshot
-
-    const rows = [];
-    
-    let openValue = '-';
-    if (msg.entry_low && msg.entry_high) openValue = `${msg.entry_low} - ${msg.entry_high}`;
-    else if (msg.entry_low || msg.entry_high) openValue = `${msg.entry_low || msg.entry_high}`;
-    
-    rows.push({ label: 'Open - Low/High', value: openValue });
-    if (msg.sl) rows.push({ label: 'SL', value: msg.sl });
-    if (msg.tp1) rows.push({ label: 'TP 1', value: msg.tp1 });
-    if (msg.tp2) rows.push({ label: 'TP 2', value: msg.tp2 });
-    if (msg.tp3) rows.push({ label: 'TP 3', value: msg.tp3 });
-    if (msg.tp4) rows.push({ label: 'TP 4', value: msg.tp4 });
-    if (msg.tp5) rows.push({ label: 'TP 5', value: msg.tp5 });
-    // (Note: TP 6 is not currently in the database schema)
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#f1f5f9' }}>
-          {direction} POSITION {symbol} {alertIcon}
-        </div>
-        
-        <table style={{ 
-          width: '100%', 
-          borderCollapse: 'collapse', 
-          fontSize: '14px', 
-          textAlign: 'left',
-          marginTop: '8px'
-        }}>
-          <tbody>
-            {rows.map((row, idx) => (
-              <tr key={idx} style={{ borderBottom: idx === rows.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.05)' }}>
-                <td style={{ padding: '8px 0', color: 'var(--text-subtle)', width: '35%' }}>
-                  {row.label}
-                </td>
-                <td style={{ padding: '8px 0', fontWeight: '600', color: '#cbd5e1' }}>
-                  {row.value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-
   return (
     <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr' }}>
-      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minWidth: '800px' }}>
           <div>
             <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <MessageSquare className="text-primary" /> Bill's Signals Feed
@@ -131,7 +80,7 @@ export default function BillsSignalsFeed() {
         </div>
 
         {error && (
-          <div className="alert-box alert-error">
+          <div className="alert-box alert-error" style={{ minWidth: '800px' }}>
             <AlertCircle size={20} />
             <div>
               <strong>Database Connection Error</strong>
@@ -149,61 +98,80 @@ export default function BillsSignalsFeed() {
             No signals found in the database.
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {messages.map((msg) => (
-              <div 
-                key={msg.id || Math.random().toString()} 
-                style={{
-                  background: 'rgba(15, 23, 42, 0.4)',
-                  border: '1px solid var(--border-card)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <div style={{
-                      background: 'rgba(56, 189, 248, 0.15)',
-                      color: '#38BDF8',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontWeight: '700',
-                      fontSize: '13px'
-                    }}>
-                      Telegram
-                    </div>
-                    <div style={{
-                      background: 'rgba(148, 163, 184, 0.15)',
-                      color: '#94A3B8',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontWeight: '600',
-                      fontSize: '12px'
-                    }}>
-                      VIP group
-                    </div>
-                  </div>
-                  
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-subtle)', fontSize: '12px' }}>
-                    <Clock size={14} />
-                    {new Date(msg.signal_date || Date.now()).toLocaleString()}
-                  </div>
-                </div>
-
-                <div style={{
-                  background: '#060913',
-                  padding: '16px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  fontFamily: 'var(--font-sans)',
+          <div style={{
+            background: '#060913',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid rgba(255,255,255,0.05)',
+            overflowX: 'auto'
+          }}>
+            <table style={{ 
+              width: '100%', 
+              borderCollapse: 'collapse', 
+              fontSize: '13px', 
+              textAlign: 'left',
+              minWidth: '1000px'
+            }}>
+              <thead>
+                <tr style={{ 
+                  background: 'rgba(255,255,255,0.02)', 
+                  borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  color: 'var(--text-subtle)'
                 }}>
-                  {renderSignalTable(msg)}
-                </div>
-              </div>
-            ))}
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>Date</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>Time</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>Signal</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>Open (Low/High)</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>SL</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 1</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 2</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 3</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 4</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 5</th>
+                </tr>
+              </thead>
+              <tbody>
+                {messages.map((msg, idx) => {
+                  const direction = (msg.direction || 'UNKNOWN').toUpperCase();
+                  const symbol = (msg.symbol || '').toUpperCase();
+                  const isBuy = direction === 'BUY';
+                  
+                  let openValue = '-';
+                  if (msg.entry_low && msg.entry_high) openValue = `${msg.entry_low} - ${msg.entry_high}`;
+                  else if (msg.entry_low || msg.entry_high) openValue = `${msg.entry_low || msg.entry_high}`;
+
+                  const dateObj = new Date(msg.signal_date || Date.now());
+                  // e.g., 09/17/2026
+                  const dateStr = dateObj.toLocaleDateString();
+                  // e.g., 14:30:00
+                  const timeStr = dateObj.toLocaleTimeString();
+
+                  return (
+                    <tr 
+                      key={msg.id || Math.random().toString()} 
+                      style={{ 
+                        borderBottom: idx === messages.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.05)',
+                        transition: 'background 0.2s',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    >
+                      <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{dateStr}</td>
+                      <td style={{ padding: '12px 16px', color: 'var(--text-subtle)' }}>{timeStr}</td>
+                      <td style={{ padding: '12px 16px', fontWeight: '600', color: isBuy ? '#34D399' : '#F87171' }}>
+                        {direction} {symbol}
+                      </td>
+                      <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{openValue}</td>
+                      <td style={{ padding: '12px 16px', color: '#F87171' }}>{msg.sl || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp1 || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp2 || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp3 || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp4 || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp5 || '-'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
