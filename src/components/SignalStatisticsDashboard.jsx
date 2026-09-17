@@ -30,16 +30,27 @@ export default function SignalStatisticsDashboard() {
     setEditStatusMsg({ type: '', text: '' });
     try {
       const response = await fetch(`/.netlify/functions/syncNotion?provider=${provider}`, { method: 'POST' });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Sync failed');
+      
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error(`Sync failed (Not JSON): ${text.slice(0, 60)}`);
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.error || data.errorMessage || `Server Error ${response.status}: ${JSON.stringify(data)}`);
+      }
       
       setEditStatusMsg({ type: 'success', text: data.message });
       setRefreshKey(old => old + 1);
     } catch (err) {
+      console.error(err);
       setEditStatusMsg({ type: 'error', text: err.message });
     } finally {
       setIsSyncing(false);
-      setTimeout(() => setEditStatusMsg({ type: '', text: '' }), 5000);
+      setTimeout(() => setEditStatusMsg({ type: '', text: '' }), 8000);
     }
   };
 
