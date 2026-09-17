@@ -1,44 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { useNhostClient } from '@nhost/react';
 import { MessageSquare, Clock, AlertCircle, RefreshCw } from 'lucide-react';
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export default function BillsSignalsFeed() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  const nhost = useNhostClient();
 
   const fetchMessages = async () => {
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      setError('Missing Supabase Environment Variables. Check .env');
-      setLoading(false);
-      return;
-    }
-
     setIsRefreshing(true);
-    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    setError('');
 
-    const { data, error: fetchErr } = await client
-      .from('bills_signals')
-      .select('*')
-      .order('signal_date', { ascending: false })
-      .limit(50);
+    const query = `
+      query GetBillsSignals {
+        bills_signals(order_by: { signal_date: desc }, limit: 50) {
+          id
+          direction
+          symbol
+          entry_low
+          entry_high
+          sl
+          tp1
+          tp2
+          tp3
+          tp4
+          tp5
+          signal_date
+          notion_id
+        }
+      }
+    `;
+
+    try {
+      const { data, error: fetchErr } = await nhost.graphql.request(query);
+      
+      if (fetchErr) {
+        console.error('Fetch error:', fetchErr);
+        setError(Array.isArray(fetchErr) ? fetchErr[0].message : fetchErr.message || 'Unknown GraphQL error');
+      } else if (data && data.bills_signals) {
+        setMessages(data.bills_signals);
+      }
+    } catch (err) {
+      console.error('Network error:', err);
+      setError(err.message);
+    }
 
     setIsRefreshing(false);
     setLoading(false);
-
-    if (fetchErr) {
-      console.error('Fetch error:', fetchErr);
-      setError(fetchErr.message);
-      return;
-    }
-
-    if (data) {
-      setMessages(data);
-    }
   };
 
   useEffect(() => {
