@@ -29,7 +29,6 @@ export default function BillsSignalsFeed() {
           tp4
           tp5
           signal_date
-          notion_id
         }
       }
     `;
