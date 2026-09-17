@@ -10,4 +10,4 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["pg-native", "@notionhq/client"]
+  external_node_modules = ["pg-native"]

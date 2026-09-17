@@ -1,6 +1,5 @@
 import pkg from 'pg';
 const { Client: PgClient } = pkg;
-import { Client as NotionClient } from '@notionhq/client';
 
 export const handler = async (event, context) => {
   const headers = {
@@ -33,7 +32,6 @@ export const handler = async (event, context) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Sync is only supported for Bills Trading at this time.' }) };
   }
 
-  const notion = new NotionClient({ auth: notionApiKey });
   const pgClient = new PgClient({
     connectionString,
     ssl: { rejectUnauthorized: false }
@@ -52,13 +50,26 @@ export const handler = async (event, context) => {
     let nextCursor = undefined;
 
     while (hasMore) {
-      const response = await notion.databases.query({
-        database_id: notionDatabaseId,
-        start_cursor: nextCursor,
+      const requestBody = nextCursor ? JSON.stringify({ start_cursor: nextCursor }) : '{}';
+      const response = await fetch(`https://api.notion.com/v1/databases/${notionDatabaseId}/query`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${notionApiKey}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json'
+        },
+        body: requestBody
       });
-      notionResults.push(...response.results);
-      hasMore = response.has_more;
-      nextCursor = response.next_cursor;
+      
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Notion API error: ${response.status} ${errorData}`);
+      }
+      
+      const responseData = await response.json();
+      notionResults.push(...responseData.results);
+      hasMore = responseData.has_more;
+      nextCursor = responseData.next_cursor;
     }
 
     let insertedOrUpdated = 0;
