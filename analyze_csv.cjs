@@ -4,7 +4,7 @@ const csv = require('csv-parser');
 const results = [];
 let count = 0;
 
-fs.createReadStream('C:/Users/jossi/DeveloperWorkspace/artimus/data/Bills Signals f28dacda255045da9e5946021104905b_all.csv')
+fs.createReadStream('C:/Users/jossi/DeveloperWorkspace/artimus/data/Bills Signals_all.csv')
   .pipe(csv())
   .on('data', (data) => {
     if(count < 5) console.log(data);
