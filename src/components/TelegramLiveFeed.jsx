@@ -27,7 +27,7 @@ export default function TelegramLiveFeed() {
       .select('*')
       .eq('interval', 'TG_GROUP')
       .order('received_at', { ascending: false })
-      .limit(50); // Get last 50 telegram messages
+      .limit(50);
 
     setIsRefreshing(false);
     setLoading(false);
@@ -46,7 +46,6 @@ export default function TelegramLiveFeed() {
   useEffect(() => {
     fetchMessages();
     
-    // Set up real-time subscription for Telegram messages
     let subscription;
     if (SUPABASE_URL && SUPABASE_ANON_KEY) {
       const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -58,7 +57,6 @@ export default function TelegramLiveFeed() {
         .subscribe();
     }
 
-    // Fallback: Auto-refresh every 5 seconds in case Supabase Realtime is not enabled on the table
     const pollInterval = setInterval(() => {
       fetchMessages();
     }, 5000);
@@ -72,10 +70,65 @@ export default function TelegramLiveFeed() {
     };
   }, []);
 
+  const parseSignal = (rawText) => {
+    let direction = '';
+    let symbol = '';
+    let open = '-';
+    let sl = '-';
+    let tps = [];
+    
+    // Fallback for unparseable text
+    let isParsed = false;
+
+    const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+
+    lines.forEach(line => {
+      const upperLine = line.toUpperCase();
+      
+      if (upperLine.includes('BUY POSITION')) {
+        direction = 'BUY';
+        symbol = upperLine.replace('BUY POSITION', '').replace(/🚨.*/, '').trim();
+        isParsed = true;
+      } else if (upperLine.includes('SELL POSITION')) {
+        direction = 'SELL';
+        symbol = upperLine.replace('SELL POSITION', '').replace(/🚨.*/, '').trim();
+        isParsed = true;
+      } else if (upperLine.match(/^[A-Z]{6}\s*(📉|📈)/)) {
+        symbol = upperLine.replace(/📉|📈/g, '').trim();
+        isParsed = true;
+      } else if (upperLine.includes('BUY LIMIT') || upperLine.includes('SELL LIMIT') || upperLine.includes('BUY ZONE') || upperLine.includes('SELL ZONE')) {
+        if (upperLine.includes('BUY')) direction = 'BUY';
+        if (upperLine.includes('SELL')) direction = 'SELL';
+        
+        const openMatch = upperLine.match(/(?:LIMIT|ZONE)\s+([\d\.-]+)/);
+        if (openMatch) open = openMatch[1];
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('OPEN :') || upperLine.startsWith('OPEN:')) {
+        open = upperLine.replace(/OPEN\s*:/, '').trim();
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('SL :') || upperLine.startsWith('SL:') || upperLine.startsWith('SL ')) {
+        sl = upperLine.replace(/SL\s*:?/, '').replace(/🛑.*/, '').trim();
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('TP')) {
+        const tpVal = upperLine.replace(/TP\d*\s*:?/, '').trim();
+        tps.push(tpVal);
+        isParsed = true;
+      }
+    });
+
+    return { direction, symbol, open, sl, tps, isParsed };
+  };
+
   return (
     <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr' }}>
-      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minWidth: '800px' }}>
           <div>
             <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <MessageSquare className="text-primary" /> Telegram Live Feed
@@ -97,7 +150,7 @@ export default function TelegramLiveFeed() {
         </div>
 
         {error && (
-          <div className="alert-box alert-error">
+          <div className="alert-box alert-error" style={{ minWidth: '800px' }}>
             <AlertCircle size={20} />
             <div>
               <strong>Database Connection Error</strong>
@@ -158,82 +211,109 @@ export default function TelegramLiveFeed() {
                       ))}
                     </div>
                   )}
+
                   {filteredMessages.length === 0 ? (
                     <div style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>
                       No messages match this filter.
                     </div>
-                  ) : filteredMessages.map((msg) => {
-              let chatTitle = 'Unknown Group';
-              let displayMessage = msg.message || 'No content provided.';
-              
-              if (displayMessage.startsWith('[')) {
-                const endBracket = displayMessage.indexOf(']\n');
-                if (endBracket !== -1) {
-                  chatTitle = displayMessage.substring(1, endBracket);
-                  displayMessage = displayMessage.substring(endBracket + 2);
-                }
-              }
-
-              return (
-              <div 
-                key={msg.id || Math.random().toString()} 
-                style={{
-                  background: 'rgba(15, 23, 42, 0.4)',
-                  border: '1px solid var(--border-card)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  ) : (
                     <div style={{
-                      background: 'rgba(56, 189, 248, 0.15)',
-                      color: '#38BDF8',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontWeight: '700',
-                      fontSize: '13px'
+                      background: '#060913',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid rgba(255,255,255,0.05)',
+                      overflowX: 'auto'
                     }}>
-                      Telegram
-                    </div>
-                    {chatTitle !== 'Unknown Group' && (
-                      <div style={{
-                        background: 'rgba(148, 163, 184, 0.15)',
-                        color: '#94A3B8',
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        fontWeight: '600',
-                        fontSize: '12px'
+                      <table style={{ 
+                        width: '100%', 
+                        borderCollapse: 'collapse', 
+                        fontSize: '13px', 
+                        textAlign: 'left',
+                        minWidth: '1100px'
                       }}>
-                        {chatTitle}
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-subtle)', fontSize: '12px' }}>
-                    <Clock size={14} />
-                    {new Date(msg.received_at || msg.created_at).toLocaleString()}
-                  </div>
-                </div>
+                        <thead>
+                          <tr style={{ 
+                            background: 'rgba(255,255,255,0.02)', 
+                            borderBottom: '1px solid rgba(255,255,255,0.08)',
+                            color: 'var(--text-subtle)'
+                          }}>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>Date</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>Time</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>Group</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>Signal</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>Open (Low/High)</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>SL</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 1</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 2</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 3</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 4</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 5</th>
+                            <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 6</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredMessages.map((msg, idx) => {
+                            let chatTitle = '-';
+                            let displayMessage = msg.message || '';
+                            
+                            if (displayMessage.startsWith('[')) {
+                              const endBracket = displayMessage.indexOf(']\n');
+                              if (endBracket !== -1) {
+                                chatTitle = displayMessage.substring(1, endBracket);
+                                displayMessage = displayMessage.substring(endBracket + 2);
+                              }
+                            }
 
-                <div style={{
-                  background: '#060913',
-                  padding: '16px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  fontSize: '14px',
-                  lineHeight: '1.5',
-                  color: '#f1f5f9',
-                  fontFamily: 'var(--font-sans)',
-                  whiteSpace: 'pre-wrap'
-                }}>
-                  {displayMessage}
-                </div>
-              </div>
-            )})}
+                            const parsed = parseSignal(displayMessage);
+                            
+                            const dateObj = new Date(msg.received_at || msg.created_at);
+                            const dateStr = dateObj.toLocaleDateString();
+                            const timeStr = dateObj.toLocaleTimeString();
+
+                            const isBuy = parsed.direction === 'BUY';
+                            const signalColor = isBuy ? '#34D399' : (parsed.direction === 'SELL' ? '#F87171' : '#f1f5f9');
+
+                            return (
+                              <tr 
+                                key={msg.id || Math.random().toString()} 
+                                style={{ 
+                                  borderBottom: idx === filteredMessages.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.05)',
+                                  transition: 'background 0.2s',
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              >
+                                <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{dateStr}</td>
+                                <td style={{ padding: '12px 16px', color: 'var(--text-subtle)' }}>{timeStr}</td>
+                                <td style={{ padding: '12px 16px', color: '#38BDF8', fontWeight: '600' }}>{chatTitle}</td>
+                                
+                                {parsed.isParsed ? (
+                                  <>
+                                    <td style={{ padding: '12px 16px', fontWeight: '700', color: signalColor }}>
+                                      {parsed.direction} {parsed.symbol}
+                                    </td>
+                                    <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{parsed.open}</td>
+                                    <td style={{ padding: '12px 16px', color: '#F87171' }}>{parsed.sl}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[0] || '-'}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[1] || '-'}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[2] || '-'}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[3] || '-'}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[4] || '-'}</td>
+                                    <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[5] || '-'}</td>
+                                  </>
+                                ) : (
+                                  <td colSpan={9} style={{ padding: '12px 16px', color: 'var(--text-subtle)', whiteSpace: 'pre-wrap' }}>
+                                    <div style={{ maxHeight: '100px', overflowY: 'auto', fontSize: '12px' }}>
+                                      {displayMessage}
+                                    </div>
+                                  </td>
+                                )}
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </>
               );
             })()}
