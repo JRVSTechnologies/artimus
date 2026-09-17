@@ -10,7 +10,7 @@ const { Client } = pg;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const csvPath = join(__dirname, '..', 'data', 'Bills Signals f28dacda255045da9e5946021104905b_all.csv');
+const csvPath = join(__dirname, '..', 'data', 'Bills Signals_all.csv');
 
 async function run() {
   const rl = readline.createInterface({ input, output });

@@ -64,10 +64,12 @@ export async function handler(event, context) {
       if (priceMatch) price = parseFloat(priceMatch[0]);
     }
 
+    const chatTitle = message.chat && message.chat.title ? message.chat.title : 'Unknown Group';
+    
     // Construct the payload for Supabase
     // Matching the expected schema of tv_alerts used by PriceAnalysisDashboard
     const alertData = {
-      message: rawText,
+      message: `[${chatTitle}]\n${rawText}`,
       interval: 'TG_GROUP',
       received_at: new Date().toISOString(),
       owner_id: '00000000-0000-0000-0000-000000000000'
