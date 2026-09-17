@@ -22,7 +22,26 @@ export default function SignalStatisticsDashboard() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [editStatusMsg, setEditStatusMsg] = useState({ type: '', text: '' });
+
+  const handleSyncNotion = async () => {
+    setIsSyncing(true);
+    setEditStatusMsg({ type: '', text: '' });
+    try {
+      const response = await fetch(`/.netlify/functions/syncNotion?provider=${provider}`, { method: 'POST' });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Sync failed');
+      
+      setEditStatusMsg({ type: 'success', text: data.message });
+      setRefreshKey(old => old + 1);
+    } catch (err) {
+      setEditStatusMsg({ type: 'error', text: err.message });
+    } finally {
+      setIsSyncing(false);
+      setTimeout(() => setEditStatusMsg({ type: '', text: '' }), 5000);
+    }
+  };
 
   useEffect(() => {
     const fetchSignals = async () => {
@@ -454,19 +473,36 @@ export default function SignalStatisticsDashboard() {
             <h1>VIP Signal Analytics</h1>
             <p>Evaluate signal edge, session dependency, and execution models.</p>
           </div>
-          <div className="provider-toggle">
-            <button
-              onClick={() => setProvider('bills')}
-              className={provider === 'bills' ? 'active-bills' : ''}
-            >
-              Bills Trading
-            </button>
-            <button
-              onClick={() => setProvider('fx_clarity')}
-              className={provider === 'fx_clarity' ? 'active-fx' : ''}
-            >
-              FX Clarity
-            </button>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
+            <div className="provider-toggle">
+              <button
+                onClick={() => setProvider('bills')}
+                className={provider === 'bills' ? 'active-bills' : ''}
+              >
+                Bills Trading
+              </button>
+              <button
+                onClick={() => setProvider('fx_clarity')}
+                className={provider === 'fx_clarity' ? 'active-fx' : ''}
+              >
+                FX Clarity
+              </button>
+            </div>
+            {provider === 'bills' && (
+              <button 
+                onClick={handleSyncNotion} 
+                disabled={isSyncing}
+                className="btn btn-secondary" 
+                style={{ fontSize: '13px', padding: '6px 12px' }}
+              >
+                {isSyncing ? 'Syncing...' : 'Sync Notion DB'}
+              </button>
+            )}
+            {editStatusMsg.text && (
+              <div style={{ fontSize: '12px', color: editStatusMsg.type === 'error' ? '#ef4444' : '#10b981' }}>
+                {editStatusMsg.text}
+              </div>
+            )}
           </div>
         </div>
       </div>
