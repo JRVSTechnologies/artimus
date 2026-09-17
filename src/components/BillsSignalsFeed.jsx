@@ -256,7 +256,7 @@ export default function BillsSignalsFeed() {
                   }
 
                   const parsed = parseSignal(displayMessage);
-                  if (!parsed.direction) return null; // filter free text
+                  if (!parsed.direction || parsed.open === '-') return null; // filter free text and signals without open
                   
                   const dateObj = new Date(msg.received_at || msg.created_at);
                   const dateStr = dateObj.toLocaleDateString();

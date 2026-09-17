@@ -249,7 +249,7 @@ export default function FxClarityFeed() {
                   }
 
                   const parsed = parseSignal(displayMessage);
-                  if (!parsed.direction) return null; // filter out free text
+                  if (!parsed.direction || parsed.open === '-') return null; // filter out free text and signals without open
                   
                   const dateObj = new Date(msg.received_at || msg.created_at);
                   const dateStr = dateObj.toLocaleDateString();
