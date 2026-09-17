@@ -8,6 +8,7 @@ export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
     { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: '#f43f5e' },
     { id: 'telegram_feed', label: 'Telegram Live Feed', icon: MessageSquare, color: '#38BDF8' },
     { id: 'bills_signals', label: 'Bill\'s Signals', icon: MessageSquare, color: '#38BDF8', subItem: true },
+    { id: 'fx_clarity', label: 'POI VIP FXClarity', icon: MessageSquare, color: '#38BDF8', subItem: true },
     { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: '#10b981' },
     { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: '#f59e0b' },
     { id: 'tradeTimeline', label: 'Trade Timeline Feed', icon: Activity, color: '#f59e0b', subItem: true },
