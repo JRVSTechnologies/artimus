@@ -55,26 +55,55 @@ export default function BillsSignalsFeed() {
     fetchMessages();
   }, []);
 
-  const formatSignalText = (msg) => {
+  const renderSignalTable = (msg) => {
     const direction = (msg.direction || 'UNKNOWN').toUpperCase();
     const symbol = (msg.symbol || '').toUpperCase();
-    
-    let text = `${direction} POSITION ${symbol} 🚨\n\n`;
-    
-    if (msg.entry_low && msg.entry_high) {
-      text += `OPEN : ${msg.entry_low}-${msg.entry_high}\n`;
-    } else if (msg.entry_low || msg.entry_high) {
-      text += `OPEN : ${msg.entry_low || msg.entry_high}\n`;
-    }
-    
-    if (msg.sl) text += `SL : ${msg.sl}\n`;
-    if (msg.tp1) text += `TP1: ${msg.tp1}\n`;
-    if (msg.tp2) text += `TP2: ${msg.tp2}\n`;
-    if (msg.tp3) text += `TP3: ${msg.tp3}\n`;
-    if (msg.tp4) text += `TP4: ${msg.tp4}\n`;
-    if (msg.tp5) text += `TP5: ${msg.tp5}\n`;
+    const isBuy = direction === 'BUY';
+    const alertIcon = '🚨'; // Using the siren icon from your screenshot
 
-    return text.trim();
+    const rows = [];
+    
+    let openValue = '-';
+    if (msg.entry_low && msg.entry_high) openValue = `${msg.entry_low} - ${msg.entry_high}`;
+    else if (msg.entry_low || msg.entry_high) openValue = `${msg.entry_low || msg.entry_high}`;
+    
+    rows.push({ label: 'Open - Low/High', value: openValue });
+    if (msg.sl) rows.push({ label: 'SL', value: msg.sl });
+    if (msg.tp1) rows.push({ label: 'TP 1', value: msg.tp1 });
+    if (msg.tp2) rows.push({ label: 'TP 2', value: msg.tp2 });
+    if (msg.tp3) rows.push({ label: 'TP 3', value: msg.tp3 });
+    if (msg.tp4) rows.push({ label: 'TP 4', value: msg.tp4 });
+    if (msg.tp5) rows.push({ label: 'TP 5', value: msg.tp5 });
+    // (Note: TP 6 is not currently in the database schema)
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#f1f5f9' }}>
+          {direction} POSITION {symbol} {alertIcon}
+        </div>
+        
+        <table style={{ 
+          width: '100%', 
+          borderCollapse: 'collapse', 
+          fontSize: '14px', 
+          textAlign: 'left',
+          marginTop: '8px'
+        }}>
+          <tbody>
+            {rows.map((row, idx) => (
+              <tr key={idx} style={{ borderBottom: idx === rows.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.05)' }}>
+                <td style={{ padding: '8px 0', color: 'var(--text-subtle)', width: '35%' }}>
+                  {row.label}
+                </td>
+                <td style={{ padding: '8px 0', fontWeight: '600', color: '#cbd5e1' }}>
+                  {row.value}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   };
 
   return (
@@ -123,7 +152,7 @@ export default function BillsSignalsFeed() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {messages.map((msg) => (
               <div 
-                key={msg.notion_id || msg.id || Math.random().toString()} 
+                key={msg.id || Math.random().toString()} 
                 style={{
                   background: 'rgba(15, 23, 42, 0.4)',
                   border: '1px solid var(--border-card)',
@@ -160,7 +189,7 @@ export default function BillsSignalsFeed() {
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-subtle)', fontSize: '12px' }}>
                     <Clock size={14} />
-                    {new Date(msg.signal_date || msg.created_at || Date.now()).toLocaleString()}
+                    {new Date(msg.signal_date || Date.now()).toLocaleString()}
                   </div>
                 </div>
 
@@ -169,13 +198,9 @@ export default function BillsSignalsFeed() {
                   padding: '16px',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid rgba(255,255,255,0.05)',
-                  fontSize: '14px',
-                  lineHeight: '1.5',
-                  color: '#f1f5f9',
                   fontFamily: 'var(--font-sans)',
-                  whiteSpace: 'pre-wrap'
                 }}>
-                  {formatSignalText(msg)}
+                  {renderSignalTable(msg)}
                 </div>
               </div>
             ))}
