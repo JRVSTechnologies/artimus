@@ -110,10 +110,16 @@ export default function BillsSignalsFeed() {
       } else if (upperLine.includes('SELL POSITION')) {
         direction = 'SELL';
         symbol = upperLine.replace('SELL POSITION', '').replace(/🚨.*/, '').trim();
+      } else if (upperLine.includes('BUY GOLD NOW')) {
+        direction = 'BUY';
+        symbol = 'GOLD';
+      } else if (upperLine.includes('SELL GOLD NOW')) {
+        direction = 'SELL';
+        symbol = 'GOLD';
       }
       
-      if (upperLine.startsWith('OPEN :') || upperLine.startsWith('OPEN:')) {
-        open = upperLine.replace(/OPEN\s*:/, '').trim();
+      if (upperLine.startsWith('OPEN :') || upperLine.startsWith('OPEN:') || upperLine.startsWith('ENTRY ZONE :') || upperLine.startsWith('ENTRY ZONE:')) {
+        open = upperLine.replace(/(OPEN|ENTRY ZONE)\s*:/, '').trim();
       }
       
       if (upperLine.startsWith('SL :') || upperLine.startsWith('SL:') || upperLine.startsWith('SL ')) {
