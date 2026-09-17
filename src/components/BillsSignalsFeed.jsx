@@ -202,6 +202,9 @@ export default function BillsSignalsFeed() {
 
                   const parsed = parseSignal(displayMessage);
                   
+                  // Filter out free text: only show complete signals
+                  if (!parsed.direction) return null;
+                  
                   const dateObj = new Date(msg.received_at || msg.created_at);
                   const dateStr = dateObj.toLocaleDateString();
                   const timeStr = dateObj.toLocaleTimeString();
