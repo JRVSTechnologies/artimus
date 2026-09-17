@@ -88,50 +88,7 @@ export default function App() {
         onToggleSidebar={() => setIsSidebarOpen(true)}
       />
 
-      {/* Hero Quick Overview Stats */}
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38BDF8' }}>
-            <Server size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-subtle)' }}>Netlify Functions</div>
-            <div style={{ fontSize: '18px', fontWeight: '700' }}>Active & Ready</div>
-          </div>
-        </div>
 
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: 'rgba(129, 140, 248, 0.15)', color: '#818CF8' }}>
-            <Send size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-subtle)' }}>Telegram Gateway</div>
-            <div style={{ fontSize: '18px', fontWeight: '700' }}>
-              {botConfig.botToken ? 'Configured' : 'Needs Token'}
-            </div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: 'rgba(192, 132, 252, 0.15)', color: '#C084FC' }}>
-            <Cpu size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-subtle)' }}>Total Dispatched</div>
-            <div style={{ fontSize: '18px', fontWeight: '700' }}>{logs.length} Signals</div>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon" style={{ background: 'rgba(52, 211, 153, 0.15)', color: '#34D399' }}>
-            <Globe size={22} />
-          </div>
-          <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-subtle)' }}>Serverless Environment</div>
-            <div style={{ fontSize: '18px', fontWeight: '700' }}>NodeJS 18+</div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Content Area */}
       {currentView === 'main' && (
