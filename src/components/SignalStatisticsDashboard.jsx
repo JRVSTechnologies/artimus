@@ -18,8 +18,6 @@ export default function SignalStatisticsDashboard() {
   const [exitModel, setExitModel] = useState('ladder');
   const [selectedSession, setSelectedSession] = useState('All');
   const [selectedDirection, setSelectedDirection] = useState('All');
-  const [heatmapTpFilter, setHeatmapTpFilter] = useState('All');
-  const [performanceViewMode, setPerformanceViewMode] = useState('monthly');
   const [refreshKey, setRefreshKey] = useState(0);
   const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,6 +25,7 @@ export default function SignalStatisticsDashboard() {
   const [isRollingExpanded, setIsRollingExpanded] = useState(false);
   const [isTimelineExpanded, setIsTimelineExpanded] = useState(false);
   const [editStatusMsg, setEditStatusMsg] = useState({ type: '', text: '' });
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSyncNotion = async () => {
     setIsSyncing(true);
@@ -163,6 +162,11 @@ export default function SignalStatisticsDashboard() {
       return matchSession && matchDir;
     });
   }, [computedSignals, selectedSession, selectedDirection]);
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedSession, selectedDirection, provider, exitModel]);
 
   // Aggregate
   const agg = useMemo(() => {
@@ -1071,54 +1075,94 @@ export default function SignalStatisticsDashboard() {
               </tr>
             </thead>
             <tbody>
-              {agg.sortedSignals.slice(-10).reverse().map((s, idx) => (
-                <tr key={idx}>
-                  <td>{s.Date}</td>
-                  <td>{s.Session}</td>
-                  <td className={s.Direction === 'Buy' ? 'text-green' : 'text-red'} style={{fontWeight: 700}}>{s.Direction}</td>
-                  <td>{(s.risk_pts * 10).toFixed(1)}</td>
-                  <td>
-                    <span className={`status-badge ${s.Status === 'TP Hit' ? 'success' : s.Status === 'SL Hit' ? 'danger' : 'warning'}`}>
-                      {s.Status}
-                    </span>
-                  </td>
-                  <td className={s.realizedR[exitModel] > 0 ? 'text-green' : s.realizedR[exitModel] < 0 ? 'text-red' : ''} style={{fontWeight: 700}}>
-                    {s.realizedR[exitModel].toFixed(2)}R
-                  </td>
-                  <td>
-                    <button 
-                      onClick={() => setEditingSignal({
-                        id: s.id,
-                        symbol: s.Symbol || '',
-                        direction: s.Direction || 'Buy',
-                        entry_high: s['Entry High'] || '',
-                        entry_low: s['Entry Low'] || '',
-                        sl: s['S/L'] || '',
-                        tp1: s.TP1 || '',
-                        tp2: s.TP2 || '',
-                        tp3: s.TP3 || '',
-                        tp4: s.TP4 || '',
-                        tp5: s.TP5 || '',
-                        tp6: s.TP6 || '',
-                        tp7: s.TP7 || '',
-                        session: s.Session || 'London',
-                        status: s.Status || 'Open',
-                        source: s.Source || 'Manual Entry',
-                        raw_signal_text: s['Raw Signal Text'] || '',
-                        signal_date: s.Date ? new Date(s.Date.replace(' (GMT+7)', '').replace(' at ', ' ')).toISOString().slice(0, 16) : ''
-                      })}
-                      style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {(() => {
+                const reversedSignals = [...agg.sortedSignals].reverse();
+                const itemsPerPage = 10;
+                const totalPages = Math.ceil(reversedSignals.length / itemsPerPage) || 1;
+                
+                // Safety check in case page goes out of bounds
+                const safeCurrentPage = Math.min(currentPage, totalPages);
+                
+                const startIndex = (safeCurrentPage - 1) * itemsPerPage;
+                const currentSignals = reversedSignals.slice(startIndex, startIndex + itemsPerPage);
+
+                return currentSignals.map((s, idx) => (
+                  <tr key={idx}>
+                    <td>{s.Date}</td>
+                    <td>{s.Session}</td>
+                    <td className={s.Direction === 'Buy' ? 'text-green' : 'text-red'} style={{fontWeight: 700}}>{s.Direction}</td>
+                    <td>{(s.risk_pts * 10).toFixed(1)}</td>
+                    <td>
+                      <span className={`status-badge ${s.Status === 'TP Hit' ? 'success' : s.Status === 'SL Hit' ? 'danger' : 'warning'}`}>
+                        {s.Status}
+                      </span>
+                    </td>
+                    <td className={s.realizedR[exitModel] > 0 ? 'text-green' : s.realizedR[exitModel] < 0 ? 'text-red' : ''} style={{fontWeight: 700}}>
+                      {s.realizedR[exitModel].toFixed(2)}R
+                    </td>
+                    <td>
+                      <button 
+                        onClick={() => setEditingSignal({
+                          id: s.id,
+                          symbol: s.Symbol || '',
+                          direction: s.Direction || 'Buy',
+                          entry_high: s['Entry High'] || '',
+                          entry_low: s['Entry Low'] || '',
+                          sl: s['S/L'] || '',
+                          tp1: s.TP1 || '',
+                          tp2: s.TP2 || '',
+                          tp3: s.TP3 || '',
+                          tp4: s.TP4 || '',
+                          tp5: s.TP5 || '',
+                          tp6: s.TP6 || '',
+                          tp7: s.TP7 || '',
+                          session: s.Session || 'London',
+                          status: s.Status || 'Open',
+                          source: s.Source || 'Manual Entry',
+                          raw_signal_text: s['Raw Signal Text'] || '',
+                          signal_date: s.Date ? new Date(s.Date.replace(' (GMT+7)', '').replace(' at ', ' ')).toISOString().slice(0, 16) : ''
+                        })}
+                        style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ));
+              })()}
             </tbody>
           </table>
-          <div style={{ textAlign: 'center', marginTop: '16px', fontSize: '13px', color: 'var(--text-subtle)' }}>
-            Showing last 10 closed signals
-          </div>
+          
+          {(() => {
+             const itemsPerPage = 10;
+             const totalPages = Math.ceil(agg.sortedSignals.length / itemsPerPage) || 1;
+             return (
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', padding: '0 8px' }}>
+                 <div style={{ fontSize: '13px', color: 'var(--text-subtle)' }}>
+                   Showing {Math.min((currentPage - 1) * itemsPerPage + 1, agg.sortedSignals.length)} - {Math.min(currentPage * itemsPerPage, agg.sortedSignals.length)} of {agg.sortedSignals.length} signals
+                 </div>
+                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                   <button 
+                     disabled={currentPage === 1}
+                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                     style={{ background: currentPage === 1 ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)', color: currentPage === 1 ? '#64748b' : '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', fontSize: '13px' }}
+                   >
+                     Previous
+                   </button>
+                   <span style={{ fontSize: '13px', color: '#94a3b8', margin: '0 8px' }}>
+                     Page {currentPage} of {totalPages}
+                   </span>
+                   <button 
+                     disabled={currentPage === totalPages}
+                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                     style={{ background: currentPage === totalPages ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.1)', color: currentPage === totalPages ? '#64748b' : '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', fontSize: '13px' }}
+                   >
+                     Next
+                   </button>
+                 </div>
+               </div>
+             );
+          })()}
         </div>
       </div>
 
