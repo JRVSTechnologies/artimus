@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNhostClient } from '@nhost/react';
-import { MessageSquare, Clock, AlertCircle, RefreshCw } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+import { MessageSquare, AlertCircle, RefreshCw } from 'lucide-react';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export default function BillsSignalsFeed() {
   const [messages, setMessages] = useState([]);
@@ -8,52 +11,110 @@ export default function BillsSignalsFeed() {
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
   
-  const nhost = useNhostClient();
-
   const fetchMessages = async () => {
-    setIsRefreshing(true);
-    setError('');
-
-    const query = `
-      query GetBillsSignals {
-        bills_signals(order_by: { signal_date: desc }, limit: 50) {
-          id
-          direction
-          symbol
-          entry_low
-          entry_high
-          sl
-          tp1
-          tp2
-          tp3
-          tp4
-          tp5
-          signal_date
-        }
-      }
-    `;
-
-    try {
-      const { data, error: fetchErr } = await nhost.graphql.request(query);
-      
-      if (fetchErr) {
-        console.error('Fetch error:', fetchErr);
-        setError(Array.isArray(fetchErr) ? fetchErr[0].message : fetchErr.message || 'Unknown GraphQL error');
-      } else if (data && data.bills_signals) {
-        setMessages(data.bills_signals);
-      }
-    } catch (err) {
-      console.error('Network error:', err);
-      setError(err.message);
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      setError('Missing Supabase Environment Variables. Check .env');
+      setLoading(false);
+      return;
     }
+
+    setIsRefreshing(true);
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Fetch messages specifically from VIP group
+    const { data, error: fetchErr } = await client
+      .from('tv_alerts')
+      .select('*')
+      .eq('interval', 'TG_GROUP')
+      .ilike('message', '[VIP group]%')
+      .order('received_at', { ascending: false })
+      .limit(50);
 
     setIsRefreshing(false);
     setLoading(false);
+
+    if (fetchErr) {
+      console.error('Fetch error:', fetchErr);
+      setError(fetchErr.message);
+      return;
+    }
+
+    if (data) {
+      setMessages(data);
+    }
   };
 
   useEffect(() => {
     fetchMessages();
+    
+    let subscription;
+    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+      const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      subscription = client
+        .channel('public:tv_alerts:bills')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tv_alerts', filter: 'interval=eq.TG_GROUP' }, payload => {
+          if (payload.new.message && payload.new.message.startsWith('[VIP group]')) {
+            setMessages(current => [payload.new, ...current.slice(0, 49)]);
+          }
+        })
+        .subscribe();
+    }
+
+    const pollInterval = setInterval(() => {
+      fetchMessages();
+    }, 5000);
+
+    return () => {
+      clearInterval(pollInterval);
+      if (subscription && SUPABASE_URL && SUPABASE_ANON_KEY) {
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        client.removeChannel(subscription);
+      }
+    };
   }, []);
+
+  const parseSignal = (rawText) => {
+    let direction = '';
+    let symbol = '';
+    let open = '-';
+    let sl = '-';
+    let tps = [];
+    let isParsed = false;
+
+    const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+
+    lines.forEach(line => {
+      const upperLine = line.toUpperCase();
+      
+      if (upperLine.includes('BUY POSITION')) {
+        direction = 'BUY';
+        symbol = upperLine.replace('BUY POSITION', '').replace(/🚨.*/, '').trim();
+        isParsed = true;
+      } else if (upperLine.includes('SELL POSITION')) {
+        direction = 'SELL';
+        symbol = upperLine.replace('SELL POSITION', '').replace(/🚨.*/, '').trim();
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('OPEN :') || upperLine.startsWith('OPEN:')) {
+        open = upperLine.replace(/OPEN\s*:/, '').trim();
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('SL :') || upperLine.startsWith('SL:') || upperLine.startsWith('SL ')) {
+        sl = upperLine.replace(/SL\s*:?/, '').replace(/🛑.*/, '').trim();
+        isParsed = true;
+      }
+      
+      if (upperLine.startsWith('TP')) {
+        const tpVal = upperLine.replace(/TP\d*\s*:?/, '').trim();
+        tps.push(tpVal);
+        isParsed = true;
+      }
+    });
+
+    return { direction, symbol, open, sl, tps, isParsed };
+  };
 
   return (
     <div className="dashboard-grid" style={{ gridTemplateColumns: '1fr' }}>
@@ -64,7 +125,7 @@ export default function BillsSignalsFeed() {
               <MessageSquare className="text-primary" /> Bill's Signals Feed
             </h2>
             <p style={{ color: 'var(--text-subtle)', fontSize: '14px', marginTop: '4px' }}>
-              Structured feed of signals from Bill's database.
+              Parsed signals from the VIP group Telegram feed.
             </p>
           </div>
           
@@ -95,7 +156,7 @@ export default function BillsSignalsFeed() {
           </div>
         ) : messages.length === 0 && !error ? (
           <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-            No signals found in the database.
+            No signals found in the Telegram feed for VIP group.
           </div>
         ) : (
           <div style={{
@@ -131,19 +192,22 @@ export default function BillsSignalsFeed() {
               </thead>
               <tbody>
                 {messages.map((msg, idx) => {
-                  const direction = (msg.direction || 'UNKNOWN').toUpperCase();
-                  const symbol = (msg.symbol || '').toUpperCase();
-                  const isBuy = direction === 'BUY';
-                  
-                  let openValue = '-';
-                  if (msg.entry_low && msg.entry_high) openValue = `${msg.entry_low} - ${msg.entry_high}`;
-                  else if (msg.entry_low || msg.entry_high) openValue = `${msg.entry_low || msg.entry_high}`;
+                  let displayMessage = msg.message || '';
+                  if (displayMessage.startsWith('[')) {
+                    const endBracket = displayMessage.indexOf(']\n');
+                    if (endBracket !== -1) {
+                      displayMessage = displayMessage.substring(endBracket + 2);
+                    }
+                  }
 
-                  const dateObj = new Date(msg.signal_date || Date.now());
-                  // e.g., 09/17/2026
+                  const parsed = parseSignal(displayMessage);
+                  
+                  const dateObj = new Date(msg.received_at || msg.created_at);
                   const dateStr = dateObj.toLocaleDateString();
-                  // e.g., 14:30:00
                   const timeStr = dateObj.toLocaleTimeString();
+
+                  const isBuy = parsed.direction === 'BUY';
+                  const signalColor = isBuy ? '#34D399' : (parsed.direction === 'SELL' ? '#F87171' : '#f1f5f9');
 
                   return (
                     <tr 
@@ -157,16 +221,27 @@ export default function BillsSignalsFeed() {
                     >
                       <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{dateStr}</td>
                       <td style={{ padding: '12px 16px', color: 'var(--text-subtle)' }}>{timeStr}</td>
-                      <td style={{ padding: '12px 16px', fontWeight: '600', color: isBuy ? '#34D399' : '#F87171' }}>
-                        {direction} {symbol}
-                      </td>
-                      <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{openValue}</td>
-                      <td style={{ padding: '12px 16px', color: '#F87171' }}>{msg.sl || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp1 || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp2 || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp3 || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp4 || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{msg.tp5 || '-'}</td>
+                      
+                      {parsed.isParsed ? (
+                        <>
+                          <td style={{ padding: '12px 16px', fontWeight: '700', color: signalColor }}>
+                            {parsed.direction} {parsed.symbol}
+                          </td>
+                          <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{parsed.open}</td>
+                          <td style={{ padding: '12px 16px', color: '#F87171' }}>{parsed.sl}</td>
+                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[0] || '-'}</td>
+                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[1] || '-'}</td>
+                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[2] || '-'}</td>
+                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[3] || '-'}</td>
+                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[4] || '-'}</td>
+                        </>
+                      ) : (
+                        <td colSpan={8} style={{ padding: '12px 16px', color: 'var(--text-subtle)', whiteSpace: 'pre-wrap' }}>
+                          <div style={{ maxHeight: '100px', overflowY: 'auto', fontSize: '12px' }}>
+                            {displayMessage}
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

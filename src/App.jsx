@@ -7,6 +7,8 @@ import SettingsModal from './components/SettingsModal';
 import PriceAnalysisDashboard from './components/PriceAnalysisDashboard';
 import SignalFeed from './components/SignalFeed';
 import TelegramLiveFeed from './components/TelegramLiveFeed';
+import BillsSignalsFeed from './components/BillsSignalsFeed';
+import FxClarityFeed from './components/FxClarityFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
 import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
@@ -148,6 +150,10 @@ export default function App() {
       {currentView === 'signal_feed' && <SignalFeed />}
       
       {currentView === 'telegram_feed' && <TelegramLiveFeed />}
+      
+      {currentView === 'bills_signals' && <BillsSignalsFeed />}
+
+      {currentView === 'fx_clarity' && <FxClarityFeed />}
       
       {currentView === 'submit_signal' && <SubmitSignalForm />}
 
