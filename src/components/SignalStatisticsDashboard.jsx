@@ -18,6 +18,8 @@ export default function SignalStatisticsDashboard() {
   const [exitModel, setExitModel] = useState('ladder');
   const [selectedSession, setSelectedSession] = useState('All');
   const [selectedDirection, setSelectedDirection] = useState('All');
+  const [heatmapTpFilter, setHeatmapTpFilter] = useState('All');
+  const [performanceViewMode, setPerformanceViewMode] = useState('monthly');
   const [refreshKey, setRefreshKey] = useState(0);
   const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
