@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, PointElement, LineElement, ScatterController } from 'chart.js';
 import { Doughnut, Bar, Line, Scatter } from 'react-chartjs-2';
+import { Maximize2, X } from 'lucide-react';
 import { computeSignalMetrics, aggregateSignals } from '../lib/metrics';
 
 // Register Chart.js components
@@ -23,6 +24,7 @@ export default function SignalStatisticsDashboard() {
   const [editingSignal, setEditingSignal] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isRollingExpanded, setIsRollingExpanded] = useState(false);
   const [editStatusMsg, setEditStatusMsg] = useState({ type: '', text: '' });
 
   const handleSyncNotion = async () => {
@@ -923,13 +925,43 @@ export default function SignalStatisticsDashboard() {
           </table>
         </div>
 
-        <div className="chart-card-premium" style={{ marginBottom: 0 }}>
-          <h3 className="chart-card-title">Rolling Performance (20-Signal)</h3>
-          <div style={{ height: '220px', position: 'relative' }}>
+        <div className="chart-card-premium" style={{ marginBottom: 0, position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 className="chart-card-title" style={{ margin: 0 }}>Rolling Performance (20-Signal)</h3>
+            <button 
+              onClick={() => setIsRollingExpanded(true)}
+              style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
+              title="Expand Chart"
+            >
+              <Maximize2 size={18} />
+            </button>
+          </div>
+          <div style={{ height: '220px', position: 'relative', marginTop: '16px' }}>
             <Line data={rollingChartData} options={rollingOptions} />
           </div>
         </div>
       </div>
+
+      {isRollingExpanded && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
+          backgroundColor: 'rgba(15, 23, 42, 0.95)', zIndex: 9999,
+          display: 'flex', flexDirection: 'column', padding: '24px'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '24px' }}>Rolling Performance (20-Signal)</h2>
+            <button 
+              onClick={() => setIsRollingExpanded(false)}
+              style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#f8fafc', cursor: 'pointer', padding: '8px', borderRadius: '50%', display: 'flex' }}
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+            <Line data={rollingChartData} options={{ ...rollingOptions, maintainAspectRatio: false }} />
+          </div>
+        </div>
+      )}
 
       {/* Row 8: Signals Table */}
       <div className="chart-card-premium">
