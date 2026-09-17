@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { MessageSquare, AlertCircle, RefreshCw } from 'lucide-react';
+import { MessageSquare, AlertCircle, RefreshCw, CheckCircle2, MinusCircle, XCircle } from 'lucide-react';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -10,7 +10,26 @@ export default function FxClarityFeed() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [statuses, setStatuses] = useState({});
   
+  useEffect(() => {
+    const saved = localStorage.getItem('fxclarity_signal_statuses');
+    if (saved) {
+      try { setStatuses(JSON.parse(saved)); } catch(e) {}
+    }
+  }, []);
+
+  const updateStatus = (id, status) => {
+    const newStatuses = { ...statuses };
+    if (newStatuses[id] === status) {
+      delete newStatuses[id]; // toggle off
+    } else {
+      newStatuses[id] = status;
+    }
+    setStatuses(newStatuses);
+    localStorage.setItem('fxclarity_signal_statuses', JSON.stringify(newStatuses));
+  };
+
   const fetchMessages = async () => {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       setError('Missing Supabase Environment Variables. Check .env');
@@ -21,7 +40,6 @@ export default function FxClarityFeed() {
     setIsRefreshing(true);
     const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Fetch messages specifically from POI VIP FXCLARITY
     const { data, error: fetchErr } = await client
       .from('tv_alerts')
       .select('*')
@@ -79,7 +97,6 @@ export default function FxClarityFeed() {
     let open = '-';
     let sl = '-';
     let tps = [];
-    let isParsed = false;
 
     const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
 
@@ -88,34 +105,64 @@ export default function FxClarityFeed() {
       
       if (upperLine.match(/^[A-Z]{6}\s*(📉|📈)/)) {
         symbol = upperLine.replace(/📉|📈/g, '').trim();
-        isParsed = true;
       } else if (upperLine.includes('BUY LIMIT') || upperLine.includes('SELL LIMIT') || upperLine.includes('BUY ZONE') || upperLine.includes('SELL ZONE')) {
         if (upperLine.includes('BUY')) direction = 'BUY';
         if (upperLine.includes('SELL')) direction = 'SELL';
         
         const openMatch = upperLine.match(/(?:LIMIT|ZONE)\s+([\d\.-]+)/);
         if (openMatch) open = openMatch[1];
-        isParsed = true;
       }
       
       if (upperLine.startsWith('OPEN :') || upperLine.startsWith('OPEN:')) {
         open = upperLine.replace(/OPEN\s*:/, '').trim();
-        isParsed = true;
       }
       
       if (upperLine.startsWith('SL :') || upperLine.startsWith('SL:') || upperLine.startsWith('SL ')) {
         sl = upperLine.replace(/SL\s*:?/, '').replace(/🛑.*/, '').trim();
-        isParsed = true;
       }
       
       if (upperLine.startsWith('TP')) {
         const tpVal = upperLine.replace(/TP\d*\s*:?/, '').trim();
         tps.push(tpVal);
-        isParsed = true;
       }
     });
 
-    return { direction, symbol, open, sl, tps, isParsed };
+    return { direction, symbol, open, sl, tps };
+  };
+
+  const getRowStyle = (msgId, isLast) => {
+    const status = statuses[msgId];
+    let base = { 
+      borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.05)',
+      transition: 'all 0.2s ease',
+      borderLeft: '4px solid transparent'
+    };
+    if (status === 'WIN') return { ...base, background: 'rgba(16, 185, 129, 0.08)', borderLeft: '4px solid #10B981' };
+    if (status === 'BE') return { ...base, background: 'rgba(100, 116, 139, 0.15)', borderLeft: '4px solid #94A3B8' };
+    if (status === 'LOSS') return { ...base, background: 'rgba(239, 68, 68, 0.08)', borderLeft: '4px solid #EF4444' };
+    return base;
+  };
+
+  const getBtnStyle = (type, currentStatus) => {
+    const isActive = type === currentStatus;
+    let color = '#94A3B8';
+    if (type === 'WIN') color = '#10B981';
+    if (type === 'BE') color = '#94A3B8';
+    if (type === 'LOSS') color = '#EF4444';
+    
+    return {
+      background: isActive ? color : 'transparent',
+      color: isActive ? '#fff' : color,
+      border: `1px solid ${color}`,
+      borderRadius: '4px',
+      padding: '4px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all 0.2s ease',
+      opacity: isActive ? 1 : 0.6
+    };
   };
 
   return (
@@ -127,7 +174,7 @@ export default function FxClarityFeed() {
               <MessageSquare className="text-primary" /> POI VIP FXClarity
             </h2>
             <p style={{ color: 'var(--text-subtle)', fontSize: '14px', marginTop: '4px' }}>
-              Parsed signals from the POI VIP FXCLARITY Telegram feed.
+              Parsed signals from the POI VIP FXCLARITY Telegram feed. Click the status icons to track outcomes.
             </p>
           </div>
           
@@ -172,7 +219,7 @@ export default function FxClarityFeed() {
               borderCollapse: 'collapse', 
               fontSize: '13px', 
               textAlign: 'left',
-              minWidth: '1000px'
+              minWidth: '1050px'
             }}>
               <thead>
                 <tr style={{ 
@@ -180,6 +227,7 @@ export default function FxClarityFeed() {
                   borderBottom: '1px solid rgba(255,255,255,0.08)',
                   color: 'var(--text-subtle)'
                 }}>
+                  <th style={{ padding: '12px 16px', fontWeight: '600', width: '80px' }}>Status</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>Date</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>Time</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>Signal</th>
@@ -201,9 +249,7 @@ export default function FxClarityFeed() {
                   }
 
                   const parsed = parseSignal(displayMessage);
-                  
-                  // Filter out free text: only show complete signals
-                  if (!parsed.direction) return null;
+                  if (!parsed.direction) return null; // filter out free text
                   
                   const dateObj = new Date(msg.received_at || msg.created_at);
                   const dateStr = dateObj.toLocaleDateString();
@@ -211,38 +257,43 @@ export default function FxClarityFeed() {
 
                   const isBuy = parsed.direction === 'BUY';
                   const signalColor = isBuy ? '#34D399' : (parsed.direction === 'SELL' ? '#F87171' : '#f1f5f9');
+                  const currentStatus = statuses[msg.id];
 
                   return (
                     <tr 
-                      key={msg.id || Math.random().toString()} 
-                      style={{ 
-                        borderBottom: idx === messages.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.05)',
-                        transition: 'background 0.2s',
+                      key={msg.id} 
+                      style={getRowStyle(msg.id, idx === messages.length - 1)}
+                      onMouseEnter={(e) => {
+                        if (!currentStatus) e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
                       }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
-                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      onMouseLeave={(e) => {
+                        if (!currentStatus) e.currentTarget.style.background = 'transparent';
+                      }}
                     >
+                      <td style={{ padding: '12px 16px' }}>
+                        <div style={{ display: 'flex', gap: '4px' }}>
+                          <button onClick={() => updateStatus(msg.id, 'WIN')} style={getBtnStyle('WIN', currentStatus)} title="Mark as Win">
+                            <CheckCircle2 size={14} />
+                          </button>
+                          <button onClick={() => updateStatus(msg.id, 'BE')} style={getBtnStyle('BE', currentStatus)} title="Mark as Breakeven">
+                            <MinusCircle size={14} />
+                          </button>
+                          <button onClick={() => updateStatus(msg.id, 'LOSS')} style={getBtnStyle('LOSS', currentStatus)} title="Mark as Loss">
+                            <XCircle size={14} />
+                          </button>
+                        </div>
+                      </td>
                       <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{dateStr}</td>
                       <td style={{ padding: '12px 16px', color: 'var(--text-subtle)' }}>{timeStr}</td>
                       
-                      {parsed.isParsed ? (
-                        <>
-                          <td style={{ padding: '12px 16px', fontWeight: '700', color: signalColor }}>
-                            {parsed.direction} {parsed.symbol}
-                          </td>
-                          <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{parsed.open}</td>
-                          <td style={{ padding: '12px 16px', color: '#F87171' }}>{parsed.sl}</td>
-                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[0] || '-'}</td>
-                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[1] || '-'}</td>
-                          <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[2] || '-'}</td>
-                        </>
-                      ) : (
-                        <td colSpan={6} style={{ padding: '12px 16px', color: 'var(--text-subtle)', whiteSpace: 'pre-wrap' }}>
-                          <div style={{ maxHeight: '100px', overflowY: 'auto', fontSize: '12px' }}>
-                            {displayMessage}
-                          </div>
-                        </td>
-                      )}
+                      <td style={{ padding: '12px 16px', fontWeight: '700', color: signalColor }}>
+                        {parsed.direction} {parsed.symbol}
+                      </td>
+                      <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{parsed.open}</td>
+                      <td style={{ padding: '12px 16px', color: '#F87171' }}>{parsed.sl}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[0] || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[1] || '-'}</td>
+                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[2] || '-'}</td>
                     </tr>
                   );
                 })}
