@@ -13,21 +13,34 @@ export default function BillsSignalsFeed() {
   const [statuses, setStatuses] = useState({});
   
   useEffect(() => {
-    const saved = localStorage.getItem('bills_signal_statuses');
-    if (saved) {
-      try { setStatuses(JSON.parse(saved)); } catch(e) {}
-    }
+    fetch('/.netlify/functions/signalStatus')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) setStatuses(data);
+      })
+      .catch(e => console.error('Error loading statuses:', e));
   }, []);
 
-  const updateStatus = (id, status) => {
+  const updateStatus = async (id, status) => {
     const newStatuses = { ...statuses };
+    let finalStatus = status;
     if (newStatuses[id] === status) {
       delete newStatuses[id]; // toggle off
+      finalStatus = null;
     } else {
       newStatuses[id] = status;
     }
     setStatuses(newStatuses);
-    localStorage.setItem('bills_signal_statuses', JSON.stringify(newStatuses));
+    
+    try {
+      await fetch('/.netlify/functions/signalStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: String(id), status: finalStatus })
+      });
+    } catch(e) {
+      console.error('Error saving status:', e);
+    }
   };
 
   const fetchMessages = async () => {
