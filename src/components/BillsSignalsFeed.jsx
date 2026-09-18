@@ -5,6 +5,28 @@ import { MessageSquare, AlertCircle, RefreshCw, CheckCircle2, MinusCircle, XCirc
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+const EditableCell = ({ initialValue, onSave }) => {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(initialValue || '');
+
+  useEffect(() => { setValue(initialValue || ''); }, [initialValue]);
+
+  if (editing) {
+    return (
+      <input type="text" autoFocus value={value} onChange={e => setValue(e.target.value)}
+        onBlur={() => { setEditing(false); if (value !== initialValue) onSave(value); }}
+        onKeyDown={e => { if (e.key === 'Enter') { setEditing(false); if (value !== initialValue) onSave(value); } }}
+        style={{ width: '60px', background: 'rgba(0,0,0,0.5)', color: '#34D399', border: '1px solid #34D399', padding: '2px 4px', borderRadius: '4px' }}
+      />
+    );
+  }
+  return (
+    <div onClick={() => setEditing(true)} style={{ cursor: 'pointer', minHeight: '20px' }} title="Click to edit">
+      {value || '-'}
+    </div>
+  );
+};
+
 export default function BillsSignalsFeed() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,23 +45,42 @@ export default function BillsSignalsFeed() {
 
   const updateStatus = async (id, status) => {
     const newStatuses = { ...statuses };
+    const currentObj = newStatuses[id] || { status: null, overrides: {} };
     let finalStatus = status;
-    if (newStatuses[id] === status) {
-      delete newStatuses[id]; // toggle off
+    if (currentObj.status === status) {
       finalStatus = null;
-    } else {
-      newStatuses[id] = status;
     }
+    
+    newStatuses[id] = { ...currentObj, status: finalStatus };
     setStatuses(newStatuses);
     
     try {
       await fetch('/.netlify/functions/signalStatus', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: String(id), status: finalStatus })
+        body: JSON.stringify({ id: String(id), status: finalStatus, overrides: currentObj.overrides || {} })
       });
     } catch(e) {
       console.error('Error saving status:', e);
+    }
+  };
+
+  const updateOverride = async (id, field, value) => {
+    const newStatuses = { ...statuses };
+    const currentObj = newStatuses[id] || { status: null, overrides: {} };
+    const newOverrides = { ...currentObj.overrides, [field]: value };
+    
+    newStatuses[id] = { ...currentObj, overrides: newOverrides };
+    setStatuses(newStatuses);
+
+    try {
+      await fetch('/.netlify/functions/signalStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: String(id), status: currentObj.status, overrides: newOverrides })
+      });
+    } catch(e) {
+      console.error('Error saving override:', e);
     }
   };
 
@@ -149,7 +190,8 @@ export default function BillsSignalsFeed() {
   };
 
   const getRowStyle = (msgId, isLast) => {
-    const status = statuses[msgId];
+    const statusObj = statuses[msgId] || {};
+    const status = statusObj.status;
     let base = { 
       borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.05)',
       transition: 'all 0.2s ease',
@@ -251,11 +293,14 @@ export default function BillsSignalsFeed() {
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>Signal</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>Open (Low/High)</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>SL</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>Max TP</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 1</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 2</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 3</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 4</th>
                   <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 5</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 6</th>
+                  <th style={{ padding: '12px 16px', fontWeight: '600' }}>TP 7</th>
                 </tr>
               </thead>
               <tbody>
@@ -277,7 +322,9 @@ export default function BillsSignalsFeed() {
 
                   const isBuy = parsed.direction === 'BUY';
                   const signalColor = isBuy ? '#34D399' : (parsed.direction === 'SELL' ? '#F87171' : '#f1f5f9');
-                  const currentStatus = statuses[msg.id];
+                  const currentStatusObj = statuses[msg.id] || {};
+                  const currentStatus = currentStatusObj.status;
+                  const overrides = currentStatusObj.overrides || {};
 
                   return (
                     <tr 
@@ -311,11 +358,30 @@ export default function BillsSignalsFeed() {
                       </td>
                       <td style={{ padding: '12px 16px', color: '#f1f5f9' }}>{parsed.open}</td>
                       <td style={{ padding: '12px 16px', color: '#F87171' }}>{parsed.sl}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[0] || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[1] || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[2] || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[3] || '-'}</td>
-                      <td style={{ padding: '12px 16px', color: '#34D399' }}>{parsed.tps[4] || '-'}</td>
+                      
+                      <td style={{ padding: '12px 16px' }}>
+                        <select
+                          value={overrides.max_tp || ''}
+                          onChange={e => updateOverride(msg.id, 'max_tp', e.target.value)}
+                          style={{ background: 'transparent', color: '#f1f5f9', border: '1px solid rgba(255,255,255,0.1)', padding: '4px', borderRadius: '4px', cursor: 'pointer' }}
+                        >
+                          <option value="" style={{ color: '#000' }}>-</option>
+                          {[1,2,3,4,5,6,7].map(num => <option key={num} value={num} style={{ color: '#000' }}>{num}</option>)}
+                        </select>
+                      </td>
+                      {[0,1,2,3,4,5,6].map(i => {
+                        const rawVal = parsed.tps[i];
+                        const fallbackVal = (rawVal === undefined || rawVal === null) ? '-' : rawVal;
+                        const finalVal = overrides[`tp${i+1}`] !== undefined ? overrides[`tp${i+1}`] : fallbackVal;
+                        return (
+                          <td key={i} style={{ padding: '12px 16px', color: '#34D399' }}>
+                            <EditableCell 
+                              initialValue={finalVal} 
+                              onSave={(val) => updateOverride(msg.id, `tp${i+1}`, val)} 
+                            />
+                          </td>
+                        );
+                      })}
                     </tr>
                   );
                 })}

@@ -21,30 +21,26 @@ exports.handler = async (event, context) => {
     await client.connect();
 
     if (event.httpMethod === 'GET') {
-      const res = await client.query('SELECT id, status FROM telegram_signal_statuses');
+      const res = await client.query('SELECT id, status, overrides FROM telegram_signal_statuses');
       const statuses = {};
       res.rows.forEach(row => {
-        statuses[row.id] = row.status;
+        statuses[row.id] = { status: row.status, overrides: row.overrides || {} };
       });
       return { statusCode: 200, headers, body: JSON.stringify(statuses) };
     }
 
     if (event.httpMethod === 'POST') {
-      const { id, status } = JSON.parse(event.body);
+      const { id, status, overrides } = JSON.parse(event.body);
       if (!id) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing id' }) };
       }
 
-      if (status) {
-        // Upsert
-        await client.query(
-          'INSERT INTO telegram_signal_statuses (id, status) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET status = EXCLUDED.status',
-          [id, status]
-        );
-      } else {
-        // Delete
-        await client.query('DELETE FROM telegram_signal_statuses WHERE id = $1', [id]);
-      }
+      const safeOverrides = overrides || {};
+
+      await client.query(
+        'INSERT INTO telegram_signal_statuses (id, status, overrides) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET status = EXCLUDED.status, overrides = EXCLUDED.overrides',
+        [id, status || null, safeOverrides]
+      );
 
       return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     }
