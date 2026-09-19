@@ -46,4 +46,4 @@ dist-ssr
 
 # Userbot Chats
 userbot/chats.txt
-local_group_bot/
+local_group_bot/*.json
