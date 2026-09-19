@@ -2,6 +2,7 @@ import os
 import logging
 from telethon import TelegramClient, events
 from dotenv import load_dotenv
+from telemetry import init_telemetry, emit_telemetry
 
 # Load environment variables from .env file
 load_dotenv()
@@ -39,8 +40,10 @@ async def handle_new_message(event):
     sender_name = getattr(sender, 'username', None) or getattr(sender, 'title', None) or getattr(sender, 'first_name', None) or "Unknown"
     
     logger.info(f"New message from {sender_name} (ID: {event.chat_id}): {event.text}")
+    emit_telemetry('telegram-bot', 'Online', f'Processing message from {sender_name}', 'Read Message', 'processing')
     
     # TODO: Add your custom logic here (e.g., signal parsing, forwarding, saving to DB)
+    emit_telemetry('telegram-bot', 'Online', 'Listening for messages', 'Read Message', 'success')
 
 async def main():
     logger.info("Starting Telegram Listener User Bot...")
@@ -48,6 +51,9 @@ async def main():
     # The client will start and prompt for phone number/code on first interactive run.
     # On subsequent runs (in detached Docker mode), it uses the .session file.
     await client.start()
+    
+    init_telemetry()
+    emit_telemetry('telegram-bot', 'Online', 'Listening for messages', 'Startup', 'success')
     
     # Get info about the logged-in user
     me = await client.get_me()
