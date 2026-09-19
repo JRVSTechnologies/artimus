@@ -12,20 +12,25 @@ export default function BotHealthStatus() {
       if (isPaused) return;
       try {
         const res = await fetch('/.netlify/functions/botTelemetry');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
         
         const newTelemetryMap = {};
-        data.forEach(item => {
-          newTelemetryMap[item.bot_id] = item;
-          // Add to feed if it's a new state
-          setFeedLogs(prev => {
-            const lastLog = prev.find(l => l.bot_id === item.bot_id);
-            if (!lastLog || lastLog.currently_thinking !== item.currently_thinking) {
-              return [{ ...item, timestamp: new Date().toLocaleTimeString() }, ...prev].slice(0, 50);
-            }
-            return prev;
+        if (Array.isArray(data)) {
+          data.forEach(item => {
+            newTelemetryMap[item.bot_id] = item;
+            // Add to feed if it's a new state
+            setFeedLogs(prev => {
+              const lastLog = prev.find(l => l.bot_id === item.bot_id);
+              if (!lastLog || lastLog.currently_thinking !== item.currently_thinking) {
+                return [{ ...item, timestamp: new Date().toLocaleTimeString() }, ...prev].slice(0, 50);
+              }
+              return prev;
+            });
           });
-        });
+        }
         setTelemetry(newTelemetryMap);
       } catch (err) {
         console.error('Failed to fetch bot telemetry:', err);
@@ -108,7 +113,14 @@ export default function BotHealthStatus() {
       <div className="dashboard-grid">
         {bots.map((bot) => {
           const t = telemetry[bot.id] || { status: 'Offline', currently_thinking: 'Awaiting next task...', task_status: 'success', last_task: 'None', last_active_at: null };
-          const isOnline = t.status === 'Online';
+          let isOnline = t.status === 'Online';
+          
+          if (t.last_active_at) {
+             const diff = Math.floor((Date.now() - new Date(t.last_active_at).getTime()) / 1000);
+             if (diff > 120) {
+                 isOnline = false; // Mark offline if no heartbeat in 2 minutes
+             }
+          }
           
           return (
             <div key={bot.id} className="chart-card-premium" style={{ borderTop: `4px solid ${bot.color}` }}>

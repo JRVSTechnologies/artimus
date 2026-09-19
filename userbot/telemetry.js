@@ -7,8 +7,19 @@ let connected = false;
 async function initTelemetry() {
   try {
     await client.connect();
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS bot_telemetry (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        bot_id VARCHAR(50) UNIQUE NOT NULL,
+        status VARCHAR(20) NOT NULL,
+        currently_thinking TEXT,
+        last_task TEXT,
+        task_status VARCHAR(20),
+        last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      );
+    `);
     connected = true;
-    console.log("Telemetry DB connected");
+    console.log("Telemetry DB connected and table verified");
   } catch (err) {
     console.error("Telemetry DB connection failed:", err);
   }
