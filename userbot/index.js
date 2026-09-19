@@ -4,6 +4,7 @@ const { TelegramClient } = require('telegram');
 const { StringSession } = require('telegram/sessions');
 const { NewMessage } = require('telegram/events');
 const input = require('input');
+const { initTelemetry, emitTelemetry } = require('./telemetry');
 
 const apiId = parseInt(process.env.API_ID);
 const apiHash = process.env.API_HASH;
@@ -112,6 +113,9 @@ function getCandidateChatIds(message) {
     console.log(`\n🎧 Listening for new messages across ${targetList.length} configured chat(s): ${targetList.join(', ')}`);
   }
 
+  await initTelemetry();
+  await emitTelemetry('userbot', 'Online', 'Listening for new messages', 'Startup', 'success');
+
   if (!webhookUrl) {
     console.warn("⚠️ WEBHOOK_URL is missing. Messages will be logged but not forwarded.");
   }
@@ -125,6 +129,7 @@ function getCandidateChatIds(message) {
     const debugChatId = message.chatId ? message.chatId.toString() : 'Unknown';
     if (text) {
       console.log(`[LOG] Read message from chat: ${debugChatId} | Preview: ${text.substring(0, 60).replace(/\n/g, ' ')}...`);
+      await emitTelemetry('userbot', 'Online', `Parsing message from ${debugChatId}`, 'Read Message', 'processing');
     }
 
     // Check if the message is from any of our target chats
@@ -150,6 +155,7 @@ function getCandidateChatIds(message) {
       if (webhookUrl) {
         try {
           console.log(`🚀 Forwarding to Webhook: ${webhookUrl}`);
+          await emitTelemetry('userbot', 'Online', `Forwarding message to Webhook`, 'Forward Webhook', 'processing');
           const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -165,12 +171,15 @@ function getCandidateChatIds(message) {
           });
           
           if (response.ok) {
-            console.log('✅ Successfully forwarded signal to Artimus Webhook!');
+            console.log(`✅ Successfully forwarded message!`);
+            await emitTelemetry('userbot', 'Online', `Listening for new messages`, 'Forward Webhook', 'success');
           } else {
-            console.error(`❌ Webhook returned error status: ${response.status}`);
+            console.error(`❌ Failed to forward. Status: ${response.status}`);
+            await emitTelemetry('userbot', 'Online', `Listening for new messages`, 'Forward Webhook', 'error');
           }
-        } catch (err) {
-          console.error('❌ Failed to send webhook request:', err.message);
+        } catch (error) {
+          console.error(`❌ Webhook error:`, error);
+          await emitTelemetry('userbot', 'Online', `Listening for new messages`, 'Forward Webhook', 'error');
         }
       }
     }
