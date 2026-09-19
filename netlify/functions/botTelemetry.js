@@ -1,6 +1,7 @@
-const { Client } = require('pg');
+import pkg from 'pg';
+const { Client } = pkg;
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   const client = new Client({
     connectionString: process.env.POSTGRES_URL,
     ssl: { rejectUnauthorized: false }

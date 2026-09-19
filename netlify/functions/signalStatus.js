@@ -1,6 +1,7 @@
-const { Client } = require('pg');
+import pkg from 'pg';
+const { Client } = pkg;
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
