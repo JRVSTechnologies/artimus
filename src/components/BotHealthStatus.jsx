@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Server, Activity, CheckCircle, AlertTriangle, Clock, Cpu, HardDrive, Pause, Play, Copy, RefreshCw } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export default function BotHealthStatus() {
   const [telemetry, setTelemetry] = useState({});
@@ -17,64 +21,84 @@ export default function BotHealthStatus() {
   const prevStatusRef = React.useRef({});
 
   useEffect(() => {
-    let timer;
-    const fetchTelemetry = async () => {
-      if (isPaused) return;
-      try {
-        const res = await fetch('/.netlify/functions/botTelemetry');
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        
-        const newTelemetryMap = {};
-        if (Array.isArray(data)) {
-          let hasStatusChange = false;
-          const statusChanges = [];
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.error('Missing Supabase Environment Variables');
+      return;
+    }
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-          data.forEach(item => {
-            let isOnline = item.status === 'Online';
-            if (item.last_active_at) {
-               const diff = Math.floor((Date.now() - new Date(item.last_active_at).getTime()) / 1000);
-               if (diff > 120) {
-                   isOnline = false;
-               }
-            }
-            const prevOnline = prevStatusRef.current[item.bot_id];
-            if (prevOnline !== undefined && prevOnline !== isOnline) {
-                statusChanges.push({ bot_id: item.bot_id, event: isOnline ? 'came online' : 'went offline', time: new Date().toLocaleString() });
-                hasStatusChange = true;
-            }
-            prevStatusRef.current[item.bot_id] = isOnline;
+    const processTelemetryArray = (data) => {
+      let hasStatusChange = false;
+      const statusChanges = [];
 
-            newTelemetryMap[item.bot_id] = item;
-            // Add to feed if it's a new state
-            setFeedLogs(prev => {
-              const lastLog = prev.find(l => l.bot_id === item.bot_id);
-              if (!lastLog || lastLog.currently_thinking !== item.currently_thinking) {
-                return [{ ...item, timestamp: new Date().toLocaleTimeString() }, ...prev].slice(0, 50);
-              }
-              return prev;
-            });
-          });
-
-          if (hasStatusChange) {
-            setDowntimeLogs(prevLogs => {
-                const updatedLogs = [...statusChanges.reverse(), ...prevLogs].slice(0, 100);
-                localStorage.setItem('botDowntimeLogs', JSON.stringify(updatedLogs));
-                return updatedLogs;
-            });
+      setTelemetry(prevMap => {
+        const newTelemetryMap = { ...prevMap };
+        data.forEach(item => {
+          let isOnline = item.status === 'Online';
+          if (item.last_active_at) {
+             const diff = Math.floor((Date.now() - new Date(item.last_active_at).getTime()) / 1000);
+             if (diff > 120) {
+                 isOnline = false;
+             }
           }
+          const prevOnline = prevStatusRef.current[item.bot_id];
+          if (prevOnline !== undefined && prevOnline !== isOnline) {
+              statusChanges.push({ bot_id: item.bot_id, event: isOnline ? 'came online' : 'went offline', time: new Date().toLocaleString() });
+              hasStatusChange = true;
+          }
+          prevStatusRef.current[item.bot_id] = isOnline;
+          newTelemetryMap[item.bot_id] = item;
+        });
+
+        if (hasStatusChange) {
+          setDowntimeLogs(prevLogs => {
+              const updatedLogs = [...statusChanges.reverse(), ...prevLogs].slice(0, 100);
+              localStorage.setItem('botDowntimeLogs', JSON.stringify(updatedLogs));
+              return updatedLogs;
+          });
         }
-        setTelemetry(newTelemetryMap);
+        return newTelemetryMap;
+      });
+
+      setFeedLogs(prev => {
+        let updatedLogs = [...prev];
+        data.forEach(item => {
+          const lastLog = updatedLogs.find(l => l.bot_id === item.bot_id);
+          if (!lastLog || lastLog.currently_thinking !== item.currently_thinking) {
+            updatedLogs = [{ ...item, timestamp: new Date().toLocaleTimeString() }, ...updatedLogs].slice(0, 50);
+          }
+        });
+        return updatedLogs;
+      });
+    };
+
+    let subscription;
+
+    const fetchInitial = async () => {
+      try {
+        const { data, error } = await client.from('bot_telemetry').select('*');
+        if (error) throw error;
+        if (data) processTelemetryArray(data);
       } catch (err) {
         console.error('Failed to fetch bot telemetry:', err);
       }
     };
 
-    fetchTelemetry();
-    timer = setInterval(fetchTelemetry, 2000);
-    return () => clearInterval(timer);
+    if (!isPaused) {
+      fetchInitial();
+      subscription = client
+        .channel('public:bot_telemetry')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'bot_telemetry' }, payload => {
+          if (payload.new && payload.new.bot_id) {
+             processTelemetryArray([payload.new]);
+          }
+        })
+        .subscribe();
+    }
+
+    return () => {
+      if (subscription) client.removeChannel(subscription);
+    };
   }, [isPaused]);
 
   // Idle time clock tick
