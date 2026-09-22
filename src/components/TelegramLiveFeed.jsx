@@ -58,13 +58,8 @@ export default function TelegramLiveFeed() {
         .subscribe();
     }
 
-    // Fallback: Auto-refresh every 5 seconds in case Supabase Realtime is not enabled on the table
-    const pollInterval = setInterval(() => {
-      fetchMessages();
-    }, 5000);
 
     return () => {
-      clearInterval(pollInterval);
       if (subscription && SUPABASE_URL && SUPABASE_ANON_KEY) {
         const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         client.removeChannel(subscription);
