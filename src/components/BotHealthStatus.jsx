@@ -156,10 +156,27 @@ export default function BotHealthStatus() {
             <h1>Bot Health Status</h1>
             <p>Real-time monitoring and telemetry for deployed bots</p>
           </div>
-          <div className="status-chip" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38BDF8', borderColor: 'rgba(56, 189, 248, 0.25)' }}>
-            <Activity size={16} />
-            <span>Live Telemetry Active</span>
-          </div>
+          <button 
+            onClick={() => setIsPaused(!isPaused)}
+            className="status-chip" 
+            style={{ 
+              background: isPaused ? 'rgba(244, 63, 94, 0.1)' : 'rgba(56, 189, 248, 0.1)', 
+              color: isPaused ? '#F43F5E' : '#38BDF8', 
+              borderColor: isPaused ? 'rgba(244, 63, 94, 0.25)' : 'rgba(56, 189, 248, 0.25)',
+              cursor: 'pointer',
+              border: '1px solid',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 12px',
+              borderRadius: '999px',
+              fontWeight: '600',
+              fontFamily: 'inherit'
+            }}
+          >
+            {isPaused ? <Pause size={16} /> : <Activity size={16} className="spin-slow" />}
+            <span>{isPaused ? 'Monitoring Paused' : 'Live Telemetry Active'}</span>
+          </button>
         </div>
       </div>
 
@@ -300,13 +317,7 @@ export default function BotHealthStatus() {
       <div className="chart-card-premium" style={{ marginTop: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '600' }}>Global Telemetry Feed</h3>
-          <button 
-            onClick={() => setIsPaused(!isPaused)}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '6px', color: '#fff', cursor: 'pointer' }}
-          >
-            {isPaused ? <Play size={14} /> : <Pause size={14} />}
-            {isPaused ? 'Resume' : 'Pause'}
-          </button>
+
         </div>
         
         <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }} aria-live="polite">
