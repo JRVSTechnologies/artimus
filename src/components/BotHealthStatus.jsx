@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Server, Activity, CheckCircle, AlertTriangle, Clock, Cpu, HardDrive, Pause, Play, Copy, RefreshCw } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+import { useNhostClient } from '@nhost/react';
 
 export default function BotHealthStatus() {
+  const nhost = useNhostClient();
   const [telemetry, setTelemetry] = useState({});
   const [isPaused, setIsPaused] = useState(false);
   const [feedLogs, setFeedLogs] = useState([]);
@@ -21,12 +19,6 @@ export default function BotHealthStatus() {
   const prevStatusRef = React.useRef({});
 
   useEffect(() => {
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      console.error('Missing Supabase Environment Variables');
-      return;
-    }
-    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
     const processTelemetryArray = (data) => {
       let hasStatusChange = false;
       const statusChanges = [];
@@ -72,34 +64,46 @@ export default function BotHealthStatus() {
       });
     };
 
-    let subscription;
+    let pollInterval;
 
-    const fetchInitial = async () => {
+    const fetchTelemetry = async () => {
       try {
-        const { data, error } = await client.from('bot_telemetry').select('*');
-        if (error) throw error;
-        if (data) processTelemetryArray(data);
+        const query = `
+          query GetBotTelemetry {
+            bot_telemetry {
+              bot_id
+              status
+              currently_thinking
+              last_task
+              task_status
+              last_active_at
+            }
+          }
+        `;
+        const { data, error } = await nhost.graphql.request(query);
+        if (error) {
+          console.error('Nhost GraphQL Error:', error);
+          return;
+        }
+        if (data && data.bot_telemetry) {
+          processTelemetryArray(data.bot_telemetry);
+        }
       } catch (err) {
         console.error('Failed to fetch bot telemetry:', err);
       }
     };
 
     if (!isPaused) {
-      fetchInitial();
-      subscription = client
-        .channel('public:bot_telemetry')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'bot_telemetry' }, payload => {
-          if (payload.new && payload.new.bot_id) {
-             processTelemetryArray([payload.new]);
-          }
-        })
-        .subscribe();
+      fetchTelemetry();
+      pollInterval = setInterval(() => {
+        fetchTelemetry();
+      }, 3000);
     }
 
     return () => {
-      if (subscription) client.removeChannel(subscription);
+      if (pollInterval) clearInterval(pollInterval);
     };
-  }, [isPaused]);
+  }, [isPaused, nhost]);
 
   // Idle time clock tick
   const [now, setNow] = useState(Date.now());
