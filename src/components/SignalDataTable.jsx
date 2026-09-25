@@ -276,31 +276,53 @@ export default function SignalDataTable() {
           <table className="table-premium">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Session</th>
-                <th>Direction</th>
-                <th>Risk (Pips)</th>
-                <th>Status</th>
-                <th>Realized R</th>
-                <th>Actions</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Date</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Symbol</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Direction</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Model</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Session</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Entry High</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Entry Low</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Stop Loss</th>
+                <th style={{ whiteSpace: 'nowrap' }}>TP1</th>
+                <th style={{ whiteSpace: 'nowrap' }}>TP2</th>
+                <th style={{ whiteSpace: 'nowrap' }}>TP3</th>
+                <th style={{ whiteSpace: 'nowrap' }}>TP4</th>
+                <th style={{ whiteSpace: 'nowrap' }}>TP5</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Risk (Pips)</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Status</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Realized R</th>
+                <th style={{ whiteSpace: 'nowrap' }}>Source</th>
+                <th style={{ whiteSpace: 'nowrap', position: 'sticky', right: 0, background: '#0f172a', zIndex: 10 }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {currentSignals.length > 0 ? currentSignals.map((s, idx) => (
                 <tr key={idx}>
-                  <td>{s.Date}</td>
-                  <td>{s.Session}</td>
-                  <td className={s.Direction === 'Buy' ? 'text-green' : 'text-red'} style={{fontWeight: 700}}>{s.Direction}</td>
-                  <td>{(s.risk_pts * 10).toFixed(1)}</td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{s.Date}</td>
+                  <td style={{ whiteSpace: 'nowrap', fontWeight: 600 }}>{s.Symbol || '-'}</td>
+                  <td className={s.Direction === 'Buy' ? 'text-green' : 'text-red'} style={{fontWeight: 700, whiteSpace: 'nowrap'}}>{s.Direction}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{s.Model || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{s.Session || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{s['Entry High'] || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{s['Entry Low'] || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#f43f5e' }}>{s['S/L'] || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#10b981' }}>{s.TP1 || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#10b981' }}>{s.TP2 || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#10b981' }}>{s.TP3 || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#10b981' }}>{s.TP4 || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#10b981' }}>{s.TP5 || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{(s.risk_pts * 10).toFixed(1)}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span className={`status-badge ${s.Status === 'TP Hit' ? 'success' : s.Status === 'SL Hit' ? 'danger' : 'warning'}`}>
                       {s.Status}
                     </span>
                   </td>
-                  <td className={s.realizedR && s.realizedR[exitModel] > 0 ? 'text-green' : s.realizedR && s.realizedR[exitModel] < 0 ? 'text-red' : ''} style={{fontWeight: 700}}>
+                  <td className={s.realizedR && s.realizedR[exitModel] > 0 ? 'text-green' : s.realizedR && s.realizedR[exitModel] < 0 ? 'text-red' : ''} style={{fontWeight: 700, whiteSpace: 'nowrap'}}>
                     {s.realizedR ? s.realizedR[exitModel].toFixed(2) : '0.00'}R
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap', color: '#94a3b8' }}>{s.Source || '-'}</td>
+                  <td style={{ whiteSpace: 'nowrap', position: 'sticky', right: 0, background: '#0f172a', zIndex: 1 }}>
                     <button 
                       onClick={() => setEditingSignal({
                         id: s.id,
@@ -330,7 +352,7 @@ export default function SignalDataTable() {
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '24px' }}>No signals found matching the filters.</td>
+                  <td colSpan="18" style={{ textAlign: 'center', padding: '24px' }}>No signals found matching the filters.</td>
                 </tr>
               )}
             </tbody>
