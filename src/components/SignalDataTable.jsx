@@ -8,7 +8,8 @@ export default function SignalDataTable() {
   const [provider, setProvider] = useState('bills');
 
   // Filters
-  const [dateFilter, setDateFilter] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [sessionFilter, setSessionFilter] = useState('All');
   const [directionFilter, setDirectionFilter] = useState('All');
   const [riskMin, setRiskMin] = useState('');
@@ -115,10 +116,19 @@ export default function SignalDataTable() {
   const filteredSignals = useMemo(() => {
     let result = computedSignals;
 
-    if (dateFilter) {
+    if (fromDate) {
       result = result.filter(s => {
         if (!s.signal_date) return false;
-        return s.signal_date.startsWith(dateFilter);
+        return new Date(s.signal_date) >= new Date(fromDate);
+      });
+    }
+    if (toDate) {
+      const toDateEnd = new Date(toDate);
+      toDateEnd.setHours(23, 59, 59, 999);
+      
+      result = result.filter(s => {
+        if (!s.signal_date) return false;
+        return new Date(s.signal_date) <= toDateEnd;
       });
     }
     if (sessionFilter !== 'All') {
@@ -139,11 +149,11 @@ export default function SignalDataTable() {
 
     // Sort descending by date
     return result.sort((a, b) => new Date(b.signal_date) - new Date(a.signal_date));
-  }, [computedSignals, dateFilter, sessionFilter, directionFilter, statusFilter, riskMin, riskMax]);
+  }, [computedSignals, fromDate, toDate, sessionFilter, directionFilter, statusFilter, riskMin, riskMax]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [dateFilter, sessionFilter, directionFilter, statusFilter, riskMin, riskMax, provider]);
+  }, [fromDate, toDate, sessionFilter, directionFilter, statusFilter, riskMin, riskMax, provider]);
 
   const allSessions = ['All', ...new Set(computedSignals.map(s => s.Session).filter(Boolean))];
   const allDirections = ['All', 'Buy', 'Sell'];
@@ -203,15 +213,23 @@ export default function SignalDataTable() {
       </div>
 
       <div className="filters-premium" style={{ flexWrap: 'wrap', alignItems: 'flex-end' }}>
-        <div className="filter-group" style={{ flex: '1 1 150px' }}>
-          <label>Date Filter</label>
-          <input 
-            type="date" 
-            value={dateFilter} 
-            onChange={(e) => setDateFilter(e.target.value)} 
-            className="filter-select" 
-            style={{ colorScheme: 'dark', width: '100%' }}
-          />
+        <div className="filter-group" style={{ flex: '2 1 250px' }}>
+          <label>Date Range</label>
+          <div className="filter-select" style={{ display: 'flex', alignItems: 'center', padding: '0', overflow: 'hidden' }}>
+            <input 
+              type="date" 
+              value={fromDate} 
+              onChange={(e) => setFromDate(e.target.value)} 
+              style={{ flex: 1, minWidth: 0, padding: '10px 14px', background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '14px', colorScheme: 'dark' }}
+            />
+            <div style={{ width: '1px', height: '24px', background: 'rgba(255, 255, 255, 0.1)' }}></div>
+            <input 
+              type="date" 
+              value={toDate} 
+              onChange={(e) => setToDate(e.target.value)} 
+              style={{ flex: 1, minWidth: 0, padding: '10px 14px', background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '14px', colorScheme: 'dark' }}
+            />
+          </div>
         </div>
         <div className="filter-group" style={{ flex: '1 1 150px' }}>
           <label>Session</label>
