@@ -3,18 +3,19 @@ import { X, LayoutDashboard, LineChart, BookOpen, Activity, BarChart3, Edit, Tar
 
 export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
   const menuItems = [
-    { id: 'main', label: 'Main Hub', icon: LayoutDashboard, color: '#38BDF8' },
-    { id: 'bot_health', label: 'Bot Health Status', icon: Server, color: '#10b981' },
-    { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: '#f43f5e' },
-    { id: 'telegram_feed', label: 'Telegram Live Feed', icon: MessageSquare, color: '#38BDF8' },
-    { id: 'bills_signals', label: 'Bill\'s Signals', icon: MessageSquare, color: '#38BDF8', subItem: true },
-    { id: 'fx_clarity', label: 'POI VIP FXClarity', icon: MessageSquare, color: '#38BDF8', subItem: true },
-    { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: '#10b981' },
-    { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: '#f59e0b' },
-    { id: 'tradeTimeline', label: 'Trade Timeline Feed', icon: Activity, color: '#f59e0b', subItem: true },
-    { id: 'simulator', label: 'Evaluation Simulator', icon: Target, color: '#10b981', subItem: true },
-    { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: '#0ea5e9', subItem: true },
-    { id: 'weekly_journal', label: 'Weekly Journal', icon: BookOpen, color: '#8b5cf6' },
+    { id: 'main', label: 'Main Hub', icon: LayoutDashboard, color: 'var(--color-primary)' },
+    { id: 'bot_health', label: 'Bot Health Status', icon: Server, color: 'var(--color-success)' },
+    { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: 'var(--color-danger)' },
+    { id: 'telegram_feed', label: 'Telegram Live Feed', icon: MessageSquare, color: 'var(--color-primary)' },
+    { id: 'bills_signals', label: 'Bill\'s Signals', icon: MessageSquare, color: 'var(--color-primary)', subItem: true },
+    { id: 'fx_clarity', label: 'POI VIP FXClarity', icon: MessageSquare, color: 'var(--color-primary)', subItem: true },
+    { id: 'analysis', label: 'Price Analysis', icon: LineChart, color: 'var(--color-success)' },
+    { id: 'statistics', label: 'Signal Statistics', icon: BarChart3, color: 'var(--color-warning)' },
+    { id: 'signal_data_table', label: 'Signal Data Table', icon: BookOpen, color: 'var(--color-warning)', subItem: true },
+    { id: 'tradeTimeline', label: 'Trade Timeline Feed', icon: Activity, color: 'var(--color-warning)', subItem: true },
+    { id: 'simulator', label: 'Evaluation Simulator', icon: Target, color: 'var(--color-success)', subItem: true },
+    { id: 'submit_signal', label: 'Submit New Signal', icon: Edit, color: 'var(--color-primary-hover)', subItem: true },
+    { id: 'weekly_journal', label: 'Weekly Journal', icon: BookOpen, color: 'var(--color-accent)' },
   ];
 
   return (

@@ -12,6 +12,7 @@ import FxClarityFeed from './components/FxClarityFeed';
 import { Cpu, Send, ShieldCheck, Zap, Server, Globe } from 'lucide-react';
 import WeeklyAnalysisJournal from './components/WeeklyAnalysisJournal';
 import SignalStatisticsDashboard from './components/SignalStatisticsDashboard';
+import SignalDataTable from './components/SignalDataTable';
 import SequentialTradeTimeline from './components/SequentialTradeTimeline';
 import SubmitSignalForm from './components/SubmitSignalForm';
 import EvaluationSimulator from './components/EvaluationSimulator';
@@ -101,6 +102,8 @@ export default function App() {
       {currentView === 'analysis' && <PriceAnalysisDashboard />}
       
       {currentView === 'statistics' && <SignalStatisticsDashboard />}
+
+      {currentView === 'signal_data_table' && <SignalDataTable />}
 
       {currentView === 'tradeTimeline' && <SequentialTradeTimeline />}
       
