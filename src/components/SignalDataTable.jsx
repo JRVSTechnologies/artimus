@@ -202,53 +202,52 @@ export default function SignalDataTable() {
         </div>
       </div>
 
-      <div className="filters-premium" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-        <div className="filter-group">
+      <div className="filters-premium" style={{ flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <div className="filter-group" style={{ flex: '1 1 150px' }}>
           <label>Date Filter</label>
           <input 
             type="date" 
             value={dateFilter} 
             onChange={(e) => setDateFilter(e.target.value)} 
             className="filter-select" 
-            style={{ colorScheme: 'dark' }}
+            style={{ colorScheme: 'dark', width: '100%' }}
           />
         </div>
-        <div className="filter-group">
+        <div className="filter-group" style={{ flex: '1 1 150px' }}>
           <label>Session</label>
-          <select value={sessionFilter} onChange={(e) => setSessionFilter(e.target.value)} className="filter-select">
+          <select value={sessionFilter} onChange={(e) => setSessionFilter(e.target.value)} className="filter-select" style={{ width: '100%' }}>
             {allSessions.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-        <div className="filter-group">
+        <div className="filter-group" style={{ flex: '1 1 150px' }}>
           <label>Direction</label>
-          <select value={directionFilter} onChange={(e) => setDirectionFilter(e.target.value)} className="filter-select">
+          <select value={directionFilter} onChange={(e) => setDirectionFilter(e.target.value)} className="filter-select" style={{ width: '100%' }}>
             {allDirections.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
         </div>
-        <div className="filter-group">
+        <div className="filter-group" style={{ flex: '1 1 150px' }}>
           <label>Status</label>
-          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="filter-select">
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="filter-select" style={{ width: '100%' }}>
             {allStatuses.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-        <div className="filter-group">
+        <div className="filter-group" style={{ flex: '2 1 200px' }}>
           <label>Risk Range (Pips)</label>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="filter-select" style={{ display: 'flex', alignItems: 'center', padding: '0', overflow: 'hidden' }}>
             <input 
               type="number" 
               placeholder="Min" 
               value={riskMin} 
               onChange={(e) => setRiskMin(e.target.value)} 
-              className="filter-select" 
-              style={{ width: '100%' }}
+              style={{ flex: 1, minWidth: 0, padding: '10px 14px', background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '14px' }}
             />
+            <div style={{ width: '1px', height: '24px', background: 'rgba(255, 255, 255, 0.1)' }}></div>
             <input 
               type="number" 
               placeholder="Max" 
               value={riskMax} 
               onChange={(e) => setRiskMax(e.target.value)} 
-              className="filter-select"
-              style={{ width: '100%' }}
+              style={{ flex: 1, minWidth: 0, padding: '10px 14px', background: 'transparent', border: 'none', color: 'var(--text-main)', outline: 'none', fontSize: '14px' }}
             />
           </div>
         </div>
