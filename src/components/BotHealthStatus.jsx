@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Server, Activity, CheckCircle, AlertTriangle, Clock, Cpu, HardDrive, Pause, Play, Copy, RefreshCw } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+import { useNhostClient } from '@nhost/react';
 
 export default function BotHealthStatus() {
+  const nhost = useNhostClient();
   const [telemetry, setTelemetry] = useState({});
   const [isPaused, setIsPaused] = useState(false);
   const [feedLogs, setFeedLogs] = useState([]);
@@ -21,12 +19,6 @@ export default function BotHealthStatus() {
   const prevStatusRef = React.useRef({});
 
   useEffect(() => {
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      console.error('Missing Supabase Environment Variables');
-      return;
-    }
-    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
     const processTelemetryArray = (data) => {
       let hasStatusChange = false;
       const statusChanges = [];
@@ -72,34 +64,46 @@ export default function BotHealthStatus() {
       });
     };
 
-    let subscription;
+    let pollInterval;
 
-    const fetchInitial = async () => {
+    const fetchTelemetry = async () => {
       try {
-        const { data, error } = await client.from('bot_telemetry').select('*');
-        if (error) throw error;
-        if (data) processTelemetryArray(data);
+        const query = `
+          query GetBotTelemetry {
+            bot_telemetry {
+              bot_id
+              status
+              currently_thinking
+              last_task
+              task_status
+              last_active_at
+            }
+          }
+        `;
+        const { data, error } = await nhost.graphql.request(query);
+        if (error) {
+          console.error('Nhost GraphQL Error:', error);
+          return;
+        }
+        if (data && data.bot_telemetry) {
+          processTelemetryArray(data.bot_telemetry);
+        }
       } catch (err) {
         console.error('Failed to fetch bot telemetry:', err);
       }
     };
 
     if (!isPaused) {
-      fetchInitial();
-      subscription = client
-        .channel('public:bot_telemetry')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'bot_telemetry' }, payload => {
-          if (payload.new && payload.new.bot_id) {
-             processTelemetryArray([payload.new]);
-          }
-        })
-        .subscribe();
+      fetchTelemetry();
+      pollInterval = setInterval(() => {
+        fetchTelemetry();
+      }, 3000);
     }
 
     return () => {
-      if (subscription) client.removeChannel(subscription);
+      if (pollInterval) clearInterval(pollInterval);
     };
-  }, [isPaused]);
+  }, [isPaused, nhost]);
 
   // Idle time clock tick
   const [now, setNow] = useState(Date.now());
@@ -152,10 +156,27 @@ export default function BotHealthStatus() {
             <h1>Bot Health Status</h1>
             <p>Real-time monitoring and telemetry for deployed bots</p>
           </div>
-          <div className="status-chip" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38BDF8', borderColor: 'rgba(56, 189, 248, 0.25)' }}>
-            <Activity size={16} />
-            <span>Live Telemetry Active</span>
-          </div>
+          <button 
+            onClick={() => setIsPaused(!isPaused)}
+            className="status-chip" 
+            style={{ 
+              background: isPaused ? 'rgba(244, 63, 94, 0.1)' : 'rgba(56, 189, 248, 0.1)', 
+              color: isPaused ? '#F43F5E' : '#38BDF8', 
+              borderColor: isPaused ? 'rgba(244, 63, 94, 0.25)' : 'rgba(56, 189, 248, 0.25)',
+              cursor: 'pointer',
+              border: '1px solid',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 12px',
+              borderRadius: '999px',
+              fontWeight: '600',
+              fontFamily: 'inherit'
+            }}
+          >
+            {isPaused ? <Pause size={16} /> : <Activity size={16} className="spin-slow" />}
+            <span>{isPaused ? 'Monitoring Paused' : 'Live Telemetry Active'}</span>
+          </button>
         </div>
       </div>
 
@@ -296,13 +317,7 @@ export default function BotHealthStatus() {
       <div className="chart-card-premium" style={{ marginTop: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '600' }}>Global Telemetry Feed</h3>
-          <button 
-            onClick={() => setIsPaused(!isPaused)}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '6px', color: '#fff', cursor: 'pointer' }}
-          >
-            {isPaused ? <Play size={14} /> : <Pause size={14} />}
-            {isPaused ? 'Resume' : 'Pause'}
-          </button>
+
         </div>
         
         <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }} aria-live="polite">

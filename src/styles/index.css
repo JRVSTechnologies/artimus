@@ -1,32 +1,36 @@
 :root {
-  --bg-main: #0B0F19;
-  --bg-card: rgba(15, 23, 42, 0.75);
-  --bg-card-hover: rgba(30, 41, 59, 0.85);
-  --bg-input: rgba(15, 23, 42, 0.9);
-  --border-card: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(56, 189, 248, 0.3);
+  --bg-main: #0a0c10;
+  --bg-card: rgba(15, 17, 21, 0.85);
+  --bg-card-hover: rgba(22, 26, 32, 0.95);
+  --bg-input: rgba(10, 12, 16, 0.9);
+  --border-card: rgba(255, 255, 255, 0.05);
+  --border-glow: rgba(0, 230, 118, 0.3);
   
   --color-primary: #38BDF8;
   --color-primary-hover: #0EA5E9;
   --color-secondary: #818CF8;
   --color-accent: #C084FC;
-  --color-success: #34D399;
+  --color-success: #00E676;
   --color-warning: #FBBF24;
-  --color-danger: #F87171;
+  --color-danger: #FF1744;
+  
+  --color-bullish: #00E676;
+  --color-bearish: #FF1744;
   
   --text-main: #F8FAFC;
   --text-muted: #94A3B8;
   --text-subtle: #64748B;
   
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Fira Code', 'Roboto Mono', 'JetBrains Mono', monospace;
   
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
-  --shadow-glow: 0 0 25px rgba(56, 189, 248, 0.15);
-  --glass-backdrop: blur(16px) saturate(180%);
+  --shadow-glow-bullish: 0 0 15px rgba(0, 230, 118, 0.15);
+  --shadow-glow-bearish: 0 0 15px rgba(255, 23, 68, 0.15);
+  --glass-backdrop: blur(12px) saturate(150%);
 }
 
 * {
@@ -661,6 +665,9 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: baseline;
   gap: 6px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 .stat-card-sub {
@@ -740,6 +747,8 @@ h1, h2, h3, h4 {
   color: var(--text-main);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   transition: background 0.2s;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .table-premium tr:hover td {
@@ -971,4 +980,34 @@ h1, h2, h3, h4 {
   font-weight: 500;
   color: var(--color-success);
   line-height: 1.4;
+}
+
+/* --- Terminal Aesthetics --- */
+.terminal-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+.terminal-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.mono-num {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.text-bullish {
+  color: var(--color-bullish);
+}
+
+.text-bearish {
+  color: var(--color-bearish);
 }
