@@ -17,6 +17,7 @@ import SequentialTradeTimeline from './components/SequentialTradeTimeline';
 import SubmitSignalForm from './components/SubmitSignalForm';
 import EvaluationSimulator from './components/EvaluationSimulator';
 import BotHealthStatus from './components/BotHealthStatus';
+import DynamicRiskDashboard from './components/DynamicRiskDashboard';
 import { NhostClient, NhostReactProvider } from '@nhost/react';
 
 const nhost = new NhostClient({
@@ -98,6 +99,8 @@ export default function App() {
           <SignalLogger logs={logs} onClearLogs={handleClearLogs} />
         </div>
       )}
+      
+      {currentView === 'dynamic_risk_tp' && <DynamicRiskDashboard />}
       
       {currentView === 'analysis' && <PriceAnalysisDashboard />}
       

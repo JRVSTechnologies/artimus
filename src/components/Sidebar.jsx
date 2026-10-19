@@ -1,9 +1,10 @@
 import React from 'react';
-import { X, LayoutDashboard, LineChart, BookOpen, Activity, BarChart3, Edit, Target, MessageSquare, Server } from 'lucide-react';
+import { X, LayoutDashboard, LineChart, BookOpen, Activity, BarChart3, Edit, Target, MessageSquare, Server, Calculator } from 'lucide-react';
 
 export default function Sidebar({ isOpen, onClose, currentView, onSetView }) {
   const menuItems = [
     { id: 'main', label: 'Main Hub', icon: LayoutDashboard, color: 'var(--color-primary)' },
+    { id: 'dynamic_risk_tp', label: 'Dynamic Risk & TP Ladder', icon: Calculator, color: 'var(--color-success)' },
     { id: 'bot_health', label: 'Bot Health Status', icon: Server, color: 'var(--color-success)' },
     { id: 'signal_feed', label: 'Live Signal Feed', icon: Activity, color: 'var(--color-danger)' },
     { id: 'telegram_feed', label: 'Telegram Live Feed', icon: MessageSquare, color: 'var(--color-primary)' },
